@@ -7,14 +7,20 @@
 //
 
 #import "YMAppDelegate.h"
+#import "ECSlidingViewController.h"
 
 @implementation YMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    ECSlidingViewController *slidingViewController = (ECSlidingViewController *)self.window.rootViewController;
+    UIStoryboard *storyboard;
+    storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    slidingViewController.topViewController = [storyboard instantiateViewControllerWithIdentifier:@"Home"];
+    
     return YES;
 }
+
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {

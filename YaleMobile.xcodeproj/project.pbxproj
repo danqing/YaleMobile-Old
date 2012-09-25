@@ -7,6 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E2F87751610F91500891AB2 /* YMBluebookDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F87741610F91500891AB2 /* YMBluebookDetailViewController.m */; };
+		4E2F87791610F92E00891AB2 /* YMDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F87771610F92E00891AB2 /* YMDataModel.xcdatamodeld */; };
+		4E2F877D1610F95800891AB2 /* YMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F877C1610F95800891AB2 /* YMMapViewController.m */; };
+		4E2F87801610F9B100891AB2 /* YMLaundryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F877F1610F9B100891AB2 /* YMLaundryViewController.m */; };
+		4E2F87851610FBC900891AB2 /* YMMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F87841610FBC900891AB2 /* YMMenuViewController.m */; };
+		4E2F878B16110AFE00891AB2 /* ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F878816110AFE00891AB2 /* ECSlidingViewController.m */; };
+		4E2F878C16110AFE00891AB2 /* UIImage+ImageWithUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F878A16110AFE00891AB2 /* UIImage+ImageWithUIView.m */; };
+		4E2F8796161136DE00891AB2 /* Bluebook.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E2F8795161136DE00891AB2 /* Bluebook.plist */; };
+		4E2F879D1611396200891AB2 /* YMBluebookFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F879C1611396200891AB2 /* YMBluebookFilterViewController.m */; };
+		4E2F87A31611551700891AB2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E2F87A21611551700891AB2 /* MapKit.framework */; };
+		4E2F87A51611551E00891AB2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E2F87A41611551E00891AB2 /* CoreLocation.framework */; };
+		4E2F87A71611553100891AB2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E2F87A61611553100891AB2 /* QuartzCore.framework */; };
+		4E2F87A91611554B00891AB2 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E2F87A81611554A00891AB2 /* CFNetwork.framework */; };
+		4E2F87AB1611555000891AB2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E2F87AA1611555000891AB2 /* MobileCoreServices.framework */; };
+		4E2F87AD1611555600891AB2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E2F87AC1611555600891AB2 /* MessageUI.framework */; };
+		4E2F87B0161155CD00891AB2 /* YMGlobalHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F87AF161155CD00891AB2 /* YMGlobalHelper.m */; };
+		4E2F87BE1611641200891AB2 /* YMCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F87BD1611641200891AB2 /* YMCalendarViewController.m */; };
 		4E8B1B5316109A6F008CF1BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8B1B5216109A6F008CF1BD /* UIKit.framework */; };
 		4E8B1B5516109A6F008CF1BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8B1B5416109A6F008CF1BD /* Foundation.framework */; };
 		4E8B1B5716109A6F008CF1BD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8B1B5616109A6F008CF1BD /* CoreGraphics.framework */; };
@@ -17,10 +34,40 @@
 		4E8B1B6716109A6F008CF1BD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E8B1B6616109A6F008CF1BD /* Default@2x.png */; };
 		4E8B1B6916109A6F008CF1BD /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E8B1B6816109A6F008CF1BD /* Default-568h@2x.png */; };
 		4E8B1B6C16109A6F008CF1BD /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E8B1B6A16109A6F008CF1BD /* MainStoryboard.storyboard */; };
-		4E8B1B6F16109A6F008CF1BD /* YMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8B1B6E16109A6F008CF1BD /* YMViewController.m */; };
+		4E8B1B6F16109A6F008CF1BD /* YMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8B1B6E16109A6F008CF1BD /* YMMainViewController.m */; };
+		4E8B1B7716109B3F008CF1BD /* YMBluebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8B1B7616109B3F008CF1BD /* YMBluebookViewController.m */; };
+		4E8B1B7A16109B63008CF1BD /* YMDiningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8B1B7916109B63008CF1BD /* YMDiningViewController.m */; };
+		4E8B1B7D16109B7E008CF1BD /* YMDiningDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8B1B7C16109B7E008CF1BD /* YMDiningDetailViewController.m */; };
+		4E8B1B8016109BBB008CF1BD /* YMBluebookSubjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8B1B7F16109BBB008CF1BD /* YMBluebookSubjectViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E2F87731610F91500891AB2 /* YMBluebookDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMBluebookDetailViewController.h; sourceTree = "<group>"; };
+		4E2F87741610F91500891AB2 /* YMBluebookDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMBluebookDetailViewController.m; sourceTree = "<group>"; };
+		4E2F87781610F92E00891AB2 /* YMDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YMDataModel.xcdatamodel; sourceTree = "<group>"; };
+		4E2F877B1610F95800891AB2 /* YMMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMMapViewController.h; sourceTree = "<group>"; };
+		4E2F877C1610F95800891AB2 /* YMMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMMapViewController.m; sourceTree = "<group>"; };
+		4E2F877E1610F9B100891AB2 /* YMLaundryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMLaundryViewController.h; sourceTree = "<group>"; };
+		4E2F877F1610F9B100891AB2 /* YMLaundryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMLaundryViewController.m; sourceTree = "<group>"; };
+		4E2F87831610FBC900891AB2 /* YMMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMMenuViewController.h; sourceTree = "<group>"; };
+		4E2F87841610FBC900891AB2 /* YMMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMMenuViewController.m; sourceTree = "<group>"; };
+		4E2F878716110AFE00891AB2 /* ECSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingViewController.h; sourceTree = "<group>"; };
+		4E2F878816110AFE00891AB2 /* ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingViewController.m; sourceTree = "<group>"; };
+		4E2F878916110AFE00891AB2 /* UIImage+ImageWithUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithUIView.h"; sourceTree = "<group>"; };
+		4E2F878A16110AFE00891AB2 /* UIImage+ImageWithUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageWithUIView.m"; sourceTree = "<group>"; };
+		4E2F8795161136DE00891AB2 /* Bluebook.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Bluebook.plist; sourceTree = "<group>"; };
+		4E2F879B1611396200891AB2 /* YMBluebookFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMBluebookFilterViewController.h; sourceTree = "<group>"; };
+		4E2F879C1611396200891AB2 /* YMBluebookFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMBluebookFilterViewController.m; sourceTree = "<group>"; };
+		4E2F87A21611551700891AB2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		4E2F87A41611551E00891AB2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4E2F87A61611553100891AB2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4E2F87A81611554A00891AB2 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		4E2F87AA1611555000891AB2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		4E2F87AC1611555600891AB2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		4E2F87AE161155CD00891AB2 /* YMGlobalHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMGlobalHelper.h; sourceTree = "<group>"; };
+		4E2F87AF161155CD00891AB2 /* YMGlobalHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMGlobalHelper.m; sourceTree = "<group>"; };
+		4E2F87BC1611641200891AB2 /* YMCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMCalendarViewController.h; sourceTree = "<group>"; };
+		4E2F87BD1611641200891AB2 /* YMCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMCalendarViewController.m; sourceTree = "<group>"; };
 		4E8B1B4E16109A6F008CF1BD /* YaleMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YaleMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E8B1B5216109A6F008CF1BD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4E8B1B5416109A6F008CF1BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -35,8 +82,16 @@
 		4E8B1B6616109A6F008CF1BD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4E8B1B6816109A6F008CF1BD /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4E8B1B6B16109A6F008CF1BD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		4E8B1B6D16109A6F008CF1BD /* YMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMViewController.h; sourceTree = "<group>"; };
-		4E8B1B6E16109A6F008CF1BD /* YMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMViewController.m; sourceTree = "<group>"; };
+		4E8B1B6D16109A6F008CF1BD /* YMMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMMainViewController.h; sourceTree = "<group>"; };
+		4E8B1B6E16109A6F008CF1BD /* YMMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMMainViewController.m; sourceTree = "<group>"; };
+		4E8B1B7516109B3F008CF1BD /* YMBluebookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMBluebookViewController.h; sourceTree = "<group>"; };
+		4E8B1B7616109B3F008CF1BD /* YMBluebookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMBluebookViewController.m; sourceTree = "<group>"; };
+		4E8B1B7816109B63008CF1BD /* YMDiningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMDiningViewController.h; sourceTree = "<group>"; };
+		4E8B1B7916109B63008CF1BD /* YMDiningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMDiningViewController.m; sourceTree = "<group>"; };
+		4E8B1B7B16109B7E008CF1BD /* YMDiningDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMDiningDetailViewController.h; sourceTree = "<group>"; };
+		4E8B1B7C16109B7E008CF1BD /* YMDiningDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMDiningDetailViewController.m; sourceTree = "<group>"; };
+		4E8B1B7E16109BBB008CF1BD /* YMBluebookSubjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMBluebookSubjectViewController.h; sourceTree = "<group>"; };
+		4E8B1B7F16109BBB008CF1BD /* YMBluebookSubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMBluebookSubjectViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +99,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E2F87AD1611555600891AB2 /* MessageUI.framework in Frameworks */,
+				4E2F87AB1611555000891AB2 /* MobileCoreServices.framework in Frameworks */,
+				4E2F87A91611554B00891AB2 /* CFNetwork.framework in Frameworks */,
+				4E2F87A71611553100891AB2 /* QuartzCore.framework in Frameworks */,
+				4E2F87A51611551E00891AB2 /* CoreLocation.framework in Frameworks */,
+				4E2F87A31611551700891AB2 /* MapKit.framework in Frameworks */,
 				4E8B1B5316109A6F008CF1BD /* UIKit.framework in Frameworks */,
 				4E8B1B5516109A6F008CF1BD /* Foundation.framework in Frameworks */,
 				4E8B1B5716109A6F008CF1BD /* CoreGraphics.framework in Frameworks */,
@@ -53,6 +114,66 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E2F877A1610F93A00891AB2 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				4E2F87771610F92E00891AB2 /* YMDataModel.xcdatamodeld */,
+			);
+			name = "Core Data";
+			sourceTree = "<group>";
+		};
+		4E2F87811610F9CC00891AB2 /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Graphics;
+			sourceTree = "<group>";
+		};
+		4E2F87821610F9E000891AB2 /* Data Source */ = {
+			isa = PBXGroup;
+			children = (
+				4E2F8795161136DE00891AB2 /* Bluebook.plist */,
+			);
+			name = "Data Source";
+			sourceTree = "<group>";
+		};
+		4E2F878616110AFE00891AB2 /* ECSlidingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E2F878716110AFE00891AB2 /* ECSlidingViewController.h */,
+				4E2F878816110AFE00891AB2 /* ECSlidingViewController.m */,
+				4E2F878916110AFE00891AB2 /* UIImage+ImageWithUIView.h */,
+				4E2F878A16110AFE00891AB2 /* UIImage+ImageWithUIView.m */,
+			);
+			path = ECSlidingViewController;
+			sourceTree = "<group>";
+		};
+		4E2F87B5161162A000891AB2 /* Bluebook */ = {
+			isa = PBXGroup;
+			children = (
+				4E8B1B7516109B3F008CF1BD /* YMBluebookViewController.h */,
+				4E8B1B7616109B3F008CF1BD /* YMBluebookViewController.m */,
+				4E2F879B1611396200891AB2 /* YMBluebookFilterViewController.h */,
+				4E2F879C1611396200891AB2 /* YMBluebookFilterViewController.m */,
+				4E8B1B7E16109BBB008CF1BD /* YMBluebookSubjectViewController.h */,
+				4E8B1B7F16109BBB008CF1BD /* YMBluebookSubjectViewController.m */,
+				4E2F87731610F91500891AB2 /* YMBluebookDetailViewController.h */,
+				4E2F87741610F91500891AB2 /* YMBluebookDetailViewController.m */,
+			);
+			name = Bluebook;
+			sourceTree = "<group>";
+		};
+		4E2F87B7161162B300891AB2 /* Dining */ = {
+			isa = PBXGroup;
+			children = (
+				4E8B1B7816109B63008CF1BD /* YMDiningViewController.h */,
+				4E8B1B7916109B63008CF1BD /* YMDiningViewController.m */,
+				4E8B1B7B16109B7E008CF1BD /* YMDiningDetailViewController.h */,
+				4E8B1B7C16109B7E008CF1BD /* YMDiningDetailViewController.m */,
+			);
+			name = Dining;
+			sourceTree = "<group>";
+		};
 		4E8B1B4316109A6F008CF1BD = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +194,12 @@
 		4E8B1B5116109A6F008CF1BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E2F87AC1611555600891AB2 /* MessageUI.framework */,
+				4E2F87AA1611555000891AB2 /* MobileCoreServices.framework */,
+				4E2F87A81611554A00891AB2 /* CFNetwork.framework */,
+				4E2F87A61611553100891AB2 /* QuartzCore.framework */,
+				4E2F87A41611551E00891AB2 /* CoreLocation.framework */,
+				4E2F87A21611551700891AB2 /* MapKit.framework */,
 				4E8B1B5216109A6F008CF1BD /* UIKit.framework */,
 				4E8B1B5416109A6F008CF1BD /* Foundation.framework */,
 				4E8B1B5616109A6F008CF1BD /* CoreGraphics.framework */,
@@ -86,8 +213,17 @@
 				4E8B1B6116109A6F008CF1BD /* YMAppDelegate.h */,
 				4E8B1B6216109A6F008CF1BD /* YMAppDelegate.m */,
 				4E8B1B6A16109A6F008CF1BD /* MainStoryboard.storyboard */,
-				4E8B1B6D16109A6F008CF1BD /* YMViewController.h */,
-				4E8B1B6E16109A6F008CF1BD /* YMViewController.m */,
+				4E8B1B6D16109A6F008CF1BD /* YMMainViewController.h */,
+				4E8B1B6E16109A6F008CF1BD /* YMMainViewController.m */,
+				4E2F87831610FBC900891AB2 /* YMMenuViewController.h */,
+				4E2F87841610FBC900891AB2 /* YMMenuViewController.m */,
+				4E2F87AE161155CD00891AB2 /* YMGlobalHelper.h */,
+				4E2F87AF161155CD00891AB2 /* YMGlobalHelper.m */,
+				4E2F877A1610F93A00891AB2 /* Core Data */,
+				4E8B1B8116109BCA008CF1BD /* Branch View Controllers */,
+				4E2F878616110AFE00891AB2 /* ECSlidingViewController */,
+				4E2F87811610F9CC00891AB2 /* Graphics */,
+				4E2F87821610F9E000891AB2 /* Data Source */,
 				4E8B1B5916109A6F008CF1BD /* Supporting Files */,
 			);
 			path = YaleMobile;
@@ -105,6 +241,21 @@
 				4E8B1B6816109A6F008CF1BD /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4E8B1B8116109BCA008CF1BD /* Branch View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4E2F87B5161162A000891AB2 /* Bluebook */,
+				4E2F87BC1611641200891AB2 /* YMCalendarViewController.h */,
+				4E2F87BD1611641200891AB2 /* YMCalendarViewController.m */,
+				4E2F87B7161162B300891AB2 /* Dining */,
+				4E2F877E1610F9B100891AB2 /* YMLaundryViewController.h */,
+				4E2F877F1610F9B100891AB2 /* YMLaundryViewController.m */,
+				4E2F877B1610F95800891AB2 /* YMMapViewController.h */,
+				4E2F877C1610F95800891AB2 /* YMMapViewController.m */,
+			);
+			name = "Branch View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +315,7 @@
 				4E8B1B6716109A6F008CF1BD /* Default@2x.png in Resources */,
 				4E8B1B6916109A6F008CF1BD /* Default-568h@2x.png in Resources */,
 				4E8B1B6C16109A6F008CF1BD /* MainStoryboard.storyboard in Resources */,
+				4E2F8796161136DE00891AB2 /* Bluebook.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,7 +328,21 @@
 			files = (
 				4E8B1B5F16109A6F008CF1BD /* main.m in Sources */,
 				4E8B1B6316109A6F008CF1BD /* YMAppDelegate.m in Sources */,
-				4E8B1B6F16109A6F008CF1BD /* YMViewController.m in Sources */,
+				4E8B1B6F16109A6F008CF1BD /* YMMainViewController.m in Sources */,
+				4E8B1B7716109B3F008CF1BD /* YMBluebookViewController.m in Sources */,
+				4E8B1B7A16109B63008CF1BD /* YMDiningViewController.m in Sources */,
+				4E8B1B7D16109B7E008CF1BD /* YMDiningDetailViewController.m in Sources */,
+				4E8B1B8016109BBB008CF1BD /* YMBluebookSubjectViewController.m in Sources */,
+				4E2F87751610F91500891AB2 /* YMBluebookDetailViewController.m in Sources */,
+				4E2F87791610F92E00891AB2 /* YMDataModel.xcdatamodeld in Sources */,
+				4E2F877D1610F95800891AB2 /* YMMapViewController.m in Sources */,
+				4E2F87801610F9B100891AB2 /* YMLaundryViewController.m in Sources */,
+				4E2F87851610FBC900891AB2 /* YMMenuViewController.m in Sources */,
+				4E2F878B16110AFE00891AB2 /* ECSlidingViewController.m in Sources */,
+				4E2F878C16110AFE00891AB2 /* UIImage+ImageWithUIView.m in Sources */,
+				4E2F879D1611396200891AB2 /* YMBluebookFilterViewController.m in Sources */,
+				4E2F87B0161155CD00891AB2 /* YMGlobalHelper.m in Sources */,
+				4E2F87BE1611641200891AB2 /* YMCalendarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,8 +458,22 @@
 				4E8B1B7416109A6F008CF1BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4E2F87771610F92E00891AB2 /* YMDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4E2F87781610F92E00891AB2 /* YMDataModel.xcdatamodel */,
+			);
+			currentVersion = 4E2F87781610F92E00891AB2 /* YMDataModel.xcdatamodel */;
+			path = YMDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4E8B1B4516109A6F008CF1BD /* Project object */;
 }

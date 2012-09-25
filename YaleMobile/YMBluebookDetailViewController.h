@@ -1,5 +1,5 @@
 //
-//  YMViewController.h
+//  YMBluebookDetailViewController.h
 //  YaleMobile
 //
 //  Created by iBlue on 9/24/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YMViewController : UIViewController
+@interface YMBluebookDetailViewController : UITableViewController
 
 @end
