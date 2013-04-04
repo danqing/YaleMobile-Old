@@ -8,18 +8,40 @@
 
 #import "YMAppDelegate.h"
 #import "ECSlidingViewController.h"
+#import "YMDatabaseHelper.h"
+#import "YMGlobalHelper.h"
 
 @implementation YMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [YMDatabaseHelper openDatabase:@"database" usingBlock:^(UIManagedDocument *document) {}];
+    
     ECSlidingViewController *slidingViewController = (ECSlidingViewController *)self.window.rootViewController;
     UIStoryboard *storyboard;
     storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    slidingViewController.topViewController = [storyboard instantiateViewControllerWithIdentifier:@"Home"];
+    slidingViewController.topViewController = [storyboard instantiateViewControllerWithIdentifier:@"Home Root"];
+        
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+              [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], UITextAttributeTextColor,
+              [UIFont fontWithName:@"Helvetica" size:19.0], UITextAttributeFont,
+              [UIColor colorWithRed:7.0/255.0 green:80.0/255.0 blue:140.0/255.0 alpha:0.8], UITextAttributeTextShadowColor,
+              [NSValue valueWithUIOffset:UIOffsetMake(0, 1)], UITextAttributeTextShadowOffset, nil]];
     
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"nav.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 0)] forBarMetrics:UIBarMetricsDefault];
+
     return YES;
 }
+
+/*- (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
+{
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder
+{
+    return YES;
+}*/
 
 							
 - (void)applicationWillResignActive:(UIApplication *)application

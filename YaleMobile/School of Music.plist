@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>1</key>
+	<dict>
+		<key>0</key>
+		<dict>
+			<key>Term</key>
+			<string>Spring 2013</string>
+		</dict>
+		<key>a</key>
+		<dict>
+			<key>Date</key>
+			<string>January 14, Monday</string>
+			<key>Event</key>
+			<string>YSM and Yale College classes begin, 8:20 a.m.</string>
+			<key>Type</key>
+			<string>2</string>
+		</dict>
+		<key>b</key>
+		<dict>
+			<key>Date</key>
+			<string>January 18, Friday</string>
+			<key>Event</key>
+			<string>Spring term course schedule due, 4 p.m.</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>c</key>
+		<dict>
+			<key>Date</key>
+			<string>January 21, Monday</string>
+			<key>Event</key>
+			<string>Martin Luther King Day. No classes; University offices closed</string>
+			<key>Type</key>
+			<string>1</string>
+		</dict>
+		<key>d</key>
+		<dict>
+			<key>Date</key>
+			<string>January 25</string>
+			<key>Event</key>
+			<string>Add/Drop deadline</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>e</key>
+		<dict>
+			<key>Date</key>
+			<string>February 8-11, Friday - Monday</string>
+			<key>Event</key>
+			<string>Written comprehensive examinations for MMA candidates in residence</string>
+			<key>Type</key>
+			<string>4</string>
+		</dict>
+		<key>f</key>
+		<dict>
+			<key>Date</key>
+			<string>February 25 - March 2, Mon - Sat</string>
+			<key>Event</key>
+			<string>School of Music auditions</string>
+			<key>Type</key>
+			<string>9</string>
+		</dict>
+		<key>g</key>
+		<dict>
+			<key>Date</key>
+			<string>February 27 - March 1, Wed - Fri</string>
+			<key>Event</key>
+			<string>No classes</string>
+			<key>Type</key>
+			<string>1</string>
+		</dict>
+		<key>h</key>
+		<dict>
+			<key>Date</key>
+			<string>March 2, Saturday</string>
+			<key>Event</key>
+			<string>MMA examinations</string>
+			<key>Type</key>
+			<string>4</string>
+		</dict>
+		<key>i</key>
+		<dict>
+			<key>Date</key>
+			<string>March 9, Saturday</string>
+			<key>Event</key>
+			<string>Spring recess begins</string>
+			<key>Type</key>
+			<string>1</string>
+		</dict>
+		<key>j</key>
+		<dict>
+			<key>Date</key>
+			<string>March 25, Monday</string>
+			<key>Event</key>
+			<string>Classes resume, 8:20 a.m.</string>
+			<key>Type</key>
+			<string>2</string>
+		</dict>
+		<key>k</key>
+		<dict>
+			<key>Date</key>
+			<string>April 5, Friday</string>
+			<key>Event</key>
+			<string>Last day to elect Pass/Fail option, 4 p.m.</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>l</key>
+		<dict>
+			<key>Date</key>
+			<string>April 26, Friday</string>
+			<key>Event</key>
+			<string>Last day to withdraw from a class, 4 p.m.</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>m</key>
+		<dict>
+			<key>Date</key>
+			<string>May 3, Friday</string>
+			<key>Event</key>
+			<string>Classes end. Last day of degree recitals</string>
+			<key>Type</key>
+			<string>3</string>
+		</dict>
+		<key>n</key>
+		<dict>
+			<key>Date</key>
+			<string>May 5, Sunday</string>
+			<key>Event</key>
+			<string>Honors Dinner</string>
+			<key>Type</key>
+			<string>9</string>
+		</dict>
+		<key>o</key>
+		<dict>
+			<key>Date</key>
+			<string>May 6-8, Monday - Wednesday</string>
+			<key>Event</key>
+			<string>MMA oral examinations</string>
+			<key>Type</key>
+			<string>4</string>
+		</dict>
+		<key>p</key>
+		<dict>
+			<key>Date</key>
+			<string>May 6-10, Monday - Friday</string>
+			<key>Event</key>
+			<string>Exam week</string>
+			<key>Type</key>
+			<string>4</string>
+		</dict>
+		<key>q</key>
+		<dict>
+			<key>Date</key>
+			<string>May 19, Sunday</string>
+			<key>Event</key>
+			<string>Commencement concert</string>
+			<key>Type</key>
+			<string>9</string>
+		</dict>
+		<key>r</key>
+		<dict>
+			<key>Date</key>
+			<string>May 20, Monday</string>
+			<key>Event</key>
+			<string>University Commencement</string>
+			<key>Type</key>
+			<string>8</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -8,6 +8,7 @@
 
 #import "YMMenuViewController.h"
 #import "ECSlidingViewController.h"
+#import "YMMenuCell.h"
 
 @interface YMMenuViewController ()
 
@@ -27,8 +28,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.items = @[@"Home", @"Bluebook", @"Dining", @"Campus Map", @"People", @"Laundry", @"Facility Hours", @"Calendar"];
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"menubg_table.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)]];
+    self.items = @[@"Home", @"Bluebook", @"Dining", @"Campus Map", @"Shuttle", @"People Directory", @"Laundry", @"Library Hours", @"Calendar", @"Department Phonebook", @"Settings"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,58 +52,25 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Menu Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    YMMenuCell *cell = (YMMenuCell *)[tableView dequeueReusableCellWithIdentifier:@"Menu Cell"];
+    cell.name.text = [self.items objectAtIndex:indexPath.row];
+    cell.icon.image = [UIImage imageNamed:[NSString stringWithFormat:@"menu%d.png", indexPath.row]];
     
-    cell.textLabel.text = [self.items objectAtIndex:indexPath.row];
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"menubg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 5, 0)]];
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"menubg_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 5, 0)]];
+    
+    cell.name.shadowColor = [UIColor blackColor];
+    cell.name.shadowOffset = CGSizeMake(0, 1);
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *identifier = [self.items objectAtIndex:indexPath.row];
+    NSString *identifier = [[self.items objectAtIndex:indexPath.row] stringByAppendingString:@" Root"];
     
     UIViewController *newTopViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
     

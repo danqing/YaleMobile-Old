@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1810" systemVersion="12C54" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Place" syncable="YES">
-        <attribute name="abbr" optional="YES" attributeType="String" syncable="YES"/>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Abbreviation" representedClassName="Abbreviation" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="places" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Place" inverseName="abbrs" inverseEntity="Place" syncable="YES"/>
+    </entity>
+    <entity name="Course" representedClassName="Course" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="data" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="happens" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="instructor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="section" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="srn" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Office" representedClassName="Office" syncable="YES">
+        <attribute name="firstLetter" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Place" representedClassName="Place" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="x" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="y" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="abbrs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Abbreviation" inverseName="places" inverseEntity="Abbreviation" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Place" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="Abbreviation" positionX="-92" positionY="234" width="128" height="75"/>
+        <element name="Course" positionX="72" positionY="468" width="128" height="165"/>
+        <element name="Office" positionX="63" positionY="90" width="128" height="90"/>
+        <element name="Place" positionX="225" positionY="225" width="128" height="118"/>
     </elements>
 </model>

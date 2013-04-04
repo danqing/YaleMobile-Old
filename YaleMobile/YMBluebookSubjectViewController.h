@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataTableViewController.h"
 
-@interface YMBluebookSubjectViewController : UITableViewController
+@interface YMBluebookSubjectViewController : CoreDataTableViewController
+
+@property (nonatomic, strong) NSString *raw;
+@property (nonatomic, strong) UIManagedDocument *db;
+@property (nonatomic, strong) NSString *term;
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
+
+- (void)useDocument;
 
 @end

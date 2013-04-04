@@ -7,6 +7,11 @@
 //
 
 #import "YMDiningViewController.h"
+#import "YMDiningDetailViewController.h"
+#import "YMGlobalHelper.h"
+#import "ECSlidingViewController.h"
+#import "YMDiningCell.h"
+#import "YMServerCommunicator.h"
 
 @interface YMDiningViewController ()
 
@@ -26,12 +31,33 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [YMGlobalHelper addMenuButtonToController:self];
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"plaintabletop.png"]];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Dining" ofType:@"plist"];
+    self.locations = [[NSDictionary alloc] initWithContentsOfFile:path];
+    self.sortedKeys = [[self.locations allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    [YMServerCommunicator getAllDiningStatusForController:self usingBlock:^(NSArray *array) {
+        self.data = array;
+        [self.tableView reloadData];
+    }];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [YMGlobalHelper setupSlidingViewControllerForController:self];
+    if (self.selectedIndexPath) {
+        [self.tableView deselectRowAtIndexPath:self.selectedIndexPath animated:YES];
+        self.selectedIndexPath = nil;
+    }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    UIView *cell = [gestureRecognizer view];
+    CGPoint translation = [gestureRecognizer translationInView:[cell superview]];
+    if (fabsf(translation.x) > fabsf(translation.y)) return YES;
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,28 +66,51 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)menu:(id)sender
+{
+    [YMGlobalHelper setupMenuButtonForController:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    YMDiningDetailViewController *ddvc = (YMDiningDetailViewController *)segue.destinationViewController;
+    NSDictionary *info = [[NSDictionary alloc] initWithDictionary:[self.locations objectForKey:[self.sortedKeys objectAtIndex:self.selectedIndexPath.row]]];
+    ddvc.title = [info objectForKey:@"Name"];
+    ddvc.titleText = [info objectForKey:@"Name"];
+    ddvc.abbr = [info objectForKey:@"Abbreviation"];
+    ddvc.address = [info objectForKey:@"Location"];
+    ddvc.locationID = [[[self.data objectAtIndex:self.selectedIndexPath.row] objectAtIndex:0] integerValue];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return self.sortedKeys.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    YMDiningCell *cell = (YMDiningCell *)[tableView dequeueReusableCellWithIdentifier:@"Dining Cell"];
+    NSDictionary *info = [[NSDictionary alloc] initWithDictionary:[self.locations objectForKey:[self.sortedKeys objectAtIndex:indexPath.row]]];
+    cell.name.text = [info objectForKey:@"Name"];
+    cell.location.text = [info objectForKey:@"Location"];
     
-    // Configure the cell...
+    cell.name.shadowColor = [UIColor whiteColor];
+    cell.name.shadowOffset = CGSizeMake(0, 1);
+    cell.location.shadowColor = [UIColor whiteColor];
+    cell.location.shadowOffset = CGSizeMake(0, 1);
+    cell.special.shadowColor = [UIColor whiteColor];
+    cell.special.shadowOffset = CGSizeMake(0, 1);
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"plaintablebg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 5, 0)]];
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"plaintablebg_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 0, 5, 0)]];
+    
+    cell.special.text = [[self.data objectAtIndex:indexPath.row] objectAtIndex:2];
     
     return cell;
 }
@@ -109,13 +158,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    self.selectedIndexPath = indexPath;
+    [self performSegueWithIdentifier:@"Dining Segue" sender:self];
 }
 
 @end

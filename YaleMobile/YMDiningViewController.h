@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YMDiningViewController : UITableViewController
+@interface YMDiningViewController : UITableViewController <UIGestureRecognizerDelegate>
+
+@property (nonatomic, strong) NSDictionary *locations;
+@property (nonatomic, strong) NSArray *sortedKeys;
+@property (nonatomic, strong) NSArray *data;
+
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 
 @end

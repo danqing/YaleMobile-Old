@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YMCalendarViewController : UITableViewController
+@interface YMCalendarViewController : UITableViewController <UIGestureRecognizerDelegate>
+
+@property (nonatomic, strong) NSArray *schools;
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 
 @end

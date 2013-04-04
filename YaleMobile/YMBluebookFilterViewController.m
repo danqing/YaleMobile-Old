@@ -7,7 +7,9 @@
 //
 
 #import "YMBluebookFilterViewController.h"
-#import "YMBluebookViewController.h"
+#import "YMBluebookFilterSelectionViewController.h"
+#import "YMSimpleCell.h"
+#import "YMSubtitleCell.h"
 
 @interface YMBluebookFilterViewController ()
 
@@ -27,12 +29,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"menubg_table.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)]];
+    self.filters = @[@[@"Term", @"Category"], @[@"Humanities", @"Social Sciences", @"Sciences"], @[@"Language", @"Writing", @"Quantitative Reasoning"]];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,82 +45,108 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    YMBluebookFilterSelectionViewController *fsvc = segue.destinationViewController;
+    fsvc.options = self.options;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return ((NSArray *)[self.filters objectAtIndex:section]).count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    if (indexPath.section == 0 || (indexPath.section == 2 && indexPath.row == 0)) {
+        YMSubtitleCell *cell = (YMSubtitleCell *)[tableView dequeueReusableCellWithIdentifier:@"Bluebook Filter Subtitle"];
+        cell.primary.text = [((NSArray *)[self.filters objectAtIndex:indexPath.section]) objectAtIndex:indexPath.row];
+        cell.secondary.text = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"Bluebook %@", cell.primary.text]];
+        cell.primary.shadowColor = [UIColor blackColor];
+        cell.primary.shadowOffset = CGSizeMake(0, 1);
+        cell.secondary.shadowColor = [UIColor blackColor];
+        cell.secondary.shadowOffset = CGSizeMake(0, 1);
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"menubg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 5, 0)]];
+        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"menubg_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 5, 0)]];
+        return cell;
+    } else {
+        YMSimpleCell *cell = (YMSimpleCell *)[tableView dequeueReusableCellWithIdentifier:@"Bluebook Filter Simple"];
+        cell.name.text = [((NSArray *)[self.filters objectAtIndex:indexPath.section]) objectAtIndex:indexPath.row];
+        cell.name.shadowColor = [UIColor blackColor];
+        cell.name.shadowOffset = CGSizeMake(0, 1);
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"menubg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 5, 0)]];
+        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"rightmenubg_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 0, 5, 20)]];
+        cell.accessoryView = ([[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"Bluebook %@", cell.name.text]]) ? [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"check.png"]] : nil;
+        return cell;
+    }
+
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{    
+	UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 25.0)];
+	
+	UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+	headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"menuheader.png"]];
     
-    // Configure the cell...
+    headerLabel.backgroundColor = [UIColor clearColor];
+	headerLabel.textColor = [UIColor lightGrayColor];
+	headerLabel.font = [UIFont boldSystemFontOfSize:13];
+	headerLabel.frame = CGRectMake(61.0, 0.0, 300.0, 22.0);
     
-    return cell;
+    headerLabel.shadowColor = [UIColor blackColor];
+    headerLabel.shadowOffset = CGSizeMake(0, 1);
+    
+	if (section == 1) {
+        headerLabel.text = @"Area Filters";
+    } else if (section == 2) {
+        headerLabel.text = @"Skill Filters";
+    }
+	
+    [headerView addSubview:headerLabel];
+    
+	return headerView;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    if (section == 0) return 0.0;
+    return 25;
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            self.options = @[@"Fall 2010", @"Spring 2011", @"Summer 2011", @"Fall 2011", @"Spring 2012", @"Summer 2012", @"Spring 2013", @"Term"];
+        } else {
+            self.options = @[@"ALL", @"Undergraduate", @"Graduate", @"Professional", @"Category"];
+        }
+        [self performSegueWithIdentifier:@"Bluebook Filter Segue" sender:self];
+    } else if (indexPath.section == 2 && indexPath.row == 0) {
+        self.options = @[@"None", @"Level 1", @"Level 2", @"Level 3", @"Level 4", @"Level 5", @"Language"];
+        [self performSegueWithIdentifier:@"Bluebook Filter Segue" sender:self];
+    } else {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        
+        if (cell.accessoryView == nil) {
+            cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"check.png"]];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"Bluebook %@", ((YMSimpleCell *)cell).name.text]];
+        } else {
+            cell.accessoryView = nil;
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"Bluebook %@", ((YMSimpleCell *)cell).name.text]];
+        }
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 @end

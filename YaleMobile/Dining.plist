@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>a</key>
+	<dict>
+		<key>Name</key>
+		<string>Berkeley</string>
+		<key>Location</key>
+		<string>205 Elm Street</string>
+		<key>Abbreviation</key>
+		<string>bk</string>
+	</dict>
+	<key>b</key>
+	<dict>
+		<key>Name</key>
+		<string>Branford</string>
+		<key>Location</key>
+		<string>74 High Street</string>
+		<key>Abbreviation</key>
+		<string>br</string>
+	</dict>
+	<key>c</key>
+	<dict>
+		<key>Name</key>
+		<string>Calhoun</string>
+		<key>Location</key>
+		<string>189 Elm Street</string>
+		<key>Abbreviation</key>
+		<string>cc</string>
+	</dict>
+	<key>d</key>
+	<dict>
+		<key>Name</key>
+		<string>Commons</string>
+		<key>Location</key>
+		<string>168 Grove Street</string>
+		<key>Abbreviation</key>
+		<string>co</string>
+	</dict>
+	<key>e</key>
+	<dict>
+		<key>Name</key>
+		<string>Davenport</string>
+		<key>Location</key>
+		<string>248 York Street</string>
+		<key>Abbreviation</key>
+		<string>dc</string>
+	</dict>
+	<key>f</key>
+	<dict>
+		<key>Name</key>
+		<string>Hall of Graduate Studies</string>
+		<key>Location</key>
+		<string>320 York Street</string>
+		<key>Abbreviation</key>
+		<string>gs</string>
+	</dict>
+	<key>g</key>
+	<dict>
+		<key>Name</key>
+		<string>Jonathan Edwards</string>
+		<key>Location</key>
+		<string>68 High Street</string>
+		<key>Abbreviation</key>
+		<string>je</string>
+	</dict>
+	<key>h</key>
+	<dict>
+		<key>Name</key>
+		<string>Morse</string>
+		<key>Location</key>
+		<string>302-304 York Street</string>
+		<key>Abbreviation</key>
+		<string>mc</string>
+	</dict>
+	<key>i</key>
+	<dict>
+		<key>Name</key>
+		<string>Pierson</string>
+		<key>Location</key>
+		<string>261 Park Street</string>
+		<key>Abbreviation</key>
+		<string>pc</string>
+	</dict>
+	<key>j</key>
+	<dict>
+		<key>Name</key>
+		<string>Saybrook</string>
+		<key>Location</key>
+		<string>242 Elm Street</string>
+		<key>Abbreviation</key>
+		<string>sy</string>
+	</dict>
+	<key>k</key>
+	<dict>
+		<key>Name</key>
+		<string>Silliman</string>
+		<key>Location</key>
+		<string>505 College Street</string>
+		<key>Abbreviation</key>
+		<string>sm</string>
+	</dict>
+	<key>l</key>
+	<dict>
+		<key>Name</key>
+		<string>Stiles</string>
+		<key>Location</key>
+		<string>19 Tower Parkway</string>
+		<key>Abbreviation</key>
+		<string>es</string>
+	</dict>
+	<key>m</key>
+	<dict>
+		<key>Name</key>
+		<string>Timothy Dwight</string>
+		<key>Location</key>
+		<string>345 Temple Street</string>
+		<key>Abbreviation</key>
+		<string>td</string>
+	</dict>
+	<key>n</key>
+	<dict>
+		<key>Name</key>
+		<string>Trumbull</string>
+		<key>Location</key>
+		<string>241 Elm Street</string>
+		<key>Abbreviation</key>
+		<string>tc</string>
+	</dict>
+</dict>
+</plist>

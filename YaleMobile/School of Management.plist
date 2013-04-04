@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>1</key>
+	<dict>
+		<key>0</key>
+		<dict>
+			<key>Term</key>
+			<string>Spring 2013</string>
+		</dict>
+		<key>a</key>
+		<dict>
+			<key>Date</key>
+			<string>January 2-11, Wednesday - Friday</string>
+			<key>Event</key>
+			<string>Super Week</string>
+			<key>Type</key>
+			<string>0</string>
+		</dict>
+		<key>b</key>
+		<dict>
+			<key>Date</key>
+			<string>January 14, Monday</string>
+			<key>Event</key>
+			<string>Spring term courses begin</string>
+			<key>Type</key>
+			<string>2</string>
+		</dict>
+		<key>c</key>
+		<dict>
+			<key>Date</key>
+			<string>January 18, Friday</string>
+			<key>Event</key>
+			<string>Make-up day for Monday classes (electives &amp; core)</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>d</key>
+		<dict>
+			<key>Date</key>
+			<string>January 21, Monday</string>
+			<key>Event</key>
+			<string>Martin Luther King Day. Classes do not meet. Administrative offices closed</string>
+			<key>Type</key>
+			<string>1</string>
+		</dict>
+		<key>d2</key>
+		<dict>
+			<key>Date</key>
+			<string>January 22, Tuesday</string>
+			<key>Event</key>
+			<string>Last day to add full-term and session 1 courses, 11:59 p.m.</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>d3</key>
+		<dict>
+			<key>Date</key>
+			<string>February 4, Monday</string>
+			<key>Event</key>
+			<string>Last day to drop full-term and session 1 courses, 11:59 p.m.</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>e</key>
+		<dict>
+			<key>Date</key>
+			<string>February 15, Friday</string>
+			<key>Event</key>
+			<string>MGT 425 The Global Macroeconomy meets</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>f</key>
+		<dict>
+			<key>Date</key>
+			<string>February 26, Tuesday</string>
+			<key>Event</key>
+			<string>Session 1 courses end</string>
+			<key>Type</key>
+			<string>3</string>
+		</dict>
+		<key>g</key>
+		<dict>
+			<key>Date</key>
+			<string>February 27, Wednesday</string>
+			<key>Event</key>
+			<string>Classes that meet on Wednesdays only end</string>
+			<key>Type</key>
+			<string>3</string>
+		</dict>
+		<key>h</key>
+		<dict>
+			<key>Date</key>
+			<string>February 28, Thursday</string>
+			<key>Event</key>
+			<string>Classes that meet on Thursdays only end</string>
+			<key>Type</key>
+			<string>3</string>
+		</dict>
+		<key>i</key>
+		<dict>
+			<key>Date</key>
+			<string>February 27 - March 1, Wed - Fri</string>
+			<key>Event</key>
+			<string>Examination period</string>
+			<key>Type</key>
+			<string>4</string>
+		</dict>
+		<key>j</key>
+		<dict>
+			<key>Date</key>
+			<string>March 2, Saturday</string>
+			<key>Event</key>
+			<string>Spring recess begins</string>
+			<key>Type</key>
+			<string>1</string>
+		</dict>
+		<key>k</key>
+		<dict>
+			<key>Date</key>
+			<string>March 12, Tuesday</string>
+			<key>Event</key>
+			<string>Class of 2014 International Experience begins</string>
+			<key>Type</key>
+			<string>9</string>
+		</dict>
+		<key>l</key>
+		<dict>
+			<key>Date</key>
+			<string>March 21, Thursday</string>
+			<key>Event</key>
+			<string>Class of 2014 International Experience ends</string>
+			<key>Type</key>
+			<string>9</string>
+		</dict>
+		<key>m</key>
+		<dict>
+			<key>Date</key>
+			<string>March 25, Monday</string>
+			<key>Event</key>
+			<string>Classes resume</string>
+			<key>Type</key>
+			<string>2</string>
+		</dict>
+		<key>m2</key>
+		<dict>
+			<key>Date</key>
+			<string>April 1, Monday</string>
+			<key>Event</key>
+			<string>Last day to add session 2 courses, 11:59 p.m.</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>m3</key>
+		<dict>
+			<key>Date</key>
+			<string>April 15, Monday</string>
+			<key>Event</key>
+			<string>Last day to drop session 2 courses, 11:59 p.m.</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>n</key>
+		<dict>
+			<key>Date</key>
+			<string>May 7, Tuesday</string>
+			<key>Event</key>
+			<string>Classes end</string>
+			<key>Type</key>
+			<string>3</string>
+		</dict>
+		<key>o</key>
+		<dict>
+			<key>Date</key>
+			<string>May 8, Wednesday</string>
+			<key>Event</key>
+			<string>Classes that meet on Wednesdays only end</string>
+			<key>Type</key>
+			<string>3</string>
+		</dict>
+		<key>p</key>
+		<dict>
+			<key>Date</key>
+			<string>May 9, Thursday</string>
+			<key>Event</key>
+			<string>Classes that meet on Thursdays only end</string>
+			<key>Type</key>
+			<string>3</string>
+		</dict>
+		<key>q</key>
+		<dict>
+			<key>Date</key>
+			<string>May 8-14, Wednesday - Tuesday</string>
+			<key>Event</key>
+			<string>Examination period</string>
+			<key>Type</key>
+			<string>4</string>
+		</dict>
+		<key>r</key>
+		<dict>
+			<key>Date</key>
+			<string>May 20, Monday</string>
+			<key>Event</key>
+			<string>University Commencement</string>
+			<key>Type</key>
+			<string>8</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -460,7 +460,7 @@
 			<key>Name</key>
 			<string>Cognitive Science</string>
 		</dict>
-		<key>Coll Sem: Yale Coll</key>
+		<key>College Seminar: Yale College</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -473,9 +473,9 @@
 			<key>Value</key>
 			<string>CSYC</string>
 			<key>Name</key>
-			<string>Coll Sem: Yale Coll</string>
+			<string>College Seminar: Yale College</string>
 		</dict>
-		<key>Coll Sem: Berkeley</key>
+		<key>College Seminar: Berkeley</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -488,9 +488,9 @@
 			<key>Value</key>
 			<string>CSBK</string>
 			<key>Name</key>
-			<string>Coll Sem: Berkeley</string>
+			<string>College Seminar: Berkeley</string>
 		</dict>
-		<key>Coll Sem: Branford</key>
+		<key>College Seminar: Branford</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -503,9 +503,9 @@
 			<key>Value</key>
 			<string>CSBR</string>
 			<key>Name</key>
-			<string>Coll Sem: Branford</string>
+			<string>College Seminar: Branford</string>
 		</dict>
-		<key>Coll Sem: Calhoun</key>
+		<key>College Seminar: Calhoun</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -518,9 +518,9 @@
 			<key>Value</key>
 			<string>CSCC</string>
 			<key>Name</key>
-			<string>Coll Sem: Calhoun</string>
+			<string>College Seminar: Calhoun</string>
 		</dict>
-		<key>Coll Sem: Davenport</key>
+		<key>College Seminar: Davenport</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -533,9 +533,9 @@
 			<key>Value</key>
 			<string>CSDC</string>
 			<key>Name</key>
-			<string>Coll Sem: Davenport</string>
+			<string>College Seminar: Davenport</string>
 		</dict>
-		<key>Coll Sem: Ezra Stiles</key>
+		<key>College Seminar: Ezra Stiles</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -548,9 +548,9 @@
 			<key>Value</key>
 			<string>CSES</string>
 			<key>Name</key>
-			<string>Coll Sem: Ezra Stiles</string>
+			<string>College Seminar: Ezra Stiles</string>
 		</dict>
-		<key>Coll Sem: Jonathan Edward</key>
+		<key>College Seminar: JE</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -563,9 +563,9 @@
 			<key>Value</key>
 			<string>CSJE</string>
 			<key>Name</key>
-			<string>Coll Sem: Jonathan Edward</string>
+			<string>College Seminar: JE</string>
 		</dict>
-		<key>Coll Sem: Morse</key>
+		<key>College Seminar: Morse</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -578,9 +578,9 @@
 			<key>Value</key>
 			<string>CSMC</string>
 			<key>Name</key>
-			<string>Coll Sem: Morse</string>
+			<string>College Seminar: Morse</string>
 		</dict>
-		<key>Coll Sem: Pierson</key>
+		<key>College Seminar: Pierson</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -593,9 +593,9 @@
 			<key>Value</key>
 			<string>CSPC</string>
 			<key>Name</key>
-			<string>Coll Sem: Pierson</string>
+			<string>College Seminar: Pierson</string>
 		</dict>
-		<key>Coll Sem: Saybrook</key>
+		<key>College Seminar: Saybrook</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -608,9 +608,9 @@
 			<key>Value</key>
 			<string>CSSY</string>
 			<key>Name</key>
-			<string>Coll Sem: Saybrook</string>
+			<string>College Seminar: Saybrook</string>
 		</dict>
-		<key>Coll Sem: Silliman</key>
+		<key>College Seminar: Silliman</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -623,9 +623,9 @@
 			<key>Value</key>
 			<string>CSSM</string>
 			<key>Name</key>
-			<string>Coll Sem: Silliman</string>
+			<string>College Seminar: Silliman</string>
 		</dict>
-		<key>Coll Sem: Timothy Dwight</key>
+		<key>College Seminar: TD</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -638,9 +638,9 @@
 			<key>Value</key>
 			<string>CSTD</string>
 			<key>Name</key>
-			<string>Coll Sem: Timothy Dwight</string>
+			<string>College Seminar: TD</string>
 		</dict>
-		<key>Coll Sem: Trumbull</key>
+		<key>College Seminar: Trumbull</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -653,7 +653,7 @@
 			<key>Value</key>
 			<string>CSTC</string>
 			<key>Name</key>
-			<string>Coll Sem: Trumbull</string>
+			<string>College Seminar: Trumbull</string>
 		</dict>
 		<key>College Seminars</key>
 		<dict>
@@ -670,7 +670,7 @@
 			<key>Name</key>
 			<string>College Seminars</string>
 		</dict>
-		<key>Comp Biol &amp; Bioinformatics</key>
+		<key>Comp Biology &amp; Bioinformatics</key>
 		<dict>
 			<key>U</key>
 			<string>0</string>
@@ -683,7 +683,7 @@
 			<key>Value</key>
 			<string>CB&amp;B</string>
 			<key>Name</key>
-			<string>Comp Biol &amp; Bioinformatics</string>
+			<string>Comp Biology &amp; Bioinformatics</string>
 		</dict>
 		<key>Comparative Literature</key>
 		<dict>
@@ -886,7 +886,7 @@
 	</dict>
 	<key>E</key>
 	<dict>
-		<key>East Asian Lang &amp; Lit</key>
+		<key>East Asian Language &amp; Literature</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -899,7 +899,7 @@
 			<key>Value</key>
 			<string>EALL</string>
 			<key>Name</key>
-			<string>East Asian Lang &amp; Lit</string>
+			<string>East Asian Language &amp; Literature</string>
 		</dict>
 		<key>East Asian Studies</key>
 		<dict>
@@ -1171,7 +1171,7 @@
 			<key>Name</key>
 			<string>Epidemiology Microbial Disease</string>
 		</dict>
-		<key>Ethics, Politics, &amp; Economics</key>
+		<key>Ethics, Politics &amp; Economics</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -1184,9 +1184,9 @@
 			<key>Value</key>
 			<string>EP&amp;E</string>
 			<key>Name</key>
-			<string>Ethics, Politics, &amp; Economics</string>
+			<string>Ethics, Politics &amp; Economics</string>
 		</dict>
-		<key>Ethnicity, Race, &amp; Migration</key>
+		<key>Ethnicity, Race &amp; Migration</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -1450,7 +1450,7 @@
 			<key>Name</key>
 			<string>Hindi</string>
 		</dict>
-		<key>Hist of Science, Hist of Med</key>
+		<key>History of Science and Medicine</key>
 		<dict>
 			<key>U</key>
 			<string>1</string>
@@ -1463,7 +1463,7 @@
 			<key>Value</key>
 			<string>HSHM</string>
 			<key>Name</key>
-			<string>Hist of Science, Hist of Med</string>
+			<string>History of Science and Medicine</string>
 		</dict>
 		<key>History</key>
 		<dict>

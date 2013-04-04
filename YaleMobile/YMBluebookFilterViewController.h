@@ -10,4 +10,7 @@
 
 @interface YMBluebookFilterViewController : UITableViewController
 
+@property (nonatomic, strong) NSArray *filters;
+@property (nonatomic, strong) NSArray *options;
+
 @end

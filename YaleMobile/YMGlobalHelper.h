@@ -5,6 +5,10 @@
 
 #import <Foundation/Foundation.h>
 
+#import "YMSubtitleCell.h"
+#import "YMSimpleCell.h"
+
+
 @interface YMGlobalHelper : NSObject
 
 /*
@@ -16,5 +20,23 @@
   4 | 10 p.m. to 6 a.m. -> day, night
  */
 + (NSInteger)getCurrentTime;
+
++ (void)setupUserDefaults;
++ (void)setupSlidingViewControllerForController:(UIViewController *)viewController;
++ (void)setupRightSlidingViewControllerForController:(UIViewController *)topController withRightController:(Class)class named:(NSString *)identifier;
++ (void)setupMenuButtonForController:(UIViewController *)viewController;
++ (void)addMenuButtonToController:(UIViewController *)viewController;
++ (void)addBackButtonToController:(UIViewController *)viewController;
++ (NSString *)buildBluebookFilters;
++ (NSString *)getTerm;
+
++ (NSTimeInterval)getTimestamp;
+
++ (NSString *)getIconNameForWeather:(NSInteger)code;
++ (NSString *)getBgNameForWeather:(NSInteger)code;
+
+
+// + (void)addEtchToSubtitleCell:(UITableViewCell *)cell;
+// + (void)addEtchToSimpleCell:(UITableViewCell *)cell;
 
 @end

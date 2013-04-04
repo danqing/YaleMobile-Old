@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>1</key>
+	<dict>
+		<key>0</key>
+		<dict>
+			<key>Term</key>
+			<string>Spring 2013</string>
+		</dict>
+		<key>a</key>
+		<dict>
+			<key>Date</key>
+			<string>January 11, Friday</string>
+			<key>Event</key>
+			<string>Spring online course registration begins, 9 a.m.</string>
+			<key>Type</key>
+			<string>0</string>
+		</dict>
+		<key>b</key>
+		<dict>
+			<key>Date</key>
+			<string>January 13-18, Sunday - Friday</string>
+			<key>Event</key>
+			<string>DNP winter intensive session</string>
+			<key>Type</key>
+			<string>9</string>
+		</dict>
+		<key>c</key>
+		<dict>
+			<key>Date</key>
+			<string>January 14, Monday</string>
+			<key>Event</key>
+			<string>Spring term begins, 8 a.m.</string>
+			<key>Type</key>
+			<string>2</string>
+		</dict>
+		<key>d</key>
+		<dict>
+			<key>Date</key>
+			<string>January 18, Friday</string>
+			<key>Event</key>
+			<string>Monday classes meet to make up for MLK holiday</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>e</key>
+		<dict>
+			<key>Date</key>
+			<string>January 21, Monday</string>
+			<key>Event</key>
+			<string>No classes. Martin Luther King Day</string>
+			<key>Type</key>
+			<string>1</string>
+		</dict>
+		<key>f</key>
+		<dict>
+			<key>Date</key>
+			<string>January 29, Tuesday</string>
+			<key>Event</key>
+			<string>Course registration deadline, 5 p.m.</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>g</key>
+		<dict>
+			<key>Date</key>
+			<string>February 15, Friday</string>
+			<key>Event</key>
+			<string>Deadline for graduating Ph.D. students to defend their dissertations for May graduation</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>h</key>
+		<dict>
+			<key>Date</key>
+			<string>March 8, Friday</string>
+			<key>Event</key>
+			<string>Spring recess for all students begins, 5:20 p.m.</string>
+			<key>Type</key>
+			<string>1</string>
+		</dict>
+		<key>i</key>
+		<dict>
+			<key>Date</key>
+			<string>March 15, Friday</string>
+			<key>Event</key>
+			<string>Deadline for Ph.D. dissertations to be considered by the Degree Committees for award of degree in May. Final day to file petitions for Ph.D. degrees to be awarded in May</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>j</key>
+		<dict>
+			<key>Date</key>
+			<string>March 25, Monday</string>
+			<key>Event</key>
+			<string>Spring recess ends, 8 a.m.</string>
+			<key>Type</key>
+			<string>2</string>
+		</dict>
+		<key>k</key>
+		<dict>
+			<key>Date</key>
+			<string>March 28, Thursday</string>
+			<key>Event</key>
+			<string>Deadline for graduating Masters students to submit a complete, first draft of their Praxis to their Praxis Advisor</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>l</key>
+		<dict>
+			<key>Date</key>
+			<string>May 1, Wednesday</string>
+			<key>Event</key>
+			<string>Graduate school classes end, 5:30 p.m. (Ph.D. students only)</string>
+			<key>Type</key>
+			<string>3</string>
+		</dict>
+		<key>m</key>
+		<dict>
+			<key>Date</key>
+			<string>May 2, Thursday</string>
+			<key>Event</key>
+			<string>Graduate school final exams begin (Ph.D. students only)</string>
+			<key>Type</key>
+			<string>4</string>
+		</dict>
+		<key>n</key>
+		<dict>
+			<key>Date</key>
+			<string>May 3, Friday</string>
+			<key>Event</key>
+			<string>YSN classes end, 8 p.m.</string>
+			<key>Type</key>
+			<string>3</string>
+		</dict>
+		<key>o</key>
+		<dict>
+			<key>Date</key>
+			<string>May 6, Monday</string>
+			<key>Event</key>
+			<string>YSN final exams begin, 8 a.m.</string>
+			<key>Type</key>
+			<string>4</string>
+		</dict>
+		<key>p</key>
+		<dict>
+			<key>Date</key>
+			<string>May 8, Wednesday</string>
+			<key>Event</key>
+			<string>YSN and Graduate school spring terms end</string>
+			<key>Type</key>
+			<string>9</string>
+		</dict>
+		<key>q</key>
+		<dict>
+			<key>Date</key>
+			<string>May 15, Wednesday</string>
+			<key>Event</key>
+			<string>2 hardbound copies of Masters thesis or 1 softbound copy of Praxis due to Office of Student Affairs, 12 noon</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>r</key>
+		<dict>
+			<key>Date</key>
+			<string>May 20, Monday</string>
+			<key>Event</key>
+			<string>University Commencement</string>
+			<key>Type</key>
+			<string>8</string>
+		</dict>
+	</dict>
+	<key>2</key>
+	<dict>
+		<key>0</key>
+		<dict>
+			<key>Term</key>
+			<string>Summer 2013</string>
+		</dict>
+		<key>a</key>
+		<dict>
+			<key>Date</key>
+			<string>May 13, Monday</string>
+			<key>Event</key>
+			<string>Summer term begins, 8 a.m.</string>
+			<key>Type</key>
+			<string>0</string>
+		</dict>
+		<key>b</key>
+		<dict>
+			<key>Date</key>
+			<string>May 27, Monday</string>
+			<key>Event</key>
+			<string>No classes. Memorial Day</string>
+			<key>Type</key>
+			<string>1</string>
+		</dict>
+		<key>c</key>
+		<dict>
+			<key>Date</key>
+			<string>June 5-7, Sunday - Friday</string>
+			<key>Event</key>
+			<string>DNP summer intensive session</string>
+			<key>Type</key>
+			<string>9</string>
+		</dict>
+		<key>d</key>
+		<dict>
+			<key>Date</key>
+			<string>July 4, Thursday</string>
+			<key>Event</key>
+			<string>No classes. Independence Day</string>
+			<key>Type</key>
+			<string>1</string>
+		</dict>
+		<key>e</key>
+		<dict>
+			<key>Date</key>
+			<string>July 31, Wednesday</string>
+			<key>Event</key>
+			<string>Summer term ends, 5 p.m.</string>
+			<key>Type</key>
+			<string>0</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

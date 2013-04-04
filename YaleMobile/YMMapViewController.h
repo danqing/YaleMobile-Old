@@ -7,7 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import "YMMapDetailView.h"
 
-@interface YMMapViewController : UIViewController
+@interface YMMapViewController : UIViewController <CLLocationManagerDelegate, UISearchBarDelegate, MKMapViewDelegate>
+
+@property (nonatomic, strong) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, strong) IBOutlet YMMapDetailView *detailView;
+
+@property (nonatomic, strong) CLLocationManager *manager;
+@property (nonatomic, strong) UIView *searchOverlay;
+@property (nonatomic, strong) UIButton *locate;
+@property (nonatomic) NSInteger locating;
 
 @end
