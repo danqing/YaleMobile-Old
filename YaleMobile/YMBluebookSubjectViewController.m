@@ -144,7 +144,7 @@
     }
 }
 
--(void)setupFetchedResultsController
+- (void)setupFetchedResultsController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Course"];
     NSSortDescriptor *sd1 = [NSSortDescriptor sortDescriptorWithKey:@"code" ascending:YES];

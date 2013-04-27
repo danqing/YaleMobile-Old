@@ -183,15 +183,18 @@
         responseData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
         TFHpple *doc2 = [[TFHpple alloc] initWithHTMLData:responseData];
         NSArray *types = [doc2 searchWithXPathQuery:@"//div[@class='monitor-total']"];
-        if (types.count < 2) {
+        NSString *raw = ((TFHppleElement *)[types objectAtIndex:0]).content;
+        raw = [raw stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSArray *processedTypes = [raw componentsSeparatedByString:@"\n"];
+        if (types.count < 1) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"An error has occured when retrieving the laundry data. Please check your network connectivity" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alert show];
             return;
         }
         
-        NSMutableArray *washers = [[((TFHppleElement *)[types objectAtIndex:0]).content componentsSeparatedByString:@" of "] mutableCopy];
+        NSMutableArray *washers = [[[processedTypes objectAtIndex:0] componentsSeparatedByString:@"of"] mutableCopy];
         NSUInteger washerNumbers = [[washers objectAtIndex:1] integerValue];
-        NSMutableArray *dryers = [[((TFHppleElement *)[types objectAtIndex:1]).content componentsSeparatedByString:@" of "] mutableCopy];
+        NSMutableArray *dryers = [[[processedTypes objectAtIndex:1] componentsSeparatedByString:@"of"] mutableCopy];
         
         NSUInteger washersDown = 0, dryersDown = 0, arrayIndex = 0;
         for (TFHppleElement *string in statuses) {

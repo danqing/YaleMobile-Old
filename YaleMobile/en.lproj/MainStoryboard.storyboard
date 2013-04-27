@@ -274,16 +274,133 @@
                                     <outlet property="thirdLabel" destination="FTb-p1-QyI" id="auf-eX-wbC"/>
                                 </connections>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="74" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="WWg-SO-pr7">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="252" id="lOI-tA-VBs"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Map Top Cell" rowHeight="79" id="8jv-Ux-ul3" customClass="YMTwoSubtitlesCell">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="79"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="78"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j3g-ZO-Da0">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="259" id="8cT-tQ-VKc"/>
+                                                        <constraint firstAttribute="height" constant="21" id="eX6-Ag-CHy"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                    <color key="textColor" red="0.43379486029999997" green="0.51586415819999998" blue="0.51586415819999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9j7-kO-vtQ">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="30l-gG-Qe1"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NlA-qc-K9F">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" type="user" id="KXG-XO-3kb"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="9j7-kO-vtQ" firstAttribute="trailing" secondItem="NlA-qc-K9F" secondAttribute="trailing" type="default" id="C5K-Mo-lMi"/>
+                                            <constraint firstItem="9j7-kO-vtQ" firstAttribute="top" secondItem="8jv-Ux-ul3" secondAttribute="top" constant="39" id="Ll4-uG-tN9"/>
+                                            <constraint firstItem="j3g-ZO-Da0" firstAttribute="trailing" secondItem="9j7-kO-vtQ" secondAttribute="trailing" type="default" id="Ogt-tJ-B7q"/>
+                                            <constraint firstItem="j3g-ZO-Da0" firstAttribute="top" secondItem="8jv-Ux-ul3" secondAttribute="top" constant="20" type="default" id="YPD-Ik-s9V"/>
+                                            <constraint firstItem="j3g-ZO-Da0" firstAttribute="leading" secondItem="8jv-Ux-ul3" secondAttribute="leading" constant="27" id="YQc-eP-B9n"/>
+                                            <constraint firstItem="NlA-qc-K9F" firstAttribute="leading" secondItem="9j7-kO-vtQ" secondAttribute="leading" type="default" id="aeM-Pi-WMd"/>
+                                            <constraint firstItem="NlA-qc-K9F" firstAttribute="top" secondItem="8jv-Ux-ul3" secondAttribute="top" constant="55" type="user" id="bY3-Bc-tjL"/>
+                                            <constraint firstItem="9j7-kO-vtQ" firstAttribute="leading" secondItem="j3g-ZO-Da0" secondAttribute="leading" type="default" id="h7R-cu-fc7"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="name" destination="j3g-ZO-Da0" id="r90-PB-bG5"/>
+                                            <outlet property="sub1" destination="9j7-kO-vtQ" id="Lpm-jk-rqS"/>
+                                            <outlet property="sub2" destination="NlA-qc-K9F" id="ci8-1X-QR7"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Map Cell" rowHeight="74" id="uqg-Ed-MsR" customClass="YMTwoSubtitlesCell">
+                                        <rect key="frame" x="0.0" y="101" width="320" height="74"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="73"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZfA-kG-LmW">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="Wka-hS-nBV"/>
+                                                        <constraint firstAttribute="width" constant="259" id="oP0-g1-u4W"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                    <color key="textColor" red="0.43379486029999997" green="0.51586415819999998" blue="0.51586415819999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SIw-qp-uj1">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="1Lx-y9-KTz"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFe-G9-96X">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" type="user" id="6p0-ch-tE0"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="SIw-qp-uj1" firstAttribute="trailing" secondItem="DFe-G9-96X" secondAttribute="trailing" type="default" id="2ZJ-Rb-FC4"/>
+                                            <constraint firstItem="SIw-qp-uj1" firstAttribute="top" secondItem="uqg-Ed-MsR" secondAttribute="top" constant="28" id="3UG-4o-MUI"/>
+                                            <constraint firstItem="DFe-G9-96X" firstAttribute="top" secondItem="uqg-Ed-MsR" secondAttribute="top" constant="44" type="user" id="KJy-l7-0rc"/>
+                                            <constraint firstItem="DFe-G9-96X" firstAttribute="leading" secondItem="SIw-qp-uj1" secondAttribute="leading" type="default" id="KKE-jm-rmx"/>
+                                            <constraint firstItem="ZfA-kG-LmW" firstAttribute="top" secondItem="uqg-Ed-MsR" secondAttribute="top" constant="9" id="V1F-E5-dy2"/>
+                                            <constraint firstItem="ZfA-kG-LmW" firstAttribute="leading" secondItem="uqg-Ed-MsR" secondAttribute="leading" constant="27" id="gag-yk-m2c"/>
+                                            <constraint firstItem="SIw-qp-uj1" firstAttribute="leading" secondItem="ZfA-kG-LmW" secondAttribute="leading" type="default" id="uqa-om-hol"/>
+                                            <constraint firstItem="ZfA-kG-LmW" firstAttribute="trailing" secondItem="SIw-qp-uj1" secondAttribute="trailing" type="default" id="ygC-xB-N8o"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="name" destination="ZfA-kG-LmW" id="cqw-PG-k8N"/>
+                                            <outlet property="sub1" destination="SIw-qp-uj1" id="V5V-zO-hAD"/>
+                                            <outlet property="sub2" destination="DFe-G9-96X" id="XrO-hA-A63"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="GAd-S7-A3t" id="r1L-Je-nrj"/>
+                                    <outlet property="delegate" destination="GAd-S7-A3t" id="A0B-Oj-Mlr"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="a5Z-1X-YBt" firstAttribute="leading" secondItem="yvU-d9-KwE" secondAttribute="leading" type="default" id="0PQ-XT-psL"/>
                             <constraint firstItem="Fxa-ZD-t6N" firstAttribute="leading" secondItem="yvU-d9-KwE" secondAttribute="leading" type="default" id="3Yd-7I-142"/>
                             <constraint firstItem="a5Z-1X-YBt" firstAttribute="trailing" secondItem="yvU-d9-KwE" secondAttribute="trailing" type="default" id="DpX-gc-VwH"/>
+                            <constraint firstItem="WWg-SO-pr7" firstAttribute="top" secondItem="a5Z-1X-YBt" secondAttribute="top" type="default" id="FNa-TV-cPA"/>
+                            <constraint firstItem="WWg-SO-pr7" firstAttribute="trailing" secondItem="yvU-d9-KwE" secondAttribute="trailing" type="default" id="Mae-rU-NS4"/>
                             <constraint firstItem="xaB-bc-CNb" firstAttribute="leading" secondItem="yvU-d9-KwE" secondAttribute="leading" type="default" id="R0c-HI-c4O"/>
                             <constraint firstItem="a5Z-1X-YBt" firstAttribute="bottom" secondItem="yvU-d9-KwE" secondAttribute="bottom" type="default" id="TbX-LP-Tfy"/>
                             <constraint firstItem="Fxa-ZD-t6N" firstAttribute="trailing" secondItem="yvU-d9-KwE" secondAttribute="trailing" type="default" id="ZM3-Pb-NYQ"/>
                             <constraint firstItem="Fxa-ZD-t6N" firstAttribute="bottom" secondItem="yvU-d9-KwE" secondAttribute="bottom" type="user" id="gdX-OY-bx8"/>
+                            <constraint firstItem="WWg-SO-pr7" firstAttribute="leading" secondItem="yvU-d9-KwE" secondAttribute="leading" type="default" id="oPH-q5-Tjy"/>
                             <constraint firstItem="xaB-bc-CNb" firstAttribute="trailing" secondItem="yvU-d9-KwE" secondAttribute="trailing" type="default" id="rxd-jF-wBT"/>
                             <constraint firstItem="a5Z-1X-YBt" firstAttribute="top" secondItem="xaB-bc-CNb" secondAttribute="bottom" type="default" id="uWh-Cj-8zC"/>
                             <constraint firstItem="xaB-bc-CNb" firstAttribute="top" secondItem="yvU-d9-KwE" secondAttribute="top" type="default" id="wyJ-iD-h2P"/>
@@ -294,6 +411,7 @@
                         <outlet property="detailView" destination="Fxa-ZD-t6N" id="Jgg-FW-uEe"/>
                         <outlet property="mapView" destination="a5Z-1X-YBt" id="ije-5D-t0k"/>
                         <outlet property="searchBar" destination="xaB-bc-CNb" id="4RF-a9-0ZB"/>
+                        <outlet property="tableView" destination="WWg-SO-pr7" id="8Vu-3n-eWo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sQS-cl-aBw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1578,7 +1696,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="90" id="hPe-0p-QSv"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="46"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="55"/>
                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1594,7 +1712,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="41" id="x5E-cz-BVR"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="23"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="23"/>
                                 <color key="textColor" red="0.469549304" green="0.65960847229999997" blue="0.7585253193" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1607,22 +1725,24 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hj4-aF-TYA">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="34" id="8KH-lS-6zN"/>
+                                    <constraint firstAttribute="height" constant="21" id="GOH-6N-2Cz"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="weather_na@2x.png" translatesAutoresizingMaskIntoConstraints="NO" id="wXU-Ml-JEn">
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="42" id="2dQ-Wd-1vB"/>
                                     <constraint firstAttribute="height" constant="40" id="SqS-nK-aM7"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="30/25" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bWB-8h-Ovo">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="4yK-Rn-NBy"/>
-                                    <constraint firstAttribute="width" constant="43" id="hRQ-s8-Xfe"/>
+                                    <constraint firstAttribute="width" constant="43" id="ua6-sG-n5f"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.469549304" green="0.65960847229999997" blue="0.7585253193" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1630,7 +1750,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="34" id="cU1-Ip-b8k"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1643,12 +1763,15 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="43" id="AwW-JV-jgV"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.469549304" green="0.65960847229999997" blue="0.7585253193" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k34-0Z-j9p">
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="34" id="u6c-Hn-jMM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1661,7 +1784,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="43" id="x2E-Do-AqB"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.469549304" green="0.65960847229999997" blue="0.7585253193" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1669,7 +1792,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="34" id="Pam-rj-NGl"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1682,7 +1805,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="43" id="etU-po-A61"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.469549304" green="0.65960847229999997" blue="0.7585253193" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1690,7 +1813,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="34" id="wPl-6F-z6m"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1703,7 +1826,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="43" id="ji6-r3-UDz"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.469549304" green="0.65960847229999997" blue="0.7585253193" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1712,16 +1835,14 @@
                         <constraints>
                             <constraint firstItem="C77-Qu-aaI" firstAttribute="top" secondItem="k34-0Z-j9p" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="0NY-3C-ob8"/>
                             <constraint firstItem="U4S-VS-ygJ" firstAttribute="centerX" secondItem="jyd-RH-j5P" secondAttribute="centerX" type="default" id="0em-xe-YFW"/>
+                            <constraint firstItem="bWB-8h-Ovo" firstAttribute="top" secondItem="U4S-VS-ygJ" secondAttribute="top" type="default" id="2Qb-O8-bvB"/>
                             <constraint firstItem="U4S-VS-ygJ" firstAttribute="baseline" secondItem="0iN-Qv-XSf" secondAttribute="baseline" type="default" id="2Uo-j2-UDI"/>
-                            <constraint firstItem="cEF-V5-YGo" firstAttribute="top" secondItem="Umw-Fd-8UR" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="3R2-Ji-eyP"/>
                             <constraint firstItem="FXE-hU-OAM" firstAttribute="top" secondItem="cEF-V5-YGo" secondAttribute="top" type="default" id="3rU-h6-Zfd"/>
-                            <constraint firstItem="bWB-8h-Ovo" firstAttribute="centerX" secondItem="wXU-Ml-JEn" secondAttribute="centerX" type="default" id="4bb-Ek-8ex"/>
                             <constraint firstItem="Umw-Fd-8UR" firstAttribute="top" secondItem="za4-es-Pe9" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="6Z9-mU-hOa"/>
                             <constraint firstAttribute="bottom" secondItem="BBh-Xf-hjp" secondAttribute="bottom" constant="201" id="7Xk-Ki-6qV"/>
                             <constraint firstItem="9Gk-Ah-tBb" firstAttribute="leading" secondItem="jyd-RH-j5P" secondAttribute="leading" type="default" id="8Ez-qt-8LG"/>
+                            <constraint firstAttribute="bottom" secondItem="wXU-Ml-JEn" secondAttribute="bottom" constant="39" id="8o5-nH-440"/>
                             <constraint firstAttribute="trailing" secondItem="BBh-Xf-hjp" secondAttribute="trailing" constant="20" symbolic="YES" type="user" id="FGV-Mp-Ylf"/>
-                            <constraint firstItem="U4S-VS-ygJ" firstAttribute="top" secondItem="jyd-RH-j5P" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Gac-RC-1Gj"/>
-                            <constraint firstItem="bWB-8h-Ovo" firstAttribute="leading" secondItem="Jmz-Da-UJQ" secondAttribute="leading" constant="19" id="GbQ-Zw-Tqm"/>
                             <constraint firstItem="0iN-Qv-XSf" firstAttribute="centerX" secondItem="C77-Qu-aaI" secondAttribute="centerX" type="default" id="Gc1-re-Nph"/>
                             <constraint firstItem="7Kq-ie-x1J" firstAttribute="baseline" secondItem="za4-es-Pe9" secondAttribute="baseline" type="default" id="GiC-V8-iw3"/>
                             <constraint firstItem="wXU-Ml-JEn" firstAttribute="top" secondItem="Hj4-aF-TYA" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="JKn-9D-lIW"/>
@@ -1730,32 +1851,37 @@
                             <constraint firstItem="cEF-V5-YGo" firstAttribute="centerX" secondItem="Umw-Fd-8UR" secondAttribute="centerX" type="default" id="O1n-WC-Pas"/>
                             <constraint firstItem="za4-es-Pe9" firstAttribute="baseline" secondItem="k34-0Z-j9p" secondAttribute="baseline" type="default" id="OUF-5k-4S5"/>
                             <constraint firstAttribute="bottom" secondItem="9Gk-Ah-tBb" secondAttribute="bottom" constant="130" id="Ohf-Ma-k12"/>
+                            <constraint firstItem="k34-0Z-j9p" firstAttribute="top" secondItem="za4-es-Pe9" secondAttribute="top" type="default" id="OrK-iK-1zF"/>
                             <constraint firstItem="za4-es-Pe9" firstAttribute="centerX" secondItem="Umw-Fd-8UR" secondAttribute="centerX" type="default" id="PNC-5f-8fq"/>
                             <constraint firstItem="ZCJ-W1-lK2" firstAttribute="baseline" secondItem="k34-0Z-j9p" secondAttribute="baseline" type="default" id="PST-jg-L4h"/>
+                            <constraint firstAttribute="trailing" secondItem="cEF-V5-YGo" secondAttribute="trailing" constant="77" id="QwH-yv-3be"/>
+                            <constraint firstItem="C77-Qu-aaI" firstAttribute="bottom" secondItem="jyd-RH-j5P" secondAttribute="bottom" type="default" id="T8n-yL-OTS"/>
+                            <constraint firstItem="za4-es-Pe9" firstAttribute="top" secondItem="7Kq-ie-x1J" secondAttribute="top" type="default" id="V02-s2-Kw7"/>
                             <constraint firstItem="U4S-VS-ygJ" firstAttribute="top" secondItem="0iN-Qv-XSf" secondAttribute="top" type="default" id="WSL-LF-deE"/>
                             <constraint firstItem="jyd-RH-j5P" firstAttribute="top" secondItem="ZCJ-W1-lK2" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Xmo-by-yGH"/>
+                            <constraint firstAttribute="bottom" secondItem="bWB-8h-Ovo" secondAttribute="bottom" constant="12" id="Ylj-Rf-foB"/>
                             <constraint firstItem="Hj4-aF-TYA" firstAttribute="centerX" secondItem="wXU-Ml-JEn" secondAttribute="centerX" type="default" id="Z9m-kw-ayA"/>
+                            <constraint firstItem="bWB-8h-Ovo" firstAttribute="trailing" secondItem="wXU-Ml-JEn" secondAttribute="trailing" type="default" id="ZRF-OZ-jdc"/>
                             <constraint firstItem="FXE-hU-OAM" firstAttribute="centerX" secondItem="wPb-MH-8vB" secondAttribute="centerX" type="default" id="ZWV-2L-aT9"/>
                             <constraint firstItem="FXE-hU-OAM" firstAttribute="baseline" secondItem="cEF-V5-YGo" secondAttribute="baseline" type="default" id="aM7-PH-YoE"/>
-                            <constraint firstAttribute="bottom" secondItem="bWB-8h-Ovo" secondAttribute="bottom" constant="10" id="aS8-6M-79k"/>
-                            <constraint firstItem="FXE-hU-OAM" firstAttribute="top" secondItem="wPb-MH-8vB" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="bag-b3-IVy"/>
-                            <constraint firstItem="U4S-VS-ygJ" firstAttribute="top" secondItem="bWB-8h-Ovo" secondAttribute="top" type="default" id="boC-7Y-9K5"/>
                             <constraint firstItem="Nxc-CM-WgE" firstAttribute="top" secondItem="Jmz-Da-UJQ" secondAttribute="top" constant="90" id="brb-ck-P6v"/>
                             <constraint firstItem="9Gk-Ah-tBb" firstAttribute="centerX" secondItem="BBh-Xf-hjp" secondAttribute="centerX" type="user" id="bsi-JX-4Xa"/>
-                            <constraint firstItem="bWB-8h-Ovo" firstAttribute="top" secondItem="wXU-Ml-JEn" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="bt4-9b-jzo"/>
-                            <constraint firstItem="U4S-VS-ygJ" firstAttribute="baseline" secondItem="bWB-8h-Ovo" secondAttribute="baseline" type="default" id="eM0-Hm-gym"/>
+                            <constraint firstItem="wXU-Ml-JEn" firstAttribute="bottom" secondItem="jyd-RH-j5P" secondAttribute="bottom" type="default" id="dWb-u1-Qe0"/>
+                            <constraint firstItem="ZCJ-W1-lK2" firstAttribute="top" secondItem="k34-0Z-j9p" secondAttribute="top" type="default" id="eHx-M4-eI5"/>
                             <constraint firstItem="Vub-dl-4b5" firstAttribute="top" secondItem="Jmz-Da-UJQ" secondAttribute="top" constant="4" id="fwL-fC-hib"/>
                             <constraint firstAttribute="trailing" secondItem="Vub-dl-4b5" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="g1h-kC-EOW"/>
-                            <constraint firstAttribute="trailing" secondItem="za4-es-Pe9" secondAttribute="trailing" constant="82" id="hyC-jk-wEs"/>
                             <constraint firstAttribute="trailing" secondItem="7Kq-ie-x1J" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="kM2-Jl-Vpd"/>
-                            <constraint firstItem="0iN-Qv-XSf" firstAttribute="top" secondItem="C77-Qu-aaI" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="l9A-sc-xsa"/>
                             <constraint firstItem="BBh-Xf-hjp" firstAttribute="leading" secondItem="Jmz-Da-UJQ" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="lux-cR-2w6"/>
                             <constraint firstItem="C77-Qu-aaI" firstAttribute="centerX" secondItem="k34-0Z-j9p" secondAttribute="centerX" type="default" id="m06-U8-eoR"/>
                             <constraint firstItem="jyd-RH-j5P" firstAttribute="leading" secondItem="Jmz-Da-UJQ" secondAttribute="leading" constant="81" type="user" id="mG7-Vd-yks"/>
                             <constraint firstItem="ZCJ-W1-lK2" firstAttribute="baseline" secondItem="Hj4-aF-TYA" secondAttribute="baseline" type="default" id="mee-o8-PZf"/>
                             <constraint firstItem="cEF-V5-YGo" firstAttribute="top" secondItem="0iN-Qv-XSf" secondAttribute="top" type="default" id="mw6-QP-IlT"/>
+                            <constraint firstItem="Umw-Fd-8UR" firstAttribute="bottom" secondItem="C77-Qu-aaI" secondAttribute="bottom" type="default" id="oSt-3H-36U"/>
                             <constraint firstItem="cEF-V5-YGo" firstAttribute="baseline" secondItem="0iN-Qv-XSf" secondAttribute="baseline" type="default" id="qBS-ZP-0MM"/>
                             <constraint firstItem="9Gk-Ah-tBb" firstAttribute="centerX" secondItem="Nxc-CM-WgE" secondAttribute="centerX" type="default" id="qdk-wn-yCQ"/>
+                            <constraint firstItem="Umw-Fd-8UR" firstAttribute="bottom" secondItem="wPb-MH-8vB" secondAttribute="bottom" type="default" id="srn-nG-dzN"/>
+                            <constraint firstItem="bWB-8h-Ovo" firstAttribute="baseline" secondItem="U4S-VS-ygJ" secondAttribute="baseline" type="default" id="tfF-ZX-bnl"/>
+                            <constraint firstItem="ZCJ-W1-lK2" firstAttribute="top" secondItem="Hj4-aF-TYA" secondAttribute="top" type="default" id="ukw-t4-9V2"/>
                             <constraint firstItem="k34-0Z-j9p" firstAttribute="centerX" secondItem="9Gk-Ah-tBb" secondAttribute="centerX" type="default" id="voy-Sg-b7m"/>
                             <constraint firstItem="jyd-RH-j5P" firstAttribute="centerX" secondItem="ZCJ-W1-lK2" secondAttribute="centerX" type="default" id="wf7-KA-nVS"/>
                             <constraint firstItem="Vub-dl-4b5" firstAttribute="leading" secondItem="Jmz-Da-UJQ" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="xSo-BF-Ac6"/>
@@ -2138,194 +2264,6 @@
         <image name="searchpeople.png" width="320" height="325"/>
         <image name="weather_na@2x.png" width="312" height="312"/>
     </resources>
-    <classes>
-        <class className="CoreDataTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
-        </class>
-        <class className="ECSlidingViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ECSlidingViewController.h"/>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="YMAcademicCalendarDetailViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMAcademicCalendarDetailViewController.h"/>
-        </class>
-        <class className="YMBluebookDetailViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMBluebookDetailViewController.h"/>
-        </class>
-        <class className="YMBluebookFilterSelectionViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMBluebookFilterSelectionViewController.h"/>
-        </class>
-        <class className="YMBluebookFilterViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMBluebookFilterViewController.h"/>
-        </class>
-        <class className="YMBluebookSubjectCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMBluebookSubjectCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="code" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="happens" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="instructor" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="YMBluebookSubjectViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMBluebookSubjectViewController.h"/>
-        </class>
-        <class className="YMBluebookViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMBluebookViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-            </relationships>
-        </class>
-        <class className="YMCalendarViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMCalendarViewController.h"/>
-        </class>
-        <class className="YMDiningCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMDiningCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="crowdedness" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="location" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="special" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="YMDiningDetailViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMDiningDetailViewController.h"/>
-        </class>
-        <class className="YMDiningMenuViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMDiningMenuViewController.h"/>
-        </class>
-        <class className="YMDiningViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMDiningViewController.h"/>
-        </class>
-        <class className="YMHoursViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMHoursViewController.h"/>
-        </class>
-        <class className="YMLaundryCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMLaundryCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dryer" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dryerIcon" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="location" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="washer" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="washerIcon" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="YMLaundryDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMLaundryDetailCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="alert" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="machineID" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="min" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="status" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="time" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="YMLaundryDetailViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMLaundryDetailViewController.h"/>
-        </class>
-        <class className="YMLaundryViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMLaundryViewController.h"/>
-        </class>
-        <class className="YMMainViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMMainViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="condition" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="day1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="day2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="day3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="day4" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="day5" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="greeting" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="temp1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="temp2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="temp3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="temp4" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="temp5" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="weather" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="weather1" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="weather2" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="weather3" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="weather4" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="weather5" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="YMMapDetailView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMMapDetailView.h"/>
-            <relationships>
-                <relationship kind="outlet" name="primaryLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="secondIcon" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="secondLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="thirdIcon" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="thirdLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="YMMapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMMapViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="detailView" candidateClass="YMMapDetailView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-            </relationships>
-        </class>
-        <class className="YMMenuCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMMenuCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="icon" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="YMMenuViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMMenuViewController.h"/>
-        </class>
-        <class className="YMPathishCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMPathishCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dot" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="line" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="primary" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="secondary" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="YMPeopleDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMPeopleDetailViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="YMPeopleViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMPeopleViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="defaultBackground" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="YMPhonebookViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMPhonebookViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-            </relationships>
-        </class>
-        <class className="YMSettingsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMSettingsViewController.h"/>
-        </class>
-        <class className="YMSimpleCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMSimpleCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="YMSubtitleCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMSubtitleCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="primary" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="secondary" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

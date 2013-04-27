@@ -6,10 +6,16 @@
 //  Copyright (c) 2012 Danqing Liu. All rights reserved.
 //
 
+#import <CoreData/CoreData.h>
 #import "YMMapViewController.h"
 #import "ECSlidingViewController.h"
 #import "YMMenuViewController.h"
 #import "YMGlobalHelper.h"
+#import "YMTwoSubtitlesCell.h"
+#import "Place.h"
+#import "Abbreviation.h"
+#import "YMDatabaseHelper.h"
+#import "UIColor+YaleMobile.h"
 
 @interface YMMapViewController ()
 
@@ -66,6 +72,16 @@
     self.navigationController.view.layer.shadowOpacity = 0.75f;
     self.navigationController.view.layer.shadowRadius = 10.0f;
     self.navigationController.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    
+    self.tableView.hidden = YES;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    
+    if (!(self.database = [YMDatabaseHelper getManagedDocument])) {
+        [YMDatabaseHelper openDatabase:@"database" usingBlock:^(UIManagedDocument *document) {
+            self.database = document;
+            [YMDatabaseHelper setManagedDocumentTo:document];
+        }];
+    }
 }
 
 
@@ -125,7 +141,48 @@
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     [searchBar setShowsCancelButton:YES animated:YES];
-    
+    [self showOverlay];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    searchBar.text = @"";
+    [self hideKeyboard];
+    self.tableView.hidden = YES;
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self hideKeyboard];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    if (searchText.length == 0) {
+        [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(hideTableView) userInfo:nil repeats:NO];
+        [self showOverlay];
+    } else {
+        [self hideOverlay];
+        self.searchResults = [self searchForString:searchText];
+        [self.tableView reloadData];
+        self.tableView.hidden = NO;
+    }
+}
+
+- (void)hideTableView
+{
+    self.tableView.hidden = YES;
+}
+
+- (void)hideKeyboard
+{
+    [self hideOverlay];
+    [self.searchBar resignFirstResponder];
+    [self.searchBar setShowsCancelButton:NO animated:YES];
+}
+
+- (void)showOverlay
+{
     self.searchOverlay.alpha = 0;
     [self.view addSubview:self.searchOverlay];
     [UIView beginAnimations:@"FadeIn" context:nil];
@@ -134,32 +191,147 @@
     [UIView commitAnimations];
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    searchBar.text = @"";
-    [self hideKeyboard];
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    [self hideKeyboard];
-}
-
-- (void)hideKeyboard
+- (void)hideOverlay
 {
     [UIView beginAnimations:@"FadeOut" context:nil];
     [UIView setAnimationDuration:0.2];
     self.searchOverlay.alpha = 0;
     [UIView commitAnimations];
     [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(removeOverlay:) userInfo:nil repeats:NO];
-    
-    [self.searchBar resignFirstResponder];
-    [self.searchBar setShowsCancelButton:NO animated:YES];
 }
 
 - (void)removeOverlay:(NSTimer *)timer
 {
     [self.searchOverlay removeFromSuperview];
+}
+
+- (NSArray *)searchForString:(NSString *)searchString
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
+    NSFetchRequest *request2 = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
+    
+    NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
+    NSPredicate *filterPredicate = nil;
+    NSPredicate *filterPredicate2 = nil;
+    
+    if (searchString.length) {
+        filterPredicate = [NSPredicate predicateWithFormat:@"ANY abbrs.name =[cd] %@", searchString];
+        NSPredicate *p1 = [NSPredicate predicateWithFormat:@"abbrs.name CONTAINS[cd] %@", searchString];
+        NSPredicate *p2 = [NSPredicate predicateWithFormat:@"NONE abbrs.name =[cd] %@", searchString];  // this doesn't work if there are multiple abbrs.
+        NSArray *predicateArray = [[NSArray alloc] initWithObjects:p1, p2, nil];
+        filterPredicate2 = [NSCompoundPredicate andPredicateWithSubpredicates:predicateArray];
+    }
+    [request setPredicate:filterPredicate];
+    [request setSortDescriptors:sortDescriptors];
+    [request2 setPredicate:filterPredicate2];
+    [request2 setSortDescriptors:sortDescriptors];
+    
+    NSError *error = nil;
+    NSArray *match1 = [self.database.managedObjectContext executeFetchRequest:request error:&error];
+    NSArray *match2 = [self.database.managedObjectContext executeFetchRequest:request2 error:&error];
+    NSMutableArray *mutableMatch2 = [match2 mutableCopy];
+    
+    for (Place *p in match2) {
+        for (Place *q in match1) {
+            if (p == q) [mutableMatch2 removeObject:p];
+        }
+    }
+
+    NSArray *resultArray = [[NSArray alloc] initWithObjects:match1, mutableMatch2, nil];
+    
+    return resultArray;
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+    
+    MKPinAnnotationView *pinView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
+    if (!pinView) {
+        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
+        pinView.canShowCallout = YES;
+        pinView.animatesDrop = YES;
+    }
+    return pinView;
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (!self.searchResults) return 0;
+    if (section == 0) return ((NSArray *)[self.searchResults objectAtIndex:0]).count;
+    else return ((NSArray *)[self.searchResults objectAtIndex:1]).count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    YMTwoSubtitlesCell *cell = ((indexPath.section == 0 || ((NSArray *)[self.searchResults objectAtIndex:0]).count == 0) && indexPath.row == 0) ? (YMTwoSubtitlesCell *)[tableView dequeueReusableCellWithIdentifier:@"Map Top Cell"] : (YMTwoSubtitlesCell *)[tableView dequeueReusableCellWithIdentifier:@"Map Cell"];
+    
+    Place *place;
+    if (indexPath.section == 0) {
+        place = [((NSArray *)[self.searchResults objectAtIndex:0]) objectAtIndex:indexPath.row];
+        cell.name.textColor = [UIColor YMBluebookOrange];
+    } else {
+        place = [((NSArray *)[self.searchResults objectAtIndex:1]) objectAtIndex:indexPath.row];
+        cell.name.textColor = [UIColor YMTeal];
+    }
+    
+    cell.name.text = place.name;
+    cell.sub1.text = [NSString stringWithFormat:@"Address: %@", place.address];
+    
+    NSString *abbrs;
+    for (Abbreviation *abbr in place.abbrs) {
+        if (abbrs.length == 0) abbrs = abbr.name;
+        else abbrs = [abbrs stringByAppendingFormat:@", %@", abbr.name];
+    }
+    cell.sub2.text = [NSString stringWithFormat:@"Known as: %@", abbrs];
+    
+    if (((NSArray *)[self.searchResults objectAtIndex:0]).count + ((NSArray *)[self.searchResults objectAtIndex:1]).count == 1) {
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"shadowbg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)]];
+        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"shadowbg_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)]];
+    } else if ((indexPath.section == 0 || ((NSArray *)[self.searchResults objectAtIndex:0]).count == 0) && indexPath.row == 0) {
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_top.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 5, 20)]];
+        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_top_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 5, 20)]];
+    } else if ((indexPath.section == 1 && indexPath.row == ((NSArray *)[self.searchResults objectAtIndex:1]).count - 1) || (indexPath.section == 0 && indexPath.row == ((NSArray *)[self.searchResults objectAtIndex:0]).count - 1 && ((NSArray *)[self.searchResults objectAtIndex:1]).count == 0)) {
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_bottom.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
+        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_bottom_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
+    } else {
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_mid.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
+        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_mid_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
+    }
+    
+    cell.backgroundView.alpha = 0.9;
+    
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (((NSArray *)[self.searchResults objectAtIndex:0]).count + ((NSArray *)[self.searchResults objectAtIndex:1]).count == 1) {
+        return 90;
+    } else if (((indexPath.section == 0 || ((NSArray *)[self.searchResults objectAtIndex:0]).count == 0) && indexPath.row == 0) || (indexPath.section == 1 && indexPath.row == ((NSArray *)[self.searchResults objectAtIndex:1]).count - 1) || (indexPath.section == 0 && indexPath.row == ((NSArray *)[self.searchResults objectAtIndex:0]).count - 1 && ((NSArray *)[self.searchResults objectAtIndex:1]).count == 0)) {
+        return 80;
+    } else {
+        return 72;
+    }
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Navigation logic may go here. Create and push another view controller.
+    /*
+     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     // ...
+     // Pass the selected object to the new view controller.
+     [self.navigationController pushViewController:detailViewController animated:YES];
+     */
 }
 
 @end

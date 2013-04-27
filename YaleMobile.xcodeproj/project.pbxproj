@@ -123,6 +123,7 @@
 		244E8342169436DC001CDFBB /* tablebg_bottom_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 244E833E169436DC001CDFBB /* tablebg_bottom_highlight@2x.png */; };
 		244E8343169436DC001CDFBB /* tablebg_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 244E833F169436DC001CDFBB /* tablebg_bottom.png */; };
 		244E8344169436DC001CDFBB /* tablebg_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 244E8340169436DC001CDFBB /* tablebg_bottom@2x.png */; };
+		244F6781170DB87500029671 /* YMTwoSubtitlesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 244F6780170DB87500029671 /* YMTwoSubtitlesCell.m */; };
 		2454A8A51694436200552603 /* YMSubtitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2454A8A41694436200552603 /* YMSubtitleCell.m */; };
 		2454A8AD169449EB00552603 /* YMPathishCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2454A8AC169449EB00552603 /* YMPathishCell.m */; };
 		245685D916BD90D70010CA47 /* plaintablebg_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 245685D716BD90D70010CA47 /* plaintablebg_highlight.png */; };
@@ -145,6 +146,7 @@
 		24772A4A1698451C004B7D00 /* icon_address@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24772A481698451C004B7D00 /* icon_address@2x.png */; };
 		24772A5516984861004B7D00 /* icon_knownas.png in Resources */ = {isa = PBXBuildFile; fileRef = 24772A5316984861004B7D00 /* icon_knownas.png */; };
 		24772A5616984861004B7D00 /* icon_knownas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24772A5416984861004B7D00 /* icon_knownas@2x.png */; };
+		247CD0791716518700CC77C6 /* YMMapViewAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 247CD0781716518700CC77C6 /* YMMapViewAnnotation.m */; };
 		24875B3716BA1FBC00527D59 /* YMHoursViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24875B3616BA1FBC00527D59 /* YMHoursViewController.m */; };
 		24875B3B16BB462200527D59 /* YMDatabaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 24875B3A16BB462200527D59 /* YMDatabaseHelper.m */; };
 		24875B3E16BB488200527D59 /* Office+Initialize.m in Sources */ = {isa = PBXBuildFile; fileRef = 24875B3D16BB488200527D59 /* Office+Initialize.m */; };
@@ -429,6 +431,8 @@
 		244E833E169436DC001CDFBB /* tablebg_bottom_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tablebg_bottom_highlight@2x.png"; sourceTree = "<group>"; };
 		244E833F169436DC001CDFBB /* tablebg_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tablebg_bottom.png; sourceTree = "<group>"; };
 		244E8340169436DC001CDFBB /* tablebg_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tablebg_bottom@2x.png"; sourceTree = "<group>"; };
+		244F677F170DB87500029671 /* YMTwoSubtitlesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMTwoSubtitlesCell.h; sourceTree = "<group>"; };
+		244F6780170DB87500029671 /* YMTwoSubtitlesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMTwoSubtitlesCell.m; sourceTree = "<group>"; };
 		2454A8A31694436200552603 /* YMSubtitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMSubtitleCell.h; sourceTree = "<group>"; };
 		2454A8A41694436200552603 /* YMSubtitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMSubtitleCell.m; sourceTree = "<group>"; };
 		2454A8AB169449EB00552603 /* YMPathishCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMPathishCell.h; sourceTree = "<group>"; };
@@ -465,6 +469,8 @@
 		24772A481698451C004B7D00 /* icon_address@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_address@2x.png"; sourceTree = "<group>"; };
 		24772A5316984861004B7D00 /* icon_knownas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_knownas.png; sourceTree = "<group>"; };
 		24772A5416984861004B7D00 /* icon_knownas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_knownas@2x.png"; sourceTree = "<group>"; };
+		247CD0771716518700CC77C6 /* YMMapViewAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMMapViewAnnotation.h; sourceTree = "<group>"; };
+		247CD0781716518700CC77C6 /* YMMapViewAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMMapViewAnnotation.m; sourceTree = "<group>"; };
 		24875B3516BA1FBC00527D59 /* YMHoursViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMHoursViewController.h; sourceTree = "<group>"; };
 		24875B3616BA1FBC00527D59 /* YMHoursViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMHoursViewController.m; sourceTree = "<group>"; };
 		24875B3916BB462200527D59 /* YMDatabaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMDatabaseHelper.h; sourceTree = "<group>"; };
@@ -886,6 +892,8 @@
 				2416702E16B0BE3500A15F4D /* YMBluebookSubjectCell.m */,
 				24EEED8516C52316005098F6 /* YMDiningCell.h */,
 				24EEED8616C52316005098F6 /* YMDiningCell.m */,
+				244F677F170DB87500029671 /* YMTwoSubtitlesCell.h */,
+				244F6780170DB87500029671 /* YMTwoSubtitlesCell.m */,
 			);
 			name = "TableView Cells";
 			sourceTree = "<group>";
@@ -965,6 +973,8 @@
 			children = (
 				4E2F877B1610F95800891AB2 /* YMMapViewController.h */,
 				4E2F877C1610F95800891AB2 /* YMMapViewController.m */,
+				247CD0771716518700CC77C6 /* YMMapViewAnnotation.h */,
+				247CD0781716518700CC77C6 /* YMMapViewAnnotation.m */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -1627,6 +1637,8 @@
 				24265D67170D246200A80D2C /* Course.m in Sources */,
 				24265D6A170D246300A80D2C /* Place.m in Sources */,
 				24265D6D170D246300A80D2C /* Abbreviation.m in Sources */,
+				244F6781170DB87500029671 /* YMTwoSubtitlesCell.m in Sources */,
+				247CD0791716518700CC77C6 /* YMMapViewAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1705,15 +1717,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Danqing Liu (THK86RKB3Q)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Danqing Liu (THK86RKB3Q)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YaleMobile/YaleMobile-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "YaleMobile/YaleMobile-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1EB8AC81-7B57-4DBE-94C9-164ECB64EE31";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1EB8AC81-7B57-4DBE-94C9-164ECB64EE31";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = ../ldap/include;
 				WRAPPER_EXTENSION = app;
 			};
