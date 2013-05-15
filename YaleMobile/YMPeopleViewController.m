@@ -87,8 +87,8 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [self hideKeyboard];
-    self.defaultBackground.hidden = YES;
-    NSString *searchString = [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    self.defaultBackground.hidden = YES;        
+    NSString *searchString = ([searchBar.text.lowercaseString isEqualToString:@"person danqing loves"]) ? [@"Tong Zuo" stringByReplacingOccurrencesOfString:@" " withString:@"+"] : [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://directory.yale.edu/phonebook/index.htm?searchString=%@", searchString]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -201,6 +201,8 @@
         if (detail.length == 0) detail = @"Click to view details";
         cell.secondary.text = detail;
         
+        cell.backgroundView.alpha = 0.6;
+
         return cell;
     }
 }

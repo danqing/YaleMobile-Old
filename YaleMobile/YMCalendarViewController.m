@@ -116,6 +116,8 @@
         }
     }
     
+    cell.backgroundView.alpha = 0.6;
+    
     return cell;
 }
 

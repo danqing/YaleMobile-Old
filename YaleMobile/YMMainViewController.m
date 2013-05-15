@@ -19,7 +19,6 @@
 {
     [super viewDidLoad];
     self.name = @", Danqing";
-    
     [YMGlobalHelper setupUserDefaults];    
     [YMGlobalHelper addMenuButtonToController:self];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title.png"]];
@@ -37,8 +36,8 @@
     [YMGlobalHelper setupSlidingViewControllerForController:self];
     [YMServerCommunicator getWeatherForController:self usingBlock:^(NSArray *array) {
         NSDictionary *current = [array objectAtIndex:0];
-        self.temperature.text = [NSString stringWithFormat:@"%@°F",[current objectForKey:@"temp"]];
-        self.condition.text = [NSString stringWithFormat:@"It's %@ and", [current objectForKey:@"text"]];
+        self.temperature.text = ([[NSUserDefaults standardUserDefaults] boolForKey:@"Celsius"]) ? [NSString stringWithFormat:@"%@°C",[current objectForKey:@"temp"]] : [NSString stringWithFormat:@"%@°F",[current objectForKey:@"temp"]];
+        self.condition.text = [NSString stringWithFormat:@"%@ and", [current objectForKey:@"text"]];
         self.weather.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[current objectForKey:@"code"] integerValue]]];
         
         NSLog(@"code is %@", [current objectForKey:@"code"]);

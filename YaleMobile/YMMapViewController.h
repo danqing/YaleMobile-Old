@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Danqing Liu. All rights reserved.
 //
 
+@class YMMapViewAnnotation;
+
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
@@ -15,7 +17,6 @@
 
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
-@property (nonatomic, strong) IBOutlet YMMapDetailView *detailView;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) CLLocationManager *manager;
@@ -23,6 +24,9 @@
 @property (nonatomic, strong) UIButton *locate;
 @property (nonatomic) NSInteger locating;
 @property (nonatomic, strong) NSArray *searchResults;
+
+@property (nonatomic) BOOL zoomForAnnotation;
+@property (nonatomic, strong) YMMapViewAnnotation *annotation;
 
 @property (nonatomic, strong) UIManagedDocument *database;
 

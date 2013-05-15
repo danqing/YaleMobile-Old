@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface YMSettingsViewController : UITableViewController <UIGestureRecognizerDelegate>
+@interface YMSettingsViewController : UITableViewController <UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate>
+
+@property (nonatomic, strong) NSArray *settings;
+@property (nonatomic, strong) NSArray *abouts;
+@property (nonatomic) BOOL isAbout;
+
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 
 @end

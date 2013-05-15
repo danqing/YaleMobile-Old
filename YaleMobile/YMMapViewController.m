@@ -6,10 +6,13 @@
 //  Copyright (c) 2012 Danqing Liu. All rights reserved.
 //
 
+#define METERS_PER_MILE 1609
+
 #import <CoreData/CoreData.h>
 #import "YMMapViewController.h"
 #import "ECSlidingViewController.h"
 #import "YMMenuViewController.h"
+#import "YMMapViewAnnotation.h"
 #import "YMGlobalHelper.h"
 #import "YMTwoSubtitlesCell.h"
 #import "Place.h"
@@ -39,10 +42,7 @@
     self.searchOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 44, 320, 700)];
     self.searchOverlay.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"mapoverlay.png"]];
     
-    UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 22)];
-    [menu setBackgroundImage:[UIImage imageNamed:@"icon_menu"] forState:UIControlStateNormal];
-    [menu addTarget:self action:@selector(menu:) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:menu]];
+    [YMGlobalHelper addMenuButtonToController:self];
     
     UIButton *locate = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 27, 23)];
     [locate setBackgroundImage:[UIImage imageNamed:@"locate.png"] forState:UIControlStateNormal];
@@ -50,11 +50,8 @@
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:locate]];
     self.locate = locate;
     self.locating = 0;
-    
-    self.detailView.layer.shadowOpacity = 0.5f;
-    self.detailView.layer.shadowRadius = 3.0f;
-    self.detailView.layer.shadowColor = [UIColor lightGrayColor].CGColor;
-
+    self.zoomForAnnotation = NO;
+    self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -113,11 +110,35 @@
     }
 }
 
+- (void)updateMapView {    
+    if (self.mapView.annotations)
+        [self.mapView removeAnnotations:self.mapView.annotations];
+    
+    if (self.locating != 0)
+        self.mapView.showsUserLocation = YES;
+    
+    if (self.annotation) {
+        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(self.annotation.coordinate, 0.3*METERS_PER_MILE, 0.3*METERS_PER_MILE);
+        MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
+        self.zoomForAnnotation = YES;
+        [self.mapView setRegion:adjustedRegion animated:YES];
+    }
+}
+
 # pragma mark - mapview methods
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    if (self.annotation && self.zoomForAnnotation) {
+        [self.mapView addAnnotation:self.annotation];
+        [self.mapView selectAnnotation:self.annotation animated:YES];
+    }
+    self.zoomForAnnotation = NO;
+}
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    if (self.locating == 1) {
+    if (self.locating == 1 && userLocation.location.coordinate.latitude != 0) {
         [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
         self.locating = 2;
     }
@@ -141,7 +162,16 @@
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     [searchBar setShowsCancelButton:YES animated:YES];
-    [self showOverlay];
+    if (searchBar.text.length) {
+        self.searchResults = [self searchForString:searchBar.text];
+        [self.tableView reloadData];
+        self.tableView.alpha = 0;
+        self.tableView.hidden = NO;
+        [UIView animateWithDuration:0.2 delay:0.1 options:nil animations:^{
+            self.tableView.alpha = 1;
+        } completion:nil];
+    } else
+        [self showOverlay];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -325,13 +355,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [self hideTableView];
+    [self hideKeyboard];
+    self.annotation = [[YMMapViewAnnotation alloc] initWithPlace:[[self.searchResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+    [self updateMapView];
 }
 
 @end

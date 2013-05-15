@@ -112,6 +112,8 @@
         frame.size.height = size.height;
         cell.primary.frame = frame;
         
+        cell.backgroundView.alpha = 0.6;
+        
         return cell;
     }
 }

@@ -12,6 +12,7 @@
 #import "YMSimpleCell.h"
 #import "YMLaundryDetailCell.h"
 #import "UIColor+YaleMobile.h"
+#import "MBProgressHUD.h"
 
 @interface YMLaundryDetailViewController ()
 
@@ -69,6 +70,28 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (NSInteger)getNumberOfRowsForSection:(NSInteger)section
+{
+    if (section == 0)
+        return (self.washers != nil) ? ([[self.washers objectAtIndex:1] integerValue] + [[self.washers objectAtIndex:2] integerValue] + 1) : 0;
+    else
+        return (self.dryers != nil) ? ([[self.dryers objectAtIndex:1] integerValue] + [[self.dryers objectAtIndex:2] integerValue] + 1) : 0;
+}
+
+- (void)alertViewCallback
+{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+- (UILocalNotification *)correspondingNotification:(NSString *)machineID
+{
+    for (UILocalNotification *not in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
+        if ([[not.userInfo objectForKey:@"room"] isEqualToString:self.roomCode] && [[not.userInfo objectForKey:@"machine"] isEqualToString:machineID])
+            return not;
+    }
+    return nil;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -78,10 +101,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0)
-        return (self.washers != nil) ? ([[self.washers objectAtIndex:1] integerValue] + [[self.washers objectAtIndex:2] integerValue] + 1) : 0;
-    else
-        return (self.dryers != nil) ? ([[self.dryers objectAtIndex:1] integerValue] + [[self.dryers objectAtIndex:2] integerValue] + 1) : 0;
+    return [self getNumberOfRowsForSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,23 +113,24 @@
     }
     
     YMLaundryDetailCell *cell;
-    cell = (indexPath.row == 1) ? (YMLaundryDetailCell *)[tableView dequeueReusableCellWithIdentifier:@"Laundry Detail Cell Top"] : (YMLaundryDetailCell *)[tableView dequeueReusableCellWithIdentifier:@"Laundry Detail Cell Top"];
+    cell = (indexPath.row == 1) ? (YMLaundryDetailCell *)[tableView dequeueReusableCellWithIdentifier:@"Laundry Detail Cell Top"] : (YMLaundryDetailCell *)[tableView dequeueReusableCellWithIdentifier:@"Laundry Detail Cell"];
     
     NSUInteger index = indexPath.section * [[self.washers objectAtIndex:1] integerValue] + indexPath.row - 1;
     
-    cell.machineID.text = [NSString stringWithFormat:@"#%@", [[(NSDictionary *)[self.machineStatuses objectAtIndex:index] allKeys] objectAtIndex:0]];
+    NSString *machineID = [NSString stringWithFormat:@"%@", [[(NSDictionary *)[self.machineStatuses objectAtIndex:index] allKeys] objectAtIndex:0]];
+    cell.machineID.text = [NSString stringWithFormat:@"#%@", machineID];
     NSString *status = [[(NSDictionary *)[self.machineStatuses objectAtIndex:index] allValues] objectAtIndex:0];
     
-    [cell.time setHidden:true]; [cell.min setHidden:true]; [cell.status setHidden:false];
+    [cell.time setHidden:true]; [cell.min setHidden:true]; [cell.status setHidden:false]; [cell.alert setHidden:YES]; cell.userInteractionEnabled = NO;
     
     if ([status rangeOfString:@"available"].location != NSNotFound) {
         cell.status.text = @"Available";
-        cell.status.textColor = [UIColor colorWithRed:0.5 green:0.85 blue:0.2 alpha:1];
+        cell.status.textColor = [UIColor YMGreen];
     } else if ([status rangeOfString:@"cycle has ended"].location != NSNotFound) {
-        cell.status.text = @"Cycle has ended";
-        cell.status.textColor = [UIColor YMLightOrange];
+        cell.status.text = @"Cycle Ended";
+        cell.status.textColor = [UIColor YMLaundryOrange];
     } else if ([status rangeOfString:@"extended cycle"].location != NSNotFound) {
-        cell.status.text = @"Running\nExtended cycle";
+        cell.status.text = @"Extended Cycle";
         cell.status.textColor = [UIColor colorWithRed:229/255.0 green:73/255.0 blue:45/255.0 alpha:1];
     } else if ([status rangeOfString:@"est. time"].location != NSNotFound) {
         cell.status.text = @"minutes left";
@@ -120,6 +141,11 @@
         [cell.time setHidden:false];
         [cell.min setHidden:false];
         [cell.status setHidden:true];
+        if (time.integerValue > 5) {
+            [cell.alert setHidden:NO];
+            cell.userInteractionEnabled = YES;
+            cell.alert.image = ([self correspondingNotification:machineID] != nil) ? [UIImage imageNamed:@"alert_active.png"] : [UIImage imageNamed:@"alert.png"];
+        }
     } else if ([status rangeOfString:@"out of service"].location != NSNotFound) {
         cell.status.text = @"Out of Service";
         cell.status.textColor = [UIColor grayColor];
@@ -146,29 +172,63 @@
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_mid_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
     }
     
+    cell.backgroundView.alpha = 0.6;
+    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) return 38;
-    else if (indexPath.row == 1) return 66;
+    else if ([self getNumberOfRowsForSection:indexPath.section] == 2 && indexPath.row == 1) return 64;
+    else if (indexPath.row == 1) return 56;
     else if ((indexPath.section == 0 && indexPath.row == [[self.washers objectAtIndex:1] integerValue] + [[self.washers objectAtIndex:2] integerValue]) ||
-             (indexPath.section == 1 && indexPath.row == [[self.dryers objectAtIndex:1] integerValue] + [[self.dryers objectAtIndex:2] integerValue])) return 64;
-    else return 56;
+             (indexPath.section == 1 && indexPath.row == [[self.dryers objectAtIndex:1] integerValue] + [[self.dryers objectAtIndex:2] integerValue])) return 54;
+    else return 46;
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    NSUInteger index = indexPath.section * [[self.washers objectAtIndex:1] integerValue] + indexPath.row - 1;
+    NSString *machineID = [NSString stringWithFormat:@"%@", [[(NSDictionary *)[self.machineStatuses objectAtIndex:index] allKeys] objectAtIndex:0]];
+    
+    UILocalNotification *not = [self correspondingNotification:machineID];
+    if (not != nil) {
+        [[UIApplication sharedApplication] cancelLocalNotification:not];
+        NSArray* rowsToReload = [NSArray arrayWithObject:indexPath];
+        [tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationFade];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = [NSString stringWithFormat:@"Alert cancelled for machine %@", machineID];
+        hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(alertViewCallback) userInfo:nil repeats:NO];
+        return;
+    }
+    
+    NSString *status = [[(NSDictionary *)[self.machineStatuses objectAtIndex:index] allValues] objectAtIndex:0];
+    NSInteger time = [[status stringByReplacingOccurrencesOfString:@"est. time remaining" withString:@""] stringByReplacingOccurrencesOfString:@"min" withString:@""].integerValue;
+    NSInteger timeInSeconds = (time - 5) * 60;
+    
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:timeInSeconds];
+    notification.timeZone = [NSTimeZone defaultTimeZone];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.roomCode, @"room", machineID, @"machine", nil];
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    notification.userInfo = dict;
+    notification.alertBody = @"Your laundry machine will finish running in 5 minutes. It's time to go pick up your laundry!";
+    notification.alertAction = nil;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    NSArray* rowsToReload = [NSArray arrayWithObject:indexPath];
+    [tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationFade];
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = [NSString stringWithFormat:@"Alert set for machine %@", machineID];
+    hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(alertViewCallback) userInfo:nil repeats:NO];
 }
 
 @end

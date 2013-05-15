@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YMHoursViewController : UITableViewController
+@interface YMHoursViewController : UITableViewController <UIGestureRecognizerDelegate>
+
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
+@property (nonatomic, strong) NSArray *types;
 
 @end

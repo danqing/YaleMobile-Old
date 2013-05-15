@@ -59,17 +59,6 @@
 
 - (void)updateTableHeader
 {
-    /*UIImageView *header = [[UIImageView alloc] initWithFrame:CGRectMake(32, 18, 266, 28)];
-    NSString *headerString = [self.data valueForKey:@"Name"];
-    UIFont *headerFont = [UIFont fontWithName:@"HelveticaNeue" size:20];
-    CGSize headerSize = [headerString sizeWithFont:headerFont constrainedToSize:CGSizeMake(266, 1000)];
-    CGRect headerFrame = header.frame;
-    headerFrame.size.height = headerSize.height;
-    header.frame = headerFrame;
-    UIImage *interior = [UIImage imageWithInteriorShadowAndString:headerString font:headerFont textColor:[UIColor colorWithRed:38/255.0 green:120/255.0 blue:158/255.0 alpha:1] size:header.bounds.size];
-    UIImage *image = [UIImage imageWithUpwardShadowAndImage:interior];
-    header.image = image;*/
-    
     UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(28, 18, 266, 28)];
     NSString *headerString = [self.data valueForKey:@"Name"];
     UIFont *headerFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:19];
@@ -96,16 +85,6 @@
     
     if ([subheaderString isEqualToString:@""]) subheaderString = @"Yale University";
     
-    /*UIImageView *subheader = [[UIImageView alloc] initWithFrame:CGRectMake(32, 20 + header.frame.size.height, 260, 28)];
-    UIFont *subheaderFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
-    CGSize subheaderSize = [subheaderString sizeWithFont:subheaderFont constrainedToSize:CGSizeMake(266, 1000)];
-    CGRect subheaderFrame = subheader.frame;
-    subheaderFrame.size.height = subheaderSize.height;
-    subheader.frame = subheaderFrame;
-    UIImage *subinterior = [UIImage imageWithInteriorShadowAndString:subheaderString font:subheaderFont textColor:[UIColor colorWithRed:131/255.0 green:131/255.0 blue:150/255.0 alpha:1] size:subheader.bounds.size];
-    UIImage *subimage = [UIImage imageWithUpwardShadowAndImage:subinterior];
-    subheader.image = subimage;*/
-    
     UILabel *subheader = [[UILabel alloc] initWithFrame:CGRectMake(28, 22 + header.frame.size.height, 260, 28)];
     UIFont *subheaderFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
     CGSize subheaderSize = [subheaderString sizeWithFont:subheaderFont constrainedToSize:CGSizeMake(266, 1000)];
@@ -120,17 +99,7 @@
     
     UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 25 + header.frame.size.height + subheader.frame.size.height)];
 
-    //UIEdgeInsets insets = UIEdgeInsetsMake(20, 10, 30, 10);
-    //UIImage *background = [[UIImage imageNamed:@"tablebg_papertop.png"] resizableImageWithCapInsets:insets];
-    //[containerView setBackgroundColor:[UIColor colorWithPatternImage:background]];
     [containerView setBackgroundColor:[UIColor clearColor]];
-    
-    /*UIImageView *divider = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"divider.png"]];
-    CGRect dividerFrame = divider.frame;
-    dividerFrame.origin.x = 20;
-    dividerFrame.origin.y = 38 + header.frame.size.height + subheader.frame.size.height;
-    divider.frame = dividerFrame;
-    divider.alpha = 0.2;*/
     
     [containerView addSubview:header];
     [containerView addSubview:subheader];
@@ -163,7 +132,14 @@
 
 - (void)createActionSheetWithNumber:(NSString *)number
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Do you want to call %@? For undergraduate this is the number of dorm landline, which is usually not set up.", number] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"Call %@", number], nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Do you want to call %@? For undergraduate this is the number of dorm landline, which is usually not set up.", number] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"Call %@", number], @"Copy to Clipboard", nil];
+    actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [actionSheet showInView:self.view];
+}
+
+- (void)createActionSheetWithString:(NSString *)string
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Copy to Clipboard", nil];
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
     [actionSheet showInView:self.view];
 }
@@ -219,12 +195,7 @@
     
     cell.userInteractionEnabled = ([title isEqualToString:@"Email"] || [title isEqualToString:@"Phone"]) ? YES : NO;
     
-    /*
-    cell.primary.shadowColor = [UIColor whiteColor];
-    cell.primary.shadowOffset = CGSizeMake(0, 1);
-    cell.secondary.shadowColor = [UIColor whiteColor];
-    cell.secondary.shadowOffset = CGSizeMake(0, 1);
-    */
+    cell.backgroundView.alpha = 0.6;
     
     return cell;
 }

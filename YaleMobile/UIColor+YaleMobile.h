@@ -20,5 +20,6 @@
 + (UIColor *)YMRed;
 + (UIColor *)YMGreen;
 + (UIColor *)YMBluebookBlue;
++ (UIColor *)YMLaundryOrange;
 
 @end

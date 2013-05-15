@@ -55,4 +55,14 @@
     return [UIColor colorWithRed:120/255.0 green:168/255.0 blue:193/255.0 alpha:1];
 }
 
++ (UIColor *)YMGreen
+{
+    return [UIColor colorWithRed:0/255.0 green:166/255.0 blue:81/255.0 alpha:1];
+}
+
++ (UIColor *)YMLaundryOrange
+{
+    return [UIColor colorWithRed:247/255.0 green:148/255.0 blue:29/255.0 alpha:1];
+}
+
 @end

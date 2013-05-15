@@ -13,7 +13,7 @@
 
 @interface YMMapViewAnnotation : NSObject <MKAnnotation>
 
-+ (YMMapViewAnnotation *)annotationForPlace:(Place *)place;
+- (YMMapViewAnnotation *)initWithPlace:(Place *)place;
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy, readonly) NSString *title;

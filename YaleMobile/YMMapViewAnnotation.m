@@ -11,11 +11,15 @@
 
 @implementation YMMapViewAnnotation
 
-+ (YMMapViewAnnotation *)annotationForPlace:(Place *)place
+- (YMMapViewAnnotation *)initWithPlace:(Place *)place;
 {
-    //YMMapViewAnnotation *annotation = [[YMMapViewAnnotation alloc] init];
-    //annotation.
+    self = [super init];
+    if (self != nil){
+        _coordinate = CLLocationCoordinate2DMake([place.x doubleValue], [place.y doubleValue]);
+        _title = place.name;
+        _subtitle = place.address;
+    }
+    return self;
 }
-
 
 @end
