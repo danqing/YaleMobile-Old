@@ -167,6 +167,10 @@
 		248ECD2816B2275700A933B2 /* divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248ECD2616B2275700A933B2 /* divider@2x.png */; };
 		248ECD2B16B2324C00A933B2 /* bgnight.png in Resources */ = {isa = PBXBuildFile; fileRef = 248ECD2916B2324C00A933B2 /* bgnight.png */; };
 		248ECD2E16B239EE00A933B2 /* bgnight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248ECD2D16B239EE00A933B2 /* bgnight@2x.png */; };
+		249D3969174532600053B4A2 /* YMShuttleSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 249D3968174532600053B4A2 /* YMShuttleSelectionViewController.m */; };
+		249D396C174565280053B4A2 /* YMSettingsModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 249D396B174565280053B4A2 /* YMSettingsModalViewController.m */; };
+		249D3973174587160053B4A2 /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 249D3971174587160053B4A2 /* cancel@2x.png */; };
+		249D3974174587160053B4A2 /* confirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 249D3972174587160053B4A2 /* confirm@2x.png */; };
 		249D445716F2A326006BFFAB /* Phonebook Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 249D445616F2A326006BFFAB /* Phonebook Cell.xib */; };
 		24A1EE5616869DA900853739 /* YMMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A1EE5516869DA900853739 /* YMMenuCell.m */; };
 		24A3582416A316740082D4D5 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A3581F16A316740082D4D5 /* TFHpple.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -502,6 +506,12 @@
 		248ECD2616B2275700A933B2 /* divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "divider@2x.png"; sourceTree = "<group>"; };
 		248ECD2916B2324C00A933B2 /* bgnight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgnight.png; sourceTree = "<group>"; };
 		248ECD2D16B239EE00A933B2 /* bgnight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgnight@2x.png"; sourceTree = "<group>"; };
+		249D3967174532600053B4A2 /* YMShuttleSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMShuttleSelectionViewController.h; sourceTree = "<group>"; };
+		249D3968174532600053B4A2 /* YMShuttleSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMShuttleSelectionViewController.m; sourceTree = "<group>"; };
+		249D396A174565280053B4A2 /* YMSettingsModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMSettingsModalViewController.h; sourceTree = "<group>"; };
+		249D396B174565280053B4A2 /* YMSettingsModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMSettingsModalViewController.m; sourceTree = "<group>"; };
+		249D3971174587160053B4A2 /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@2x.png"; sourceTree = "<group>"; };
+		249D3972174587160053B4A2 /* confirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confirm@2x.png"; sourceTree = "<group>"; };
 		249D445616F2A326006BFFAB /* Phonebook Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Phonebook Cell.xib"; sourceTree = "<group>"; };
 		24A1EE5416869DA900853739 /* YMMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMMenuCell.h; sourceTree = "<group>"; };
 		24A1EE5516869DA900853739 /* YMMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMMenuCell.m; sourceTree = "<group>"; };
@@ -807,6 +817,8 @@
 		2449EF641693318D00B950CB /* Navbar Items */ = {
 			isa = PBXGroup;
 			children = (
+				249D3971174587160053B4A2 /* cancel@2x.png */,
+				249D3972174587160053B4A2 /* confirm@2x.png */,
 				242A13A91691B4DE005C8538 /* title.png */,
 				242A13AA1691B4DE005C8538 /* title@2x.png */,
 				242A13951691A1C2005C8538 /* nav.png */,
@@ -1200,6 +1212,8 @@
 			children = (
 				4E82F355168C9EB0003C1212 /* YMShuttleViewController.h */,
 				4E82F356168C9EB0003C1212 /* YMShuttleViewController.m */,
+				249D3967174532600053B4A2 /* YMShuttleSelectionViewController.h */,
+				249D3968174532600053B4A2 /* YMShuttleSelectionViewController.m */,
 			);
 			name = Shuttle;
 			sourceTree = "<group>";
@@ -1211,6 +1225,8 @@
 				4E82F35A168C9EDD003C1212 /* YMSettingsViewController.m */,
 				243F873F17419343001A6688 /* YMSettingsDetailViewController.h */,
 				243F874017419343001A6688 /* YMSettingsDetailViewController.m */,
+				249D396A174565280053B4A2 /* YMSettingsModalViewController.h */,
+				249D396B174565280053B4A2 /* YMSettingsModalViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1599,6 +1615,8 @@
 				245C6D4217440AD5009B372C /* alert@2x.png in Resources */,
 				245C6D4517440D6C009B372C /* alert_active.png in Resources */,
 				245C6D4617440D6C009B372C /* alert_active@2x.png in Resources */,
+				249D3973174587160053B4A2 /* cancel@2x.png in Resources */,
+				249D3974174587160053B4A2 /* confirm@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1675,6 +1693,8 @@
 				247CD0791716518700CC77C6 /* YMMapViewAnnotation.m in Sources */,
 				24AF4A561740897700DC3366 /* YMHoursDetailViewController.m in Sources */,
 				243F874117419343001A6688 /* YMSettingsDetailViewController.m in Sources */,
+				249D3969174532600053B4A2 /* YMShuttleSelectionViewController.m in Sources */,
+				249D396C174565280053B4A2 /* YMSettingsModalViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

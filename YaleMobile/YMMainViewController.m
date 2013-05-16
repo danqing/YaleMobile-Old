@@ -18,7 +18,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.name = @", Danqing";
+    NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"Name"];
+    self.name = (name) ? [NSString stringWithFormat:@", %@", name] : @"";
     [YMGlobalHelper setupUserDefaults];    
     [YMGlobalHelper addMenuButtonToController:self];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title.png"]];

@@ -70,13 +70,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
 {
     UIView *cell = [gestureRecognizer view];
     CGPoint translation = [gestureRecognizer translationInView:[cell superview]];
     if (fabsf(translation.x) > fabsf(translation.y)) return YES;
     return NO;
-}*/
+}
 
 - (void)menu:(id)sender
 {

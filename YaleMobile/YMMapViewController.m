@@ -59,17 +59,17 @@
         self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
     }
     
+    self.navigationController.view.layer.shadowOpacity = 0.75f;
+    self.navigationController.view.layer.shadowRadius = 10.0f;
+    self.navigationController.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    
     CLLocationCoordinate2D zoomLocation;
     zoomLocation.latitude = 41.3123;
     zoomLocation.longitude = -72.9281;
     MKCoordinateSpan span = MKCoordinateSpanMake(0.02, 0.02);
     MKCoordinateRegion region = MKCoordinateRegionMake(zoomLocation, span);
     [self.mapView setRegion:region animated:YES];
-    
-    self.navigationController.view.layer.shadowOpacity = 0.75f;
-    self.navigationController.view.layer.shadowRadius = 10.0f;
-    self.navigationController.view.layer.shadowColor = [UIColor blackColor].CGColor;
-    
+        
     self.tableView.hidden = YES;
     self.tableView.backgroundColor = [UIColor clearColor];
     

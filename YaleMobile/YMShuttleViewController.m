@@ -9,6 +9,9 @@
 // Yale = 132
 
 #import "YMShuttleViewController.h"
+#import "YMGlobalHelper.h"
+#import "ECSlidingViewController.h"
+#import "YMMenuViewController.h"
 
 @interface YMShuttleViewController ()
 
@@ -28,13 +31,49 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [YMGlobalHelper addMenuButtonToController:self];
+    
+    UIButton *settings = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 25)];
+    [settings setBackgroundImage:[UIImage imageNamed:@"settings.png"] forState:UIControlStateNormal];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:settings]];
+    [settings addTarget:self action:@selector(settings:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (![self.slidingViewController.underLeftViewController isKindOfClass:[YMMenuViewController class]]) {
+        self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
+    }
+    
+    self.navigationController.view.layer.shadowOpacity = 0.75f;
+    self.navigationController.view.layer.shadowRadius = 10.0f;
+    self.navigationController.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    
+    [YMGlobalHelper setupRightSlidingViewControllerForController:self withRightController:[UINavigationController class] named:@"Shuttle Selection"];
+    
+    CLLocationCoordinate2D zoomLocation;
+    zoomLocation.latitude = 41.3123;
+    zoomLocation.longitude = -72.9281;
+    MKCoordinateSpan span = MKCoordinateSpanMake(0.02, 0.02);
+    MKCoordinateRegion region = MKCoordinateRegionMake(zoomLocation, span);
+    [self.mapView setRegion:region animated:YES];    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)menu:(id)sender
+{
+    [YMGlobalHelper setupMenuButtonForController:self];
+}
+
+- (void)settings:(id)sender
+{
+    self.slidingViewController.anchorLeftRevealAmount = 280.0f;
+    [self.slidingViewController anchorTopViewTo:ECLeft];
 }
 
 @end

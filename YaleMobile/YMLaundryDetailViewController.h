@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YMLaundryDetailViewController : UITableViewController
+@interface YMLaundryDetailViewController : UITableViewController <UIActionSheetDelegate>
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSArray *washers;
 @property (nonatomic, strong) NSArray *dryers;
 @property (nonatomic, strong) NSArray *machineStatuses;
 @property (nonatomic, strong) NSString *roomCode;
+
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 
 @end

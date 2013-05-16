@@ -81,6 +81,7 @@
 - (void)alertViewCallback
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (UILocalNotification *)correspondingNotification:(NSString *)machineID
@@ -191,16 +192,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.selectedIndexPath = indexPath;
+
     NSUInteger index = indexPath.section * [[self.washers objectAtIndex:1] integerValue] + indexPath.row - 1;
     NSString *machineID = [NSString stringWithFormat:@"%@", [[(NSDictionary *)[self.machineStatuses objectAtIndex:index] allKeys] objectAtIndex:0]];
     
     UILocalNotification *not = [self correspondingNotification:machineID];
     if (not != nil) {
         [[UIApplication sharedApplication] cancelLocalNotification:not];
-        NSArray* rowsToReload = [NSArray arrayWithObject:indexPath];
-        [tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationFade];
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         hud.labelText = [NSString stringWithFormat:@"Alert cancelled for machine %@", machineID];
         hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
@@ -221,8 +222,6 @@
     notification.alertBody = @"Your laundry machine will finish running in 5 minutes. It's time to go pick up your laundry!";
     notification.alertAction = nil;
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    NSArray* rowsToReload = [NSArray arrayWithObject:indexPath];
-    [tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationFade];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeText;

@@ -10,6 +10,7 @@
 #import "ECSlidingViewController.h"
 #import "YMGlobalHelper.h"
 #import "YMSettingsDetailViewController.h"
+#import "YMSettingsModalViewController.h"
 
 @interface YMSettingsViewController ()
 
@@ -40,7 +41,7 @@
 {
     [YMGlobalHelper setupSlidingViewControllerForController:self];
     if (self.selectedIndexPath) {
-        [self.tableView deselectRowAtIndexPath:self.selectedIndexPath animated:YES];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
         self.selectedIndexPath = nil;
     }
 }
@@ -94,6 +95,22 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)createActionSheetForWeather
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Choose temperature unit"] delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Celsius", @"Fahrenheit", nil];
+    actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Celsius"])
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Celsius"];
+    else
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Celsius"];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -115,6 +132,7 @@
             cell = (YMSubtitleCell *)[tableView dequeueReusableCellWithIdentifier:@"Settings Subtitle Cell 1"];
             cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_top.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 5, 20)]];
             cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_top_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 5, 20)]];
+            cell.secondary.text = ([[NSUserDefaults standardUserDefaults] objectForKey:@"Name"]) ? [[NSUserDefaults standardUserDefaults] objectForKey:@"Name"] : @"Not set";
         } else if (indexPath.row == self.settings.count - 1) {
             cell = (YMSubtitleCell *)[tableView dequeueReusableCellWithIdentifier:@"Settings Subtitle Cell 2"];
             cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_bottom.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
@@ -174,7 +192,11 @@
 {
     self.selectedIndexPath = indexPath;
     if (indexPath.section == 0) {
-        
+        if (indexPath.row == 0) {
+            [self performSegueWithIdentifier:@"Settings Name Segue" sender:self];
+        } else {
+            [self createActionSheetForWeather];
+        }
     } else {
         if (indexPath.row == 1) {
             self.isAbout = YES;
