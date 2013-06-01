@@ -145,8 +145,10 @@
 		245C6D4217440AD5009B372C /* alert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 245C6D4017440AD5009B372C /* alert@2x.png */; };
 		245C6D4517440D6C009B372C /* alert_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 245C6D4317440D6C009B372C /* alert_active.png */; };
 		245C6D4617440D6C009B372C /* alert_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 245C6D4417440D6C009B372C /* alert_active@2x.png */; };
+		2463ADEF1745FC2200AB2B67 /* YMShuttleSelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2463ADEE1745FC2200AB2B67 /* YMShuttleSelectionCell.m */; };
+		2463ADF4174607B400AB2B67 /* Retail.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2463ADF3174607B400AB2B67 /* Retail.plist */; };
+		2463ADF7174608A400AB2B67 /* YMHoursListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2463ADF6174608A400AB2B67 /* YMHoursListViewController.m */; };
 		24772A421698202E004B7D00 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 24772A411698202E004B7D00 /* MBProgressHUD.m */; };
-		24772A4616982975004B7D00 /* YMMapDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24772A4516982975004B7D00 /* YMMapDetailView.m */; };
 		24772A491698451C004B7D00 /* icon_address.png in Resources */ = {isa = PBXBuildFile; fileRef = 24772A471698451C004B7D00 /* icon_address.png */; };
 		24772A4A1698451C004B7D00 /* icon_address@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24772A481698451C004B7D00 /* icon_address@2x.png */; };
 		24772A5516984861004B7D00 /* icon_knownas.png in Resources */ = {isa = PBXBuildFile; fileRef = 24772A5316984861004B7D00 /* icon_knownas.png */; };
@@ -477,10 +479,13 @@
 		245C6D4017440AD5009B372C /* alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert@2x.png"; sourceTree = "<group>"; };
 		245C6D4317440D6C009B372C /* alert_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alert_active.png; sourceTree = "<group>"; };
 		245C6D4417440D6C009B372C /* alert_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert_active@2x.png"; sourceTree = "<group>"; };
+		2463ADED1745FC2200AB2B67 /* YMShuttleSelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMShuttleSelectionCell.h; sourceTree = "<group>"; };
+		2463ADEE1745FC2200AB2B67 /* YMShuttleSelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMShuttleSelectionCell.m; sourceTree = "<group>"; };
+		2463ADF3174607B400AB2B67 /* Retail.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Retail.plist; sourceTree = "<group>"; };
+		2463ADF5174608A400AB2B67 /* YMHoursListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMHoursListViewController.h; sourceTree = "<group>"; };
+		2463ADF6174608A400AB2B67 /* YMHoursListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMHoursListViewController.m; sourceTree = "<group>"; };
 		24772A401698202E004B7D00 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		24772A411698202E004B7D00 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		24772A4416982975004B7D00 /* YMMapDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMMapDetailView.h; sourceTree = "<group>"; };
-		24772A4516982975004B7D00 /* YMMapDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMMapDetailView.m; sourceTree = "<group>"; };
 		24772A471698451C004B7D00 /* icon_address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_address.png; sourceTree = "<group>"; };
 		24772A481698451C004B7D00 /* icon_address@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_address@2x.png"; sourceTree = "<group>"; };
 		24772A5316984861004B7D00 /* icon_knownas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_knownas.png; sourceTree = "<group>"; };
@@ -727,8 +732,6 @@
 				24875B3A16BB462200527D59 /* YMDatabaseHelper.m */,
 				24AC3B65168947BD004DEFC0 /* YMServerCommunicator.h */,
 				24AC3B66168947BD004DEFC0 /* YMServerCommunicator.m */,
-				24772A4416982975004B7D00 /* YMMapDetailView.h */,
-				24772A4516982975004B7D00 /* YMMapDetailView.m */,
 				24A3581D16A316740082D4D5 /* Hpple */,
 				24E4C4FA16D6ECBD00D1698A /* UIColor+YaleMobile.h */,
 				24E4C4FB16D6ECBD00D1698A /* UIColor+YaleMobile.m */,
@@ -921,6 +924,8 @@
 			children = (
 				24875B3516BA1FBC00527D59 /* YMHoursViewController.h */,
 				24875B3616BA1FBC00527D59 /* YMHoursViewController.m */,
+				2463ADF5174608A400AB2B67 /* YMHoursListViewController.h */,
+				2463ADF6174608A400AB2B67 /* YMHoursListViewController.m */,
 				24AF4A541740897700DC3366 /* YMHoursDetailViewController.h */,
 				24AF4A551740897700DC3366 /* YMHoursDetailViewController.m */,
 			);
@@ -948,6 +953,8 @@
 				24EEED8616C52316005098F6 /* YMDiningCell.m */,
 				244F677F170DB87500029671 /* YMTwoSubtitlesCell.h */,
 				244F6780170DB87500029671 /* YMTwoSubtitlesCell.m */,
+				2463ADED1745FC2200AB2B67 /* YMShuttleSelectionCell.h */,
+				2463ADEE1745FC2200AB2B67 /* YMShuttleSelectionCell.m */,
 			);
 			name = "TableView Cells";
 			sourceTree = "<group>";
@@ -1162,6 +1169,7 @@
 				4E2F8795161136DE00891AB2 /* Bluebook.plist */,
 				24058E3C1696EC25007111EB /* Laundry.plist */,
 				24E4B99716C96F5900D2AA70 /* Laundry URL.plist */,
+				2463ADF3174607B400AB2B67 /* Retail.plist */,
 			);
 			name = "Data Source";
 			sourceTree = "<group>";
@@ -1617,6 +1625,7 @@
 				245C6D4617440D6C009B372C /* alert_active@2x.png in Resources */,
 				249D3973174587160053B4A2 /* cancel@2x.png in Resources */,
 				249D3974174587160053B4A2 /* confirm@2x.png in Resources */,
+				2463ADF4174607B400AB2B67 /* Retail.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1656,7 +1665,6 @@
 				24058E331696E1CF007111EB /* YMLaundryCell.m in Sources */,
 				243976FC1697C9ED00A5A23C /* YMPeopleDetailViewController.m in Sources */,
 				24772A421698202E004B7D00 /* MBProgressHUD.m in Sources */,
-				24772A4616982975004B7D00 /* YMMapDetailView.m in Sources */,
 				2458C8591699222A0060FF0D /* AFHTTPClient.m in Sources */,
 				2458C85A1699222A0060FF0D /* AFHTTPRequestOperation.m in Sources */,
 				2458C85B1699222A0060FF0D /* AFImageRequestOperation.m in Sources */,
@@ -1695,6 +1703,8 @@
 				243F874117419343001A6688 /* YMSettingsDetailViewController.m in Sources */,
 				249D3969174532600053B4A2 /* YMShuttleSelectionViewController.m in Sources */,
 				249D396C174565280053B4A2 /* YMSettingsModalViewController.m in Sources */,
+				2463ADEF1745FC2200AB2B67 /* YMShuttleSelectionCell.m in Sources */,
+				2463ADF7174608A400AB2B67 /* YMHoursListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

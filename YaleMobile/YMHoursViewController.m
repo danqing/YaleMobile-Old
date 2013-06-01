@@ -7,6 +7,7 @@
 //
 
 #import "YMHoursViewController.h"
+#import "YMHoursListViewController.h"
 #import "YMSimpleCell.h"
 #import "YMGlobalHelper.h"
 #import "UIColor+YaleMobile.h"
@@ -30,7 +31,7 @@
 {
     [super viewDidLoad];
     [YMGlobalHelper addMenuButtonToController:self];
-    self.types = @[@"Libraries", @"Dining - Retail Facilities", @"Gym and Recreational Facilities"];
+    self.types = @[@"Libraries", @"Dining - Retail Facilities", @"Payne Whitney Gym"];
     self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)]];
 }
 

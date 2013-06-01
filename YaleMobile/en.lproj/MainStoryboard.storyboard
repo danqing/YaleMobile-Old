@@ -218,23 +218,49 @@
             </objects>
             <point key="canvasLocation" x="1923" y="1503"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Shuttle Selection View Controller-->
         <scene sceneID="r0U-Xe-3ar">
             <objects>
-                <tableViewController storyboardIdentifier="Shuttle Selection" id="Pdo-DR-J26" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pNY-vt-bcn">
+                <tableViewController storyboardIdentifier="Shuttle Selection" id="Pdo-DR-J26" customClass="YMShuttleSelectionViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pNY-vt-bcn">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="3pR-nd-oyj">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Shuttle Selection Cell" id="3pR-nd-oyj" customClass="YMShuttleSelectionCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="li7-II-tZK">
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBZ-Cy-tLI">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="160" id="AF2-mQ-lUo"/>
+                                                <constraint firstAttribute="height" constant="21" id="ZUP-8q-xwy"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="uBZ-Cy-tLI" firstAttribute="leading" secondItem="3pR-nd-oyj" secondAttribute="leading" constant="104" id="2Af-ef-AY0"/>
+                                    <constraint firstAttribute="trailing" secondItem="li7-II-tZK" secondAttribute="trailing" constant="229" id="5ka-AW-H8Y"/>
+                                    <constraint firstItem="li7-II-tZK" firstAttribute="bottom" secondItem="uBZ-Cy-tLI" secondAttribute="bottom" type="default" id="7Dk-7f-x4H"/>
+                                    <constraint firstItem="li7-II-tZK" firstAttribute="leading" secondItem="3pR-nd-oyj" secondAttribute="leading" constant="71" id="AsT-I4-Ac9"/>
+                                    <constraint firstItem="uBZ-Cy-tLI" firstAttribute="top" secondItem="3pR-nd-oyj" secondAttribute="top" constant="11" id="JZn-1V-IA0"/>
+                                    <constraint firstItem="li7-II-tZK" firstAttribute="centerY" secondItem="3pR-nd-oyj" secondAttribute="centerY" type="default" id="uxL-8v-aqz"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="icon" destination="li7-II-tZK" id="VqO-uR-CSE"/>
+                                    <outlet property="name" destination="uBZ-Cy-tLI" id="dFN-N3-lk1"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1458,10 +1484,43 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Facility Hours" id="1rB-yI-yYf"/>
+                    <connections>
+                        <segue destination="R88-Rv-Gwa" kind="push" identifier="Hours List Segue" id="SvV-hI-Rax"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QgS-gW-41M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2072" y="-597"/>
+        </scene>
+        <!--Hours List View Controller-->
+        <scene sceneID="6Qs-Em-vVS">
+            <objects>
+                <tableViewController id="R88-Rv-Gwa" customClass="YMHoursListViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="eLg-0r-gEy">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="NvC-dW-QAJ">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="R88-Rv-Gwa" id="mX7-FU-pGp"/>
+                            <outlet property="delegate" destination="R88-Rv-Gwa" id="RAI-4c-R5t"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="yNQ-US-Bqu"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8W5-mc-sSi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2457" y="-597"/>
         </scene>
         <!--Calendar View Controller - Calendar-->
         <scene sceneID="WQH-yF-LeB">
@@ -2764,6 +2823,222 @@
         <image name="searchpeople.png" width="320" height="325"/>
         <image name="weather_na@2x.png" width="312" height="312"/>
     </resources>
+    <classes>
+        <class className="CoreDataTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+        </class>
+        <class className="ECSlidingViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ECSlidingViewController.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="YMAcademicCalendarDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMAcademicCalendarDetailViewController.h"/>
+        </class>
+        <class className="YMBluebookDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMBluebookDetailViewController.h"/>
+        </class>
+        <class className="YMBluebookFilterSelectionViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMBluebookFilterSelectionViewController.h"/>
+        </class>
+        <class className="YMBluebookFilterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMBluebookFilterViewController.h"/>
+        </class>
+        <class className="YMBluebookSubjectCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMBluebookSubjectCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="code" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="happens" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="instructor" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="YMBluebookSubjectViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMBluebookSubjectViewController.h"/>
+        </class>
+        <class className="YMBluebookViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMBluebookViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="YMCalendarViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMCalendarViewController.h"/>
+        </class>
+        <class className="YMDiningCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMDiningCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="crowdedness" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="location" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="special" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="YMDiningDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMDiningDetailViewController.h"/>
+        </class>
+        <class className="YMDiningMenuViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMDiningMenuViewController.h"/>
+        </class>
+        <class className="YMDiningViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMDiningViewController.h"/>
+        </class>
+        <class className="YMHoursListViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMHoursListViewController.h"/>
+        </class>
+        <class className="YMHoursViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMHoursViewController.h"/>
+        </class>
+        <class className="YMLaundryCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMLaundryCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dryer" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dryerIcon" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="location" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="washer" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="washerIcon" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="YMLaundryDetailCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMLaundryDetailCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="alert" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="machineID" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="min" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="status" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="time" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="YMLaundryDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMLaundryDetailViewController.h"/>
+        </class>
+        <class className="YMLaundryViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMLaundryViewController.h"/>
+        </class>
+        <class className="YMMainViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMMainViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="condition" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="day1" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="day2" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="day3" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="day4" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="day5" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="greeting" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="temp1" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="temp2" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="temp3" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="temp4" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="temp5" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="weather" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="weather1" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="weather2" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="weather3" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="weather4" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="weather5" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="YMMapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMMapViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="YMMenuCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMMenuCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="icon" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="YMMenuViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMMenuViewController.h"/>
+        </class>
+        <class className="YMPathishCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMPathishCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dot" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="line" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="primary" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="secondary" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="YMPeopleDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMPeopleDetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="YMPeopleViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMPeopleViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="defaultBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="YMPhonebookViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMPhonebookViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="YMSettingsDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMSettingsDetailViewController.h"/>
+        </class>
+        <class className="YMSettingsModalViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMSettingsModalViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="background" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="YMSettingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMSettingsViewController.h"/>
+        </class>
+        <class className="YMShuttleSelectionCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMShuttleSelectionCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="icon" candidateClass="UIView"/>
+                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="YMShuttleSelectionViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMShuttleSelectionViewController.h"/>
+        </class>
+        <class className="YMShuttleViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMShuttleViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
+        <class className="YMSimpleCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMSimpleCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="YMSubtitleCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMSubtitleCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="primary" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="secondary" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="YMTwoSubtitlesCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/YMTwoSubtitlesCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="sub1" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="sub2" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

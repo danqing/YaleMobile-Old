@@ -117,6 +117,7 @@
         [MBProgressHUD hideHUDForView:controller.view.window animated:YES];
         NSString *responseString = [[operation.responseString stringByReplacingOccurrencesOfString:@"<span class=\"user-avail\">" withString:@"<td class=\"myclass\">"] stringByReplacingOccurrencesOfString:@"</span>" withString:@"</td>"];;
         if ([responseString rangeOfString:@"DEMO LOCATION"].location != NSNotFound) {
+            if (((UITableViewController *)controller).refreshControl) [((UITableViewController *)controller).refreshControl endRefreshing];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Access Denied" message:@"This function is only available for devices with Yale IP addresses. Please connect via either YaleSecure or yale wireless and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alert show];
             return;
@@ -138,6 +139,7 @@
         
         completionBlock(roomData);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (((UITableViewController *)controller).refreshControl) [((UITableViewController *)controller).refreshControl endRefreshing];
         [MBProgressHUD hideHUDForView:controller.view.window animated:YES];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
                                                         message:@"YaleMobile is unable to reach laundry status server. Please check your Internet connection and try again."
@@ -166,6 +168,7 @@
         
         NSString *responseString = operation.responseString;
         if ([responseString rangeOfString:@"YALE UNIVERSITY"].location == NSNotFound) {
+            if (((UITableViewController *)controller).refreshControl) [((UITableViewController *)controller).refreshControl endRefreshing];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Access Denied" message:@"This feature is only available on-campus. Please connect via either YaleSecure or yale wireless." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alert show];
             return;
@@ -221,6 +224,7 @@
         
         completionBlock(washers, dryers, machineStatuses);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (((UITableViewController *)controller).refreshControl) [((UITableViewController *)controller).refreshControl endRefreshing];
         [MBProgressHUD hideHUDForView:controller.view.window animated:YES];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
                                                         message:@"YaleMobile is unable to reach laundry status server. Please check your Internet connection and try again."

@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Danqing Liu. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "YMGlobalHelper.h"
 #import "ECSlidingViewController.h"
 #import "YMMenuViewController.h"
@@ -88,6 +89,20 @@
     [button addTarget:viewController action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     [viewController.navigationItem setLeftBarButtonItem:barButtonItem];
+}
+
++ (UIView *)dotWithColors:(NSArray *)colors andRadius:(CGFloat)radius
+{
+    UIView *dot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, radius * 2, radius * 2)];
+    dot.layer.masksToBounds = YES;
+    dot.layer.cornerRadius = radius;
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = dot.bounds;
+    gradient.colors = [NSArray arrayWithObjects:[UIColor blackColor], [UIColor whiteColor], nil];
+    [dot.layer insertSublayer:gradient atIndex:0];
+    
+    return dot;
 }
 
 + (NSString *)buildBluebookFilters

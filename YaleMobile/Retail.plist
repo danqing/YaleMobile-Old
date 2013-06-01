@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>The Refectory at the Divinity School</key>
+	<string>Monday - Friday\n\nBreakfast:\t7:30 a.m. - 11:00 a.m.\nLunch:\t11:00 a.m. - 2:00 p.m.</string>
+	<key>Durfee&apos;s</key>
+	<string></string>
+	<key>Marigolds Dining at Harkness Hall</key>
+	<string></string>
+	<key>KBT Cafe</key>
+	<string></string>
+	<key>Thain Family Cafe at Bass Library</key>
+	<string></string>
+	<key>West Campus Dining</key>
+	<string></string>
+	<key>The Kosher Kitchen at Joseph Slifka Center for Jewish Life at Yale</key>
+	<string></string>
+</dict>
+</plist>

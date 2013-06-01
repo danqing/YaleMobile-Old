@@ -7,6 +7,8 @@
 //
 
 #import "YMShuttleSelectionViewController.h"
+#import "YMShuttleSelectionCell.h"
+#import "YMGlobalHelper.h"
 
 @interface YMShuttleSelectionViewController ()
 
@@ -40,24 +42,18 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
+    YMShuttleSelectionCell *cell = (YMShuttleSelectionCell *)[self.tableView dequeueReusableCellWithIdentifier:@"Shuttle Selection Cell"];
+    cell.icon = [YMGlobalHelper dotWithColors:nil andRadius:40];
     
     return cell;
 }

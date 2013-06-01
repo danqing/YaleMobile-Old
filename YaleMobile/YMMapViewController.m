@@ -245,8 +245,8 @@
     NSPredicate *filterPredicate2 = nil;
     
     if (searchString.length) {
-        filterPredicate = [NSPredicate predicateWithFormat:@"ANY abbrs.name =[cd] %@", searchString];
-        NSPredicate *p1 = [NSPredicate predicateWithFormat:@"abbrs.name CONTAINS[cd] %@", searchString];
+        filterPredicate = [NSPredicate predicateWithFormat:@"ANY abbrs.name =[cd] %@ OR address =[cd] %@ OR name =[cd] %@", searchString, searchString, searchString];
+        NSPredicate *p1 = [NSPredicate predicateWithFormat:@"abbrs.name CONTAINS[cd] %@ OR address CONTAINS[cd] %@ OR name CONTAINS[cd] %@", searchString, searchString, searchString];
         NSPredicate *p2 = [NSPredicate predicateWithFormat:@"NONE abbrs.name =[cd] %@", searchString];  // this doesn't work if there are multiple abbrs.
         NSArray *predicateArray = [[NSArray alloc] initWithObjects:p1, p2, nil];
         filterPredicate2 = [NSCompoundPredicate andPredicateWithSubpredicates:predicateArray];

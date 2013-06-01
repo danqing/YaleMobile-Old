@@ -10,7 +10,6 @@
 #import "ECSlidingViewController.h"
 #import "YMGlobalHelper.h"
 #import "YMSettingsDetailViewController.h"
-#import "YMSettingsModalViewController.h"
 
 @interface YMSettingsViewController ()
 

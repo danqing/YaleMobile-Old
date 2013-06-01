@@ -53,7 +53,7 @@
         self.temp2.text = [NSString stringWithFormat:@"%@/%@", [day2 objectForKey:@"high"], [day2 objectForKey:@"low"]];
         self.weather2.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day2 objectForKey:@"code"] integerValue]]];
 
-        NSDictionary *day3 = [array objectAtIndex:3];
+        /*NSDictionary *day3 = [array objectAtIndex:3];
         self.day3.text = [day3 objectForKey:@"day"];
         self.temp3.text = [NSString stringWithFormat:@"%@/%@", [day3 objectForKey:@"high"], [day3 objectForKey:@"low"]];
         self.weather3.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day3 objectForKey:@"code"] integerValue]]];
@@ -66,7 +66,7 @@
         NSDictionary *day5 = [array objectAtIndex:5];
         self.day5.text = [day5 objectForKey:@"day"];
         self.temp5.text = [NSString stringWithFormat:@"%@/%@", [day5 objectForKey:@"high"], [day5 objectForKey:@"low"]];
-        self.weather5.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day5 objectForKey:@"code"] integerValue]]];
+        self.weather5.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day5 objectForKey:@"code"] integerValue]]];*/
 
         NSString *overlay = [YMGlobalHelper getBgNameForWeather:[[current objectForKey:@"code"] integerValue]];
         if (overlay.length) {

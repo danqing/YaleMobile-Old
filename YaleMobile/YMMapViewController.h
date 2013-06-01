@@ -11,7 +11,6 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "YMMapDetailView.h"
 
 @interface YMMapViewController : UIViewController <CLLocationManagerDelegate, UISearchBarDelegate, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 

@@ -12,6 +12,7 @@
 #import "YMGlobalHelper.h"
 #import "ECSlidingViewController.h"
 #import "YMMenuViewController.h"
+#import "YMShuttleSelectionViewController.h"
 
 @interface YMShuttleViewController ()
 
@@ -49,7 +50,7 @@
     self.navigationController.view.layer.shadowRadius = 10.0f;
     self.navigationController.view.layer.shadowColor = [UIColor blackColor].CGColor;
     
-    [YMGlobalHelper setupRightSlidingViewControllerForController:self withRightController:[UINavigationController class] named:@"Shuttle Selection"];
+    [YMGlobalHelper setupRightSlidingViewControllerForController:self withRightController:[YMShuttleSelectionViewController class] named:@"Shuttle Selection"];
     
     CLLocationCoordinate2D zoomLocation;
     zoomLocation.latitude = 41.3123;
