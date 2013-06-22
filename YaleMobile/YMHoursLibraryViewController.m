@@ -16,23 +16,23 @@
 
 @implementation YMHoursLibraryViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [YMGlobalHelper addBackButtonToController:self];
-    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"sterling.jpeg"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", [self.data objectForKey:@"code"]]] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)]];
+    self.tableView.backgroundColor = [UIColor clearColor];
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.alpha = 0.7;
     [self updateTableHeader];
+    self.tableView.showsVerticalScrollIndicator = NO;
+    
+    float height = ([[UIScreen mainScreen] bounds].size.height == 568) ? 548 : 460;
+    UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, height)];
+    view.image = [[UIImage imageNamed:[NSString stringWithFormat:@"%@_overlay.png", [self.data objectForKey:@"code"]]] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [self.view insertSubview:view belowSubview:self.tableView];
+    self.overlay = view;
+    view.alpha = 0;
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,7 +56,7 @@
 
 - (void)updateTableHeader
 {
-    float extra = ([[UIScreen mainScreen] bounds].size.height == 568) ? 292 : 204;
+    float extra = ([[UIScreen mainScreen] bounds].size.height == 568) ? 336 : 248;
     
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(24, 140 + extra, 286, 28)];
     headerLabel.text = self.name;
@@ -91,6 +91,12 @@
     [self.tableView reloadData];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat offset = scrollView.contentOffset.y;
+    self.overlay.alpha = offset/400;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -110,21 +116,32 @@
     if (indexPath.row == 0) cell = (YMSubtitleCell *)[tableView dequeueReusableCellWithIdentifier:@"Hours Library Cell 1"];
     else cell = (YMSubtitleCell *)[tableView dequeueReusableCellWithIdentifier:@"Hours Library Cell 2"];
     
-    cell.secondary.text = @"Hello there";
-    cell.primary.text = @"Heyyyy~~";
     if (indexPath.row == 0) {
         cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_top.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 5, 20)]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_top_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 5, 20)]];
+        cell.secondary.text = @"Contact Email";
+        cell.primary.text = [self.data objectForKey:@"email"];
     } else if (indexPath.row == 3) {
         cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_bottom.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_bottom_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
+        cell.secondary.text = @"Today's Hours";
     } else {
         cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_mid.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_mid_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
+        if (indexPath.row == 1) {
+            cell.secondary.text = @"Contact Number";
+            cell.primary.text = [self.data objectForKey:@"phone"];
+        } else {
+            cell.secondary.text = @"Access Information";
+            NSString *text = [self.data objectForKey:@"access"];
+            CGSize textSize = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
+            CGRect frame = cell.primary.frame;
+            frame.size.height = textSize.height;
+            cell.primary.text = text;
+        }
     }
     
     cell.backgroundView.alpha = 0.4;
-    cell.selectedBackgroundView.alpha = 0.6;
     
     return cell;
 }
@@ -132,8 +149,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0 || indexPath.row == 3)
         return 71;
-    else
+    else if (indexPath.row == 1)
         return 61;
+    else {
+        NSString *text = [self.data objectForKey:@"access"];
+        CGSize textSize = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
+        return textSize.height + 40;
+    }
 }
 
 /*

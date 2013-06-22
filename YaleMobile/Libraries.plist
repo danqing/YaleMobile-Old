@@ -5,7 +5,7 @@
 	<key>Arts Library (Haas)</key>
 	<dict>
 		<key>code</key>
-		<string></string>
+		<string>25</string>
 		<key>address</key>
 		<string>180 York Street</string>
 		<key>access</key>
@@ -18,7 +18,7 @@
 	<key>Bass Library</key>
 	<dict>
 		<key>code</key>
-		<string></string>
+		<string>384</string>
 		<key>address</key>
 		<string>110 Wall Street</string>
 		<key>access</key>
@@ -31,7 +31,7 @@
 	<key>Beinecke Rare Book Library</key>
 	<dict>
 		<key>code</key>
-		<string></string>
+		<string>389</string>
 		<key>address</key>
 		<string>121 Wall Street</string>
 		<key>access</key>
@@ -48,7 +48,7 @@ Beinecke is a non-circulating, closed stack library. Paging is done by library s
 	<key>CSSSI</key>
 	<dict>
 		<key>code</key>
-		<string></string>
+		<string>395</string>
 		<key>address</key>
 		<string>219 Prospect Street</string>
 		<key>access</key>
@@ -61,7 +61,7 @@ Beinecke is a non-circulating, closed stack library. Paging is done by library s
 	<key>Classics Library</key>
 	<dict>
 		<key>code</key>
-		<string></string>
+		<string>392</string>
 		<key>address</key>
 		<string>344 College Street</string>
 		<key>access</key>
@@ -74,7 +74,7 @@ Beinecke is a non-circulating, closed stack library. Paging is done by library s
 	<key>Divinity Library</key>
 	<dict>
 		<key>code</key>
-		<string></string>
+		<string>396</string>
 		<key>address</key>
 		<string>409 Prospect Street</string>
 		<key>access</key>
@@ -89,7 +89,7 @@ During non-business hours (i.e., evenings after 6:30 p.m. and weekends) access t
 	<key>Law Library (Lillian Goldman)</key>
 	<dict>
 		<key>code</key>
-		<string></string>
+		<string>402</string>
 		<key>address</key>
 		<string>127 Wall Street</string>
 		<key>access</key>
@@ -109,10 +109,23 @@ For more information, please consult the complete privileges policies.</string>
 		<key>phone</key>
 		<string>(203)-432-1606</string>
 	</dict>
+	<key>Math Library</key>
+	<dict>
+		<key>code</key>
+		<string>406</string>
+		<key>address</key>
+		<string>12 Hillhouse Avenue</string>
+		<key>access</key>
+		<string>The Mathematics Library is open to the public.</string>
+		<key>email</key>
+		<string>mathlibrary@yale.edu</string>
+		<key>phone</key>
+		<string>(203)-432-4179</string>
+	</dict>
 	<key>Medical Library (Cushing/Whitney)</key>
 	<dict>
 		<key>code</key>
-		<string></string>
+		<string>407</string>
 		<key>address</key>
 		<string>333 Cedar Street</string>
 		<key>access</key>
@@ -125,7 +138,7 @@ For more information, please consult the complete privileges policies.</string>
 	<key>Sterling Memorial Library</key>
 	<dict>
 		<key>code</key>
-		<string></string>
+		<string>21</string>
 		<key>address</key>
 		<string>120 High Street</string>
 		<key>access</key>
@@ -138,7 +151,7 @@ For more information, please consult the complete privileges policies.</string>
 	<key>Walpole Library</key>
 	<dict>
 		<key>code</key>
-		<string></string>
+		<string>404</string>
 		<key>address</key>
 		<string>154 Main Street, Farmington CT</string>
 		<key>access</key>
@@ -153,7 +166,7 @@ The Lewis Walpole Library is a non-circulating, closed-stack library. Rare books
 	<key>Yale Center for British Art</key>
 	<dict>
 		<key>code</key>
-		<string></string>
+		<string>412</string>
 		<key>address</key>
 		<string>1080 Chapel Street</string>
 		<key>access</key>

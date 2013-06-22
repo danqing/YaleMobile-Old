@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YMHoursLibraryViewController : UITableViewController
+@interface YMHoursLibraryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) NSDictionary *data;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) UIImageView *overlay;
 
 @end
