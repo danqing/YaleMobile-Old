@@ -73,6 +73,7 @@
     } else {
         YMHoursListViewController *hlvc = (YMHoursListViewController *)segue.destinationViewController;
         hlvc.data = self.detailData;
+        hlvc.title = self.detailTitle;
     }
 }
 

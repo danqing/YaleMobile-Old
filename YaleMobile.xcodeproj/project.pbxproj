@@ -21,6 +21,12 @@
 		24058E49169724EC007111EB /* shadowbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24058E47169724EC007111EB /* shadowbg@2x.png */; };
 		240E6CD11775209900C455B1 /* PWG.plist in Resources */ = {isa = PBXBuildFile; fileRef = 240E6CD01775209900C455B1 /* PWG.plist */; };
 		240E6CD317755AFF00C455B1 /* Libraries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 240E6CD217755AFF00C455B1 /* Libraries.plist */; };
+		240E6CD817758F0700C455B1 /* sterling@2x.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 240E6CD717758F0700C455B1 /* sterling@2x.jpeg */; };
+		240E6CDB1775B7B300C455B1 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 240E6CDA1775B7B300C455B1 /* UIImage+Blur.m */; };
+		240E6CE91775C36D00C455B1 /* YMHoursLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240E6CE81775C36D00C455B1 /* YMHoursLibraryViewController.m */; };
+		240E6CED1775C3D900C455B1 /* dtablebg_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 240E6CEA1775C3D900C455B1 /* dtablebg_bottom@2x.png */; };
+		240E6CEE1775C3D900C455B1 /* dtablebg_mid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 240E6CEB1775C3D900C455B1 /* dtablebg_mid@2x.png */; };
+		240E6CEF1775C3D900C455B1 /* dtablebg_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 240E6CEC1775C3D900C455B1 /* dtablebg_top@2x.png */; };
 		24166FD016AF9C6700A15F4D /* bbsection@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24166FCF16AF9C6700A15F4D /* bbsection@2x.png */; };
 		24166FD416AF9DCB00A15F4D /* bbsection.png in Resources */ = {isa = PBXBuildFile; fileRef = 24166FD116AF9DCB00A15F4D /* bbsection.png */; };
 		2416700016AFA79900A15F4D /* plaintabletop.png in Resources */ = {isa = PBXBuildFile; fileRef = 24166FFE16AFA79900A15F4D /* plaintabletop.png */; };
@@ -341,6 +347,14 @@
 		24058E47169724EC007111EB /* shadowbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shadowbg@2x.png"; sourceTree = "<group>"; };
 		240E6CD01775209900C455B1 /* PWG.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PWG.plist; sourceTree = "<group>"; };
 		240E6CD217755AFF00C455B1 /* Libraries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Libraries.plist; sourceTree = "<group>"; };
+		240E6CD417757E4100C455B1 /* YMHoursLibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMHoursLibraryViewController.h; sourceTree = "<group>"; };
+		240E6CD717758F0700C455B1 /* sterling@2x.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "sterling@2x.jpeg"; sourceTree = "<group>"; };
+		240E6CD91775B7B300C455B1 /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Blur.h"; sourceTree = "<group>"; };
+		240E6CDA1775B7B300C455B1 /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Blur.m"; sourceTree = "<group>"; };
+		240E6CE81775C36D00C455B1 /* YMHoursLibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMHoursLibraryViewController.m; sourceTree = "<group>"; };
+		240E6CEA1775C3D900C455B1 /* dtablebg_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dtablebg_bottom@2x.png"; sourceTree = "<group>"; };
+		240E6CEB1775C3D900C455B1 /* dtablebg_mid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dtablebg_mid@2x.png"; sourceTree = "<group>"; };
+		240E6CEC1775C3D900C455B1 /* dtablebg_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dtablebg_top@2x.png"; sourceTree = "<group>"; };
 		24166FCF16AF9C6700A15F4D /* bbsection@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bbsection@2x.png"; sourceTree = "<group>"; };
 		24166FD116AF9DCB00A15F4D /* bbsection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bbsection.png; sourceTree = "<group>"; };
 		24166FFE16AFA79900A15F4D /* plaintabletop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plaintabletop.png; sourceTree = "<group>"; };
@@ -752,6 +766,8 @@
 				2416701716B07C8100A15F4D /* CoreDataTableViewController.m */,
 				24F8EAD316A89C4B00C1750C /* UIImage+Emboss.h */,
 				24F8EAD416A89C4B00C1750C /* UIImage+Emboss.m */,
+				240E6CD91775B7B300C455B1 /* UIImage+Blur.h */,
+				240E6CDA1775B7B300C455B1 /* UIImage+Blur.m */,
 				24772A401698202E004B7D00 /* MBProgressHUD.h */,
 				24772A411698202E004B7D00 /* MBProgressHUD.m */,
 				4E2F87AE161155CD00891AB2 /* YMGlobalHelper.h */,
@@ -960,6 +976,8 @@
 				2463ADF6174608A400AB2B67 /* YMHoursListViewController.m */,
 				24AF4A541740897700DC3366 /* YMHoursDetailViewController.h */,
 				24AF4A551740897700DC3366 /* YMHoursDetailViewController.m */,
+				240E6CD417757E4100C455B1 /* YMHoursLibraryViewController.h */,
+				240E6CE81775C36D00C455B1 /* YMHoursLibraryViewController.m */,
 			);
 			name = Hours;
 			sourceTree = "<group>";
@@ -1163,6 +1181,10 @@
 		4E2F87811610F9CC00891AB2 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				240E6CEA1775C3D900C455B1 /* dtablebg_bottom@2x.png */,
+				240E6CEB1775C3D900C455B1 /* dtablebg_mid@2x.png */,
+				240E6CEC1775C3D900C455B1 /* dtablebg_top@2x.png */,
+				240E6CD717758F0700C455B1 /* sterling@2x.jpeg */,
 				245C6D4317440D6C009B372C /* alert_active.png */,
 				245C6D4417440D6C009B372C /* alert_active@2x.png */,
 				245C6D3F17440AD5009B372C /* alert.png */,
@@ -1674,6 +1696,10 @@
 				2463ADF4174607B400AB2B67 /* Retail.plist in Resources */,
 				240E6CD11775209900C455B1 /* PWG.plist in Resources */,
 				240E6CD317755AFF00C455B1 /* Libraries.plist in Resources */,
+				240E6CD817758F0700C455B1 /* sterling@2x.jpeg in Resources */,
+				240E6CED1775C3D900C455B1 /* dtablebg_bottom@2x.png in Resources */,
+				240E6CEE1775C3D900C455B1 /* dtablebg_mid@2x.png in Resources */,
+				240E6CEF1775C3D900C455B1 /* dtablebg_top@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1761,6 +1787,8 @@
 				2446433E1772A35400F7F53B /* Segment.m in Sources */,
 				244643411772A35400F7F53B /* Abbreviation.m in Sources */,
 				244643441772A35400F7F53B /* Office.m in Sources */,
+				240E6CDB1775B7B300C455B1 /* UIImage+Blur.m in Sources */,
+				240E6CE91775C36D00C455B1 /* YMHoursLibraryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

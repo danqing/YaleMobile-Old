@@ -108,6 +108,11 @@
     [operation start];
 }
 
++ (void)getLibraryHoursForLocation:(NSString *)location controller:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
+{
+    
+}
+
 + (void)getAllDiningStatusForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
     NSURL *url = [NSURL URLWithString:@"http://www.yaledining.org/fasttrack/locations.cfm?version=2"];

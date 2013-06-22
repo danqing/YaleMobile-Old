@@ -78,7 +78,7 @@
     headerLabel.shadowOffset = CGSizeMake(0, 1);
     headerLabel.numberOfLines = 0;
     
-    CGSize textSize = [self.titleText sizeWithFont:[UIFont boldSystemFontOfSize:19] constrainedToSize:CGSizeMake(270.0, 3000)];
+    CGSize textSize = [self.titleText sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:19] constrainedToSize:CGSizeMake(270.0, 3000)];
     CGRect newFrame = headerLabel.frame;
     newFrame.size.height = textSize.height;
     headerLabel.frame = newFrame;
@@ -92,7 +92,7 @@
     headerSublabel.numberOfLines = 0;
     headerSublabel.text = self.address;
     
-    CGSize textSize2 = [self.address sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(270.0, 3000)];
+    CGSize textSize2 = [self.address sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14] constrainedToSize:CGSizeMake(270.0, 3000)];
     CGRect newFrame2 = headerSublabel.frame;
     newFrame2.size.height = textSize2.height;
     headerSublabel.frame = newFrame2;

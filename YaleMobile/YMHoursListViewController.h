@@ -11,5 +11,7 @@
 @interface YMHoursListViewController : UITableViewController
 
 @property (nonatomic, strong) NSDictionary *data;
+@property (nonatomic, strong) NSArray *keys;
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 
 @end

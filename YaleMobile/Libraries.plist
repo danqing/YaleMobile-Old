@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Haas Arts Library</key>
+	<key>Arts Library (Haas)</key>
 	<dict>
 		<key>code</key>
 		<string></string>
@@ -15,7 +15,7 @@
 		<key>phone</key>
 		<string>(203)-432-2645</string>
 	</dict>
-	<key>Anne T. &amp; Robert M. Bass Library</key>
+	<key>Bass Library</key>
 	<dict>
 		<key>code</key>
 		<string></string>
@@ -28,7 +28,7 @@
 		<key>phone</key>
 		<string>(203)-432-1874</string>
 	</dict>
-	<key>Beinecke Rare Book &amp; Manuscript Library</key>
+	<key>Beinecke Rare Book Library</key>
 	<dict>
 		<key>code</key>
 		<string></string>
@@ -45,7 +45,7 @@ Beinecke is a non-circulating, closed stack library. Paging is done by library s
 		<key>phone</key>
 		<string>(203)-432-2972</string>
 	</dict>
-	<key>Center for Science and Social Science Information</key>
+	<key>CSSSI</key>
 	<dict>
 		<key>code</key>
 		<string></string>
@@ -86,7 +86,7 @@ During non-business hours (i.e., evenings after 6:30 p.m. and weekends) access t
 		<key>phone</key>
 		<string>(203)-432-5274</string>
 	</dict>
-	<key>Lillian Goldman Law Library</key>
+	<key>Law Library (Lillian Goldman)</key>
 	<dict>
 		<key>code</key>
 		<string></string>
@@ -109,7 +109,7 @@ For more information, please consult the complete privileges policies.</string>
 		<key>phone</key>
 		<string>(203)-432-1606</string>
 	</dict>
-	<key>Cushing/Whitney Medical Library</key>
+	<key>Medical Library (Cushing/Whitney)</key>
 	<dict>
 		<key>code</key>
 		<string></string>
