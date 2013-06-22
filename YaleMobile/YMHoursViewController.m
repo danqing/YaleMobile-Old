@@ -8,6 +8,7 @@
 
 #import "YMHoursViewController.h"
 #import "YMHoursListViewController.h"
+#import "YMHoursDetailViewController.h"
 #import "YMSimpleCell.h"
 #import "YMGlobalHelper.h"
 #import "UIColor+YaleMobile.h"
@@ -61,6 +62,18 @@
     CGPoint translation = [gestureRecognizer translationInView:[cell superview]];
     if (fabsf(translation.x) > fabsf(translation.y)) return YES;
     return NO;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Hours Detail Segue"]) {
+        YMHoursDetailViewController *hdvc = (YMHoursDetailViewController *)segue.destinationViewController;
+        hdvc.data = self.detailData;
+        hdvc.title = self.detailTitle;
+    } else {
+        YMHoursListViewController *hlvc = (YMHoursListViewController *)segue.destinationViewController;
+        hlvc.data = self.detailData;
+    }
 }
 
 #pragma mark - Table view data source
@@ -131,13 +144,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    self.selectedIndexPath = indexPath;
+    if (indexPath.row == 2 || indexPath.row == 3) {
+        NSString *path = (indexPath.row == 2) ? [[NSBundle mainBundle] pathForResource:@"Retail" ofType:@"plist"] : [[NSBundle mainBundle] pathForResource:@"PWG" ofType:@"plist"];
+        NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
+        self.detailData = dict;
+        self.detailTitle = (indexPath.row == 2) ? @"Retail Facilities" : @"PWG";
+        [self performSegueWithIdentifier:@"Hours Detail Segue" sender:self];
+    } else {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"Libraries" ofType:@"plist"];
+        NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
+        self.detailData = dict;
+        self.detailTitle = @"Libraries";
+        [self performSegueWithIdentifier:@"Hours List Segue" sender:self];
+    }
 }
 
 @end

@@ -10,8 +10,8 @@
 #import "YMGlobalHelper.h"
 #import "ECSlidingViewController.h"
 #import "YMMenuViewController.h"
-// #import "YMSubtitleCell.h"
-// #import "YMSimpleCell.h"
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @implementation YMGlobalHelper
 
@@ -91,20 +91,6 @@
     [viewController.navigationItem setLeftBarButtonItem:barButtonItem];
 }
 
-+ (UIView *)dotWithColors:(NSArray *)colors andRadius:(CGFloat)radius
-{
-    UIView *dot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, radius * 2, radius * 2)];
-    dot.layer.masksToBounds = YES;
-    dot.layer.cornerRadius = radius;
-    
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = dot.bounds;
-    gradient.colors = [NSArray arrayWithObjects:[UIColor blackColor], [UIColor whiteColor], nil];
-    [dot.layer insertSublayer:gradient atIndex:0];
-    
-    return dot;
-}
-
 + (NSString *)buildBluebookFilters
 {
     // term
@@ -144,6 +130,14 @@
     NSArray *comp = [term componentsSeparatedByString:@" "];
     term = [NSString stringWithFormat:@"%@%@", [comp objectAtIndex:1], [comp objectAtIndex:0]];
     return term;
+}
+
++ (UIColor *)colorFromHexString:(NSString *)string
+{
+    unsigned result = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:string];
+    [scanner scanHexInt:&result];
+    return UIColorFromRGB(result);
 }
 
 /*

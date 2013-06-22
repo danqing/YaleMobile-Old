@@ -10,6 +10,6 @@
 
 @interface YMHoursListViewController : UITableViewController
 
-@property (nonatomic, strong) NSArray *data;
+@property (nonatomic, strong) NSDictionary *data;
 
 @end

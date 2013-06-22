@@ -12,5 +12,7 @@
 
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 @property (nonatomic, strong) NSArray *types;
+@property (nonatomic, strong) NSDictionary *detailData;
+@property (nonatomic, strong) NSString *detailTitle;
 
 @end

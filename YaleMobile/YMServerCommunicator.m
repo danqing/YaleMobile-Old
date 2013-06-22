@@ -9,6 +9,8 @@
 //  Transloc Yale ID: 128
 //  Transloc info: routes, vehicles, arrival-estimates, routes, segments
 
+// http://www.yaledining.org/fasttrack/menus.cfm?mDate=04%2F21%2F2013&location=10&version=2
+
 #import "YMServerCommunicator.h"
 #import "TFHpple.h"
 #import "TFHppleElement.h"
@@ -24,6 +26,60 @@
 + (NSArray *)getLocationFromName:(NSString *)name
 {
     return nil;
+}
+
++ (void)getRouteInfoForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
+{
+    NSURL *url = [NSURL URLWithString:@"http://api.transloc.com/1.1/routes.json?agencies=128"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUDForView:controller.view animated:YES];
+        NSString *responseString = operation.responseString;
+        NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *error;
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+        completionBlock([[dict objectForKey:@"data"] objectForKey:@"128"]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUDForView:controller.view animated:YES];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                        message:@"YaleMobile is unable to reach TransLoc server. Please check your Internet connection and try again."
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = @"Loading Routes...";
+    hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
+    hud.dimBackground = YES;
+    [operation start];
+}
+
++ (void)getStopInfoForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
+{
+    NSURL *url = [NSURL URLWithString:@"http://api.transloc.com/1.1/stops.json?agencies=128"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUDForView:controller.view animated:YES];
+        NSString *responseString = operation.responseString;
+        NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *error;
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+        completionBlock([dict objectForKey:@"data"]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUDForView:controller.view animated:YES];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                        message:@"YaleMobile is unable to reach TransLoc server. Please check your Internet connection and try again."
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = @"Loading Stops...";
+    hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
+    hud.dimBackground = YES;
+    [operation start];
 }
 
 + (void)getShuttleInfo:(NSString *)info ForController:(UIViewController *)controller

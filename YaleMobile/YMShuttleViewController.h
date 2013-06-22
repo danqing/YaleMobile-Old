@@ -13,5 +13,6 @@
 @interface YMShuttleViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) UIManagedDocument *db;
 
 @end

@@ -11,6 +11,5 @@
 @interface YMShuttleSelectionCell : UITableViewCell
 
 @property (nonatomic, strong) IBOutlet UILabel *name;
-@property (nonatomic, strong) IBOutlet UIView *icon;
 
 @end

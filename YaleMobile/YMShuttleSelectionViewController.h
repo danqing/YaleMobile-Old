@@ -10,4 +10,7 @@
 
 @interface YMShuttleSelectionViewController : UITableViewController
 
+@property (nonatomic, strong) NSArray *routes;
+@property (nonatomic, strong) UIManagedDocument *db;
+
 @end

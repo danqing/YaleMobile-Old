@@ -13,6 +13,10 @@
 #import "ECSlidingViewController.h"
 #import "YMMenuViewController.h"
 #import "YMShuttleSelectionViewController.h"
+#import "YMServerCommunicator.h"
+#import "Route+Initialize.h"
+#import "Stop+Initialize.h"
+#import "YMDatabaseHelper.h"
 
 @interface YMShuttleViewController ()
 
@@ -57,7 +61,31 @@
     zoomLocation.longitude = -72.9281;
     MKCoordinateSpan span = MKCoordinateSpanMake(0.02, 0.02);
     MKCoordinateRegion region = MKCoordinateRegionMake(zoomLocation, span);
-    [self.mapView setRegion:region animated:YES];    
+    [self.mapView setRegion:region animated:YES];
+    
+    if ((self.db = [YMDatabaseHelper getManagedDocument]))
+        [self loadData];
+    else {
+        [YMDatabaseHelper openDatabase:@"database" usingBlock:^(UIManagedDocument *document) {
+            self.db = document;
+            [YMDatabaseHelper setManagedDocumentTo:document];
+            [self loadData];
+        }];
+    }
+}
+
+- (void)loadData
+{
+    NSTimeInterval interval = [YMGlobalHelper getTimestamp];
+    [YMServerCommunicator getRouteInfoForController:self usingBlock:^(NSArray *data) {
+        for (NSDictionary *dict in data)
+            [Route routeWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
+        [YMServerCommunicator getStopInfoForController:self usingBlock:^(NSArray *data) {
+            for (NSDictionary *dict in data) {
+                [Stop stopWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
+            }
+        }];
+    }];
 }
 
 - (void)didReceiveMemoryWarning

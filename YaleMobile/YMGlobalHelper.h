@@ -32,10 +32,10 @@
 
 + (NSTimeInterval)getTimestamp;
 
++ (UIColor *)colorFromHexString:(NSString *)string;
+
 + (NSString *)getIconNameForWeather:(NSInteger)code;
 + (NSString *)getBgNameForWeather:(NSInteger)code;
-
-+ (UIView *)dotWithColors:(NSArray *)colors andRadius:(CGFloat)radius;
 
 // + (void)addEtchToSubtitleCell:(UITableViewCell *)cell;
 // + (void)addEtchToSimpleCell:(UITableViewCell *)cell;

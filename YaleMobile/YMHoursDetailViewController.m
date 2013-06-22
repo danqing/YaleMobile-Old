@@ -7,6 +7,8 @@
 //
 
 #import "YMHoursDetailViewController.h"
+#import "YMSimpleCell.h"
+#import "YMGlobalHelper.h"
 
 @interface YMHoursDetailViewController ()
 
@@ -26,12 +28,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.keys = [[self.data allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    [YMGlobalHelper addBackButtonToController:self];
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)]];
+}
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+- (void)back:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    UIView *cell = [gestureRecognizer view];
+    CGPoint translation = [gestureRecognizer translationInView:[cell superview]];
+    if (fabsf(translation.x) > fabsf(translation.y)) return YES;
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,26 +56,55 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return self.keys.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
+    YMSimpleCell *cell;
+    if (indexPath.row == 0) {
+        cell = (YMSimpleCell *)[tableView dequeueReusableCellWithIdentifier:@"Hours Detail Header"];
+        NSString *text = [self.keys objectAtIndex:indexPath.section];
+        
+        CGSize textSize = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:18] constrainedToSize:CGSizeMake(268, 5000)];
+        CGRect frame = cell.name.frame;
+        frame.size.height = textSize.height;
+        cell.name.frame = frame;
+        cell.name.text = text;
+    } else {
+        cell = (YMSimpleCell *)[tableView dequeueReusableCellWithIdentifier:@"Hours Detail Cell"];
+        NSString *text = [self.data objectForKey:[self.keys objectAtIndex:indexPath.section]];
+        
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"shadowbg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)]];
+        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"shadowbg_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)]];
+        cell.backgroundView.alpha = 0.6;
+        
+        CGSize textSize = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
+        CGRect frame = cell.name.frame;
+        frame.size.height = textSize.height;
+        cell.name.frame = frame;
+        cell.name.text = text;
+    }
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        NSString *text = [self.keys objectAtIndex:indexPath.section];
+        CGSize textSize = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:18] constrainedToSize:CGSizeMake(268, 5000)];
+        return textSize.height + 14;
+    } else {
+        NSString *text = [self.data objectForKey:[self.keys objectAtIndex:indexPath.section]];
+        CGSize textSize = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
+        return textSize.height + 43;
+    }
 }
 
 /*

@@ -1,18 +1,13 @@
 //
-//  Office.m
+//  Segment+Initialize.m
 //  YaleMobile
 //
 //  Created by Danqing on 6/20/13.
 //  Copyright (c) 2013 Danqing Liu. All rights reserved.
 //
 
-#import "Office.h"
+#import "Segment+Initialize.h"
 
-
-@implementation Office
-
-@dynamic firstLetter;
-@dynamic name;
-@dynamic phone;
+@implementation Segment (Initialize)
 
 @end
