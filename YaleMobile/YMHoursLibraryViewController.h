@@ -15,5 +15,6 @@
 @property (nonatomic, strong) NSDictionary *data;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) UIImageView *overlay;
+@property (nonatomic, strong) NSString *hour;
 
 @end

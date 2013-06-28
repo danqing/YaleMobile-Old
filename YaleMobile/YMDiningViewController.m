@@ -45,6 +45,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.navigationController.navigationBar.alpha = 1;
+    self.navigationController.navigationBar.translucent = NO;
     [YMGlobalHelper setupSlidingViewControllerForController:self];
     if (self.selectedIndexPath) {
         [self.tableView deselectRowAtIndexPath:self.selectedIndexPath animated:YES];
@@ -75,7 +77,6 @@
 {
     YMDiningDetailViewController *ddvc = (YMDiningDetailViewController *)segue.destinationViewController;
     NSDictionary *info = [[NSDictionary alloc] initWithDictionary:[self.locations objectForKey:[self.sortedKeys objectAtIndex:self.selectedIndexPath.row]]];
-    ddvc.title = [info objectForKey:@"Name"];
     ddvc.titleText = [info objectForKey:@"Name"];
     ddvc.abbr = [info objectForKey:@"Abbreviation"];
     ddvc.address = [info objectForKey:@"Location"];

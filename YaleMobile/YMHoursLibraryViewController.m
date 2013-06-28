@@ -8,6 +8,7 @@
 
 #import "YMHoursLibraryViewController.h"
 #import "YMGlobalHelper.h"
+#import "YMServerCommunicator.h"
 #import "YMSubtitleCell.h"
 
 @interface YMHoursLibraryViewController ()
@@ -24,15 +25,19 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.alpha = 0.7;
-    [self updateTableHeader];
     self.tableView.showsVerticalScrollIndicator = NO;
-    
+    [self updateTableHeader];
     float height = ([[UIScreen mainScreen] bounds].size.height == 568) ? 548 : 460;
     UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, height)];
     view.image = [[UIImage imageNamed:[NSString stringWithFormat:@"%@_overlay.png", [self.data objectForKey:@"code"]]] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [self.view insertSubview:view belowSubview:self.tableView];
     self.overlay = view;
     view.alpha = 0;
+    
+    [YMServerCommunicator getLibraryHoursForLocation:[self.data objectForKey:@"code"] controller:self usingBlock:^(NSArray *hour) {
+        self.hour = [self parseJSONArray:hour];
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,6 +57,24 @@
     CGPoint translation = [gestureRecognizer translationInView:[cell superview]];
     if (fabsf(translation.x) > fabsf(translation.y)) return YES;
     return NO;
+}
+
+- (NSString *)parseJSONArray:(NSArray *)array
+{
+    NSMutableArray *components = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0; i < array.count; i++) {
+        NSDictionary *entry = [array objectAtIndex:i];
+        [components addObject:[NSString stringWithFormat:@"%@\n\t\t\t\t› ", [entry objectForKey:@"name"]]];
+        if ([[[entry objectForKey:@"times"] objectForKey:@"status"] isEqualToString:@"open"]) {
+            NSArray *hours = [[entry objectForKey:@"times"] objectForKey:@"hours"];
+            for (NSUInteger j = 0; j < hours.count; j++) {
+                NSDictionary *detail = [hours objectAtIndex:j];
+                [components addObject:[NSString stringWithFormat:@"%@ - %@", [detail objectForKey:@"from"], [detail objectForKey:@"to"]]];
+                (j == hours.count - 1) ? [components addObject:@"\n"] : [components addObject:@", "];
+            }
+        } else [components addObject:@"Closed\n"];
+    }
+    return [components componentsJoinedByString:@""];
 }
 
 - (void)updateTableHeader
@@ -119,16 +142,20 @@
     if (indexPath.row == 0) {
         cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_top.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 5, 20)]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_top_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 5, 20)]];
-        cell.secondary.text = @"Contact Email";
-        cell.primary.text = [self.data objectForKey:@"email"];
+        cell.secondary.text = @"Today's Hours";
+        cell.primary.text = self.hour;
+        CGSize textSize = [self.hour sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
+        CGRect frame = cell.primary.frame;
+        frame.size.height = textSize.height;
     } else if (indexPath.row == 3) {
         cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_bottom.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_bottom_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
-        cell.secondary.text = @"Today's Hours";
+        cell.secondary.text = @"Contact Email";
+        cell.primary.text = [self.data objectForKey:@"email"];
     } else {
         cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_mid.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_mid_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
-        if (indexPath.row == 1) {
+        if (indexPath.row == 2) {
             cell.secondary.text = @"Contact Number";
             cell.primary.text = [self.data objectForKey:@"phone"];
         } else {
@@ -147,11 +174,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0 || indexPath.row == 3)
+    if (indexPath.row == 3)
         return 71;
-    else if (indexPath.row == 1)
+    else if (indexPath.row == 2)
         return 61;
-    else {
+    else if (indexPath.row == 0) {
+        CGSize textSize = [self.hour sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
+        return textSize.height + 50;
+    } else {
         NSString *text = [self.data objectForKey:@"access"];
         CGSize textSize = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
         return textSize.height + 40;

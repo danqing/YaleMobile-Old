@@ -110,7 +110,29 @@
 
 + (void)getLibraryHoursForLocation:(NSString *)location controller:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
-    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.libcal.com/api_hours_today.php?iid=457&weeks=18&lid=%@&format=json", location]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUDForView:controller.view animated:YES];
+        NSString *responseString = operation.responseString;
+        NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *error;
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+        completionBlock([dict objectForKey:@"locations"]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUDForView:controller.view animated:YES];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                        message:@"YaleMobile is unable to reach Library Calendar server. Please check your Internet connection and try again."
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = @"Loading Hours...";
+    hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
+    hud.dimBackground = YES;
+    [operation start];
 }
 
 + (void)getAllDiningStatusForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
