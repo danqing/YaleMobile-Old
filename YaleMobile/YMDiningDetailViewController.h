@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *abbr;
 @property (nonatomic, strong) NSString *titleText;
+@property (nonatomic, strong) NSString *hour;
 @property (nonatomic) NSInteger locationID;
 
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;

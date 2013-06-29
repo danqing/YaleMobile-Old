@@ -81,6 +81,17 @@
     ddvc.abbr = [info objectForKey:@"Abbreviation"];
     ddvc.address = [info objectForKey:@"Location"];
     ddvc.locationID = [[[self.data objectAtIndex:self.selectedIndexPath.row] objectAtIndex:0] integerValue];
+    ddvc.hour = [self parseHours:[info objectForKey:@"Hours"]];
+}
+
+- (NSString *)parseHours:(NSArray *)array
+{
+    NSMutableArray *components = [[NSMutableArray alloc] init];
+    for (NSDictionary *entry in array) {
+        [components addObject:[NSString stringWithFormat:@"%@\n\t\t\t\t› ", [[entry allKeys] objectAtIndex:0]]];
+        [components addObject:[NSString stringWithFormat:@"%@\n", [[[entry allValues] objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\t\t\t\t› "]]];
+    }
+    return [components componentsJoinedByString:@""];
 }
 
 #pragma mark - Table view data source

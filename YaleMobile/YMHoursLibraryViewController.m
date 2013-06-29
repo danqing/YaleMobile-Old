@@ -62,8 +62,7 @@
 - (NSString *)parseJSONArray:(NSArray *)array
 {
     NSMutableArray *components = [[NSMutableArray alloc] init];
-    for (NSInteger i = 0; i < array.count; i++) {
-        NSDictionary *entry = [array objectAtIndex:i];
+    for (NSDictionary *entry in array) {
         [components addObject:[NSString stringWithFormat:@"%@\n\t\t\t\t› ", [entry objectForKey:@"name"]]];
         if ([[[entry objectForKey:@"times"] objectForKey:@"status"] isEqualToString:@"open"]) {
             NSArray *hours = [[entry objectForKey:@"times"] objectForKey:@"hours"];
@@ -173,7 +172,8 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.row == 3)
         return 71;
     else if (indexPath.row == 2)

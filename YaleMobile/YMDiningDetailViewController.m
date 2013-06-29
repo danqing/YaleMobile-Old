@@ -25,7 +25,7 @@
     [YMGlobalHelper addBackButtonToController:self];
     [self updateTableHeader];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:[NSString stringWithFormat:@"21.png"]] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", self.abbr]] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)]];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.alpha = 0.7;
@@ -34,7 +34,7 @@
     
     float height = ([[UIScreen mainScreen] bounds].size.height == 568) ? 548 : 460;
     UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, height)];
-    view.image = [[UIImage imageNamed:[NSString stringWithFormat:@"21_overlay.png"]] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    view.image = [[UIImage imageNamed:[NSString stringWithFormat:@"%@_overlay.png", self.abbr]] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [self.view insertSubview:view belowSubview:self.tableView];
     self.overlay = view;
     view.alpha = 0;
@@ -123,7 +123,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -136,31 +136,38 @@
     if (indexPath.row == 0) {
         cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_top.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 5, 20)]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_top_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 5, 20)]];
-        cell.secondary.text = @"Contact Email";
-        cell.primary.text = @"hello";
-    } else if (indexPath.row == 3) {
+        cell.secondary.text = @"Regular Hours";
+        cell.primary.text = self.hour;
+        CGSize textSize = [self.hour sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
+        CGRect frame = cell.primary.frame;
+        frame.size.height = textSize.height;
+    } else if (indexPath.row == 2) {
         cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_bottom.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_bottom_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
-        cell.secondary.text = @"Today's Hours";
+        cell.secondary.text = @"Menu";
+        cell.primary.text = @"Click me to see today's menu";
     } else {
         cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_mid.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_mid_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
-        if (indexPath.row == 1) {
-            cell.secondary.text = @"Contact Number";
-            cell.primary.text = @"12345";
-        } else {
-            cell.secondary.text = @"Access Information";
-            NSString *text = @"123";
-            CGSize textSize = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
-            CGRect frame = cell.primary.frame;
-            frame.size.height = textSize.height;
-            cell.primary.text = text;
-        }
+        cell.secondary.text = @"Special Events";
+        cell.primary.text = @"No upcoming special events";
     }
     
     cell.backgroundView.alpha = 0.4;
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 2)
+        return 71;
+    else if (indexPath.row == 1)
+        return 61;
+    else {
+        CGSize textSize = [self.hour sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
+        return textSize.height + 50;
+    }
 }
 
 
