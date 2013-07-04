@@ -7,7 +7,6 @@
 //
 
 #import "YMDiningDetailViewController.h"
-#import "YMDiningMenuViewController.h"
 #import "YMServerCommunicator.h"
 #import "YMGlobalHelper.h"
 #import "YMSubtitleCell.h"
@@ -23,7 +22,6 @@
     [super viewDidLoad];
     self.tableView.backgroundColor = [UIColor clearColor];
     [YMGlobalHelper addBackButtonToController:self];
-    [self updateTableHeader];
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", self.abbr]] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)]];
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -38,6 +36,30 @@
     [self.view insertSubview:view belowSubview:self.tableView];
     self.overlay = view;
     view.alpha = 0;
+    
+    // inefficient code
+    [YMServerCommunicator getDiningDetailForLocation:self.locationID forController:self usingBlock:^(NSArray *array) {
+        NSMutableArray *all = [[NSMutableArray alloc] initWithCapacity:5];
+        for (NSInteger i = 0; i < 5; i++) {
+            NSMutableArray *sub = [[NSMutableArray alloc] initWithCapacity:array.count];
+            [all addObject:sub];
+        }
+        for (NSArray *entry in array) {
+            NSInteger i = [[entry objectAtIndex:4] integerValue] - 1;
+            if (i >= 0 && i < 5) [[all objectAtIndex:i] addObject:entry];
+        }
+        for (NSInteger i = 4; i >= 0; i--) {
+            NSArray *sub = [all objectAtIndex:i];
+            if (sub.count == 0) [all removeObject:sub];
+        }
+        NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:all.count];
+        for (NSMutableArray *entry in all) {
+            NSString *text = [self parseSubmenu:entry];
+            [result addObject:[[NSDictionary alloc] initWithObjectsAndKeys:text, [[entry objectAtIndex:1] objectAtIndex:3], nil]];
+        }
+        self.menu = result;
+        [self updateTableHeader];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -59,17 +81,33 @@
     [[self navigationController] popViewControllerAnimated:YES];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+// inefficient code
+- (NSString *)parseSubmenu:(NSMutableArray *)array
 {
-    YMDiningMenuViewController *dmvc = (YMDiningMenuViewController *)segue.destinationViewController;
-    //NSDictionary *info = [[NSDictionary alloc] initWithDictionary:[self.locations objectForKey:[self.sortedKeys objectAtIndex:self.selectedIndexPath.row]]];
-    dmvc.title = self.title;
-    dmvc.locationID = self.locationID;
-    [YMServerCommunicator getDiningDetailForLocation:self.locationID forController:dmvc usingBlock:^(NSArray *array) {
-        dmvc.data = array;
-        [dmvc.tableView reloadData];
-    }];
+    NSInteger count = 0;
+    for (NSArray *entry in array)
+        if (count < [[entry objectAtIndex:8] integerValue])
+            count = [[entry objectAtIndex:8] integerValue];
+    
+    NSMutableArray *all = [[NSMutableArray alloc] initWithCapacity:count];
+    for (NSInteger i = 0; i < count; i++) {
+        NSMutableArray *sub = [[NSMutableArray alloc] initWithCapacity:array.count + 1];
+        [all addObject:sub];
+    }
+    for (NSArray *entry in array) {
+        NSInteger i = [[entry objectAtIndex:8] integerValue] - 1;
+        if ([[all objectAtIndex:i] count] == 0)
+            [[all objectAtIndex:i] addObject:[NSString stringWithFormat:@"%@\n",[entry objectAtIndex:7]]];
+        [[all objectAtIndex:i] addObject:[NSString stringWithFormat:@"\t\t\t\t› %@\n", [entry objectAtIndex:10]]];
+    }
+    
+    NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:count];
+    for (NSArray *entry in all)
+        [result addObject:[entry componentsJoinedByString:@""]];
+    
+    return [result componentsJoinedByString:@""];
 }
+
 
 - (void)updateTableHeader
 {
@@ -123,7 +161,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 2 + self.menu.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -141,32 +179,34 @@
         CGSize textSize = [self.hour sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
         CGRect frame = cell.primary.frame;
         frame.size.height = textSize.height;
-    } else if (indexPath.row == 2) {
+    } else if (indexPath.row == 1 + self.menu.count) {
         cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_bottom.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_bottom_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
-        cell.secondary.text = @"Menu";
-        cell.primary.text = @"Click me to see today's menu";
-    } else {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_mid.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
-        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_mid_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
         cell.secondary.text = @"Special Events";
         cell.primary.text = @"No upcoming special events";
+    } else {
+        cell.secondary.text = [NSString stringWithFormat:@"Today's Menu - %@", [[[self.menu objectAtIndex:indexPath.row - 1] allKeys] objectAtIndex:0]];
+        cell.primary.text = [[[self.menu objectAtIndex:indexPath.row - 1] allValues] objectAtIndex:0];
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_mid.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
+        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_mid_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
     }
     
     cell.backgroundView.alpha = 0.4;
+    cell.userInteractionEnabled = NO;
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 2)
+    if (indexPath.row == 1 + self.menu.count)
         return 71;
-    else if (indexPath.row == 1)
-        return 61;
-    else {
+    else if (indexPath.row == 0) {
         CGSize textSize = [self.hour sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
         return textSize.height + 50;
+    } else {
+        CGSize textSize = [[[[self.menu objectAtIndex:indexPath.row - 1] allValues] objectAtIndex:0] sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
+        return textSize.height + 40;
     }
 }
 
@@ -176,7 +216,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedIndexPath = indexPath;
-    [self performSegueWithIdentifier:@"Dining Menu Segue" sender:self];
 }
 
 @end

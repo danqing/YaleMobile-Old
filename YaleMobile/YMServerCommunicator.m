@@ -164,7 +164,9 @@
 
 + (void)getDiningDetailForLocation:(NSUInteger)locationID forController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.yaledining.org/fasttrack/menus.cfm?location=%d&version=2", locationID]];
+    // NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.yaledining.org/fasttrack/menus.cfm?location=%d&version=2", locationID]];
+    NSURL *url = [NSURL URLWithString:@"http://www.yaledining.org/fasttrack/menus.cfm?mDate=04%2F19%2F2013&location=10&version=2"];
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -183,7 +185,7 @@
     }];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelText = @"Loading...";
+    hud.labelText = @"Loading Menu...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
     hud.dimBackground = YES;
     [operation start];

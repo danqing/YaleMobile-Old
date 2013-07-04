@@ -66,7 +66,6 @@
 		24170CF216FFA47900DC4AA7 /* bg_cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24170CF016FFA47800DC4AA7 /* bg_cloud@2x.png */; };
 		24170CF316FFA47900DC4AA7 /* bg_snow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24170CF116FFA47800DC4AA7 /* bg_snow@2x.png */; };
 		24170CF516FFA58700DC4AA7 /* bg_fog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24170CF416FFA58700DC4AA7 /* bg_fog@2x.png */; };
-		24170CFB1700200900DC4AA7 /* YMDiningMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24170CFA1700200900DC4AA7 /* YMDiningMenuViewController.m */; };
 		24265D22170D1FCD00A80D2C /* Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24265D21170D1FCD00A80D2C /* Map.plist */; };
 		24265D25170D22BA00A80D2C /* Abbreviation+Initialize.m in Sources */ = {isa = PBXBuildFile; fileRef = 24265D24170D22BA00A80D2C /* Abbreviation+Initialize.m */; };
 		2426D89716FE0B5A0070D1AD /* weather_fog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2426D89416FE0B5A0070D1AD /* weather_fog@2x.png */; };
@@ -404,8 +403,6 @@
 		24170CF016FFA47800DC4AA7 /* bg_cloud@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_cloud@2x.png"; sourceTree = "<group>"; };
 		24170CF116FFA47800DC4AA7 /* bg_snow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_snow@2x.png"; sourceTree = "<group>"; };
 		24170CF416FFA58700DC4AA7 /* bg_fog@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_fog@2x.png"; sourceTree = "<group>"; };
-		24170CF91700200900DC4AA7 /* YMDiningMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMDiningMenuViewController.h; sourceTree = "<group>"; };
-		24170CFA1700200900DC4AA7 /* YMDiningMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMDiningMenuViewController.m; sourceTree = "<group>"; };
 		24265D21170D1FCD00A80D2C /* Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Map.plist; sourceTree = "<group>"; };
 		24265D23170D22BA00A80D2C /* Abbreviation+Initialize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Abbreviation+Initialize.h"; sourceTree = "<group>"; };
 		24265D24170D22BA00A80D2C /* Abbreviation+Initialize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Abbreviation+Initialize.m"; sourceTree = "<group>"; };
@@ -1296,8 +1293,6 @@
 				4E8B1B7916109B63008CF1BD /* YMDiningViewController.m */,
 				4E8B1B7B16109B7E008CF1BD /* YMDiningDetailViewController.h */,
 				4E8B1B7C16109B7E008CF1BD /* YMDiningDetailViewController.m */,
-				24170CF91700200900DC4AA7 /* YMDiningMenuViewController.h */,
-				24170CFA1700200900DC4AA7 /* YMDiningMenuViewController.m */,
 			);
 			name = Dining;
 			sourceTree = "<group>";
@@ -1793,7 +1788,6 @@
 				24EEED8716C52316005098F6 /* YMDiningCell.m in Sources */,
 				24E589EA16CFF7110022C32F /* YMLaundryDetailCell.m in Sources */,
 				24E4C4FC16D6ECBD00D1698A /* UIColor+YaleMobile.m in Sources */,
-				24170CFB1700200900DC4AA7 /* YMDiningMenuViewController.m in Sources */,
 				24265D25170D22BA00A80D2C /* Abbreviation+Initialize.m in Sources */,
 				244F6781170DB87500029671 /* YMTwoSubtitlesCell.m in Sources */,
 				247CD0791716518700CC77C6 /* YMMapViewAnnotation.m in Sources */,

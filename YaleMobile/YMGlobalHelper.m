@@ -176,7 +176,7 @@
         return @"weather_fog.png";
     else if (code == 34)
         return @"weather_scloud.png";
-    else if (code == 30)
+    else if (code == 30 || code == 29)
         return @"weather_bcloud.png";
     else if (code == 26 || code == 27 || code == 28)
         return @"weather_vcloud.png";
