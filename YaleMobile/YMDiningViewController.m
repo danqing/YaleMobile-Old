@@ -94,6 +94,16 @@
     return [components componentsJoinedByString:@""];
 }
 
+- (NSString *)crowdedness:(NSInteger)degree
+{
+    if (degree == 0) return @"Closed";
+    if (degree == 1 || degree == 2) return @"Very Empty";
+    if (degree == 3 || degree == 4) return @"Mostly Empty";
+    if (degree == 5 || degree == 6) return @"Moderate";
+    if (degree == 7 || degree == 8) return @"Mostly Full";
+    else return @"Extremely Full";
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -119,11 +129,16 @@
     cell.location.shadowOffset = CGSizeMake(0, 1);
     cell.special.shadowColor = [UIColor whiteColor];
     cell.special.shadowOffset = CGSizeMake(0, 1);
+    cell.crowdLabel.shadowColor = [UIColor whiteColor];
+    cell.crowdLabel.shadowOffset = CGSizeMake(0, 1);
     cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"plaintablebg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 5, 0)]];
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"plaintablebg_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 0, 5, 0)]];
     
     cell.special.text = [[self.data objectAtIndex:indexPath.row] objectAtIndex:2];
-    
+    cell.crowdLabel.text = [self crowdedness:[[[self.data objectAtIndex:indexPath.row] objectAtIndex:4] integerValue]];
+    cell.crowdedness.image = [UIImage imageNamed:[NSString stringWithFormat:@"dots%d.png", [[[self.data objectAtIndex:indexPath.row] objectAtIndex:4] integerValue] / 2]];
+    if ([[[self.data objectAtIndex:indexPath.row] objectAtIndex:6] integerValue]) cell.crowdLabel.text = @"Closed";
+        
     return cell;
 }
 

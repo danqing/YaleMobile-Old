@@ -14,5 +14,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *location;
 @property (nonatomic, strong) IBOutlet UILabel *special;
 @property (nonatomic, strong) IBOutlet UIImageView *crowdedness;
+@property (nonatomic, strong) IBOutlet UILabel *crowdLabel;
 
 @end
