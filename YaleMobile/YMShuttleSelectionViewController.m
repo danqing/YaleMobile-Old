@@ -73,6 +73,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"Count is %d", self.routes.count);
     return self.routes.count;
 }
 

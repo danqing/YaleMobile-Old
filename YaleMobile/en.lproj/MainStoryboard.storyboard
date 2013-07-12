@@ -72,7 +72,7 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -112,36 +112,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wtY-Ic-696" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1052" y="814"/>
-        </scene>
-        <!--Dining Menu View Controller-->
-        <scene sceneID="8Y9-En-3rx">
-            <objects>
-                <tableViewController id="zVr-Ff-hjK" customClass="YMDiningMenuViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="t4n-au-skB">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="h1y-qA-xLa">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="zVr-Ff-hjK" id="mni-mh-Vuo"/>
-                            <outlet property="delegate" destination="zVr-Ff-hjK" id="9ik-kH-DDN"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="dOf-QN-TIj"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OMd-k1-ea3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1923" y="814"/>
         </scene>
         <!--Shuttle View Controller - Shuttle-->
         <scene sceneID="MUU-zc-n8Y">
@@ -2165,7 +2135,6 @@
                     <navigationItem key="navigationItem" id="a6u-Md-L6J"/>
                     <connections>
                         <outlet property="tableView" destination="FJt-dp-rD6" id="oua-9E-w6L"/>
-                        <segue destination="zVr-Ff-hjK" kind="push" identifier="Dining Menu Segue" id="Acg-zo-LGS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qte-Fw-lvH" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -2,7 +2,7 @@
 //  Segment.h
 //  YaleMobile
 //
-//  Created by Danqing on 6/20/13.
+//  Created by Danqing on 7/10/13.
 //  Copyright (c) 2013 Danqing Liu. All rights reserved.
 //
 
@@ -13,9 +13,10 @@
 
 @interface Segment : NSManagedObject
 
-@property (nonatomic, retain) NSString * string;
 @property (nonatomic, retain) NSNumber * segmentid;
+@property (nonatomic, retain) NSString * string;
 @property (nonatomic, retain) NSNumber * timestamp;
+@property (nonatomic, retain) NSNumber * direction;
 @property (nonatomic, retain) NSSet *routes;
 @end
 

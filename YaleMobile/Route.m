@@ -2,7 +2,7 @@
 //  Route.m
 //  YaleMobile
 //
-//  Created by Danqing on 6/20/13.
+//  Created by Danqing on 7/10/13.
 //  Copyright (c) 2013 Danqing Liu. All rights reserved.
 //
 
@@ -14,11 +14,11 @@
 @implementation Route
 
 @dynamic color;
-@dynamic routeid;
-@dynamic name;
 @dynamic inactive;
+@dynamic name;
+@dynamic routeid;
 @dynamic timestamp;
-@dynamic stops;
 @dynamic segments;
+@dynamic stops;
 
 @end

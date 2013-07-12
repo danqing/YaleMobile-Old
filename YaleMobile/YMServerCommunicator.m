@@ -30,7 +30,7 @@
 
 + (void)getRouteInfoForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:@"http://api.transloc.com/1.1/routes.json?agencies=128"];
+    NSURL *url = [NSURL URLWithString:@"http://api.transloc.com/1.2/routes.json?agencies=128"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -55,9 +55,36 @@
     [operation start];
 }
 
++ (void)getSegmentInfoForController:(UIViewController *)controller usingBlock:(dict_block_t)completionBlock
+{
+    NSURL *url = [NSURL URLWithString:@"http://api.transloc.com/1.2/segments.json?agencies=128"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUDForView:controller.view animated:YES];
+        NSString *responseString = operation.responseString;
+        NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *error;
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+        completionBlock([dict objectForKey:@"data"]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUDForView:controller.view animated:YES];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                        message:@"YaleMobile is unable to reach TransLoc server. Please check your Internet connection and try again."
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = @"Loading Paths...";
+    hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
+    hud.dimBackground = YES;
+    [operation start];
+}
+
 + (void)getStopInfoForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:@"http://api.transloc.com/1.1/stops.json?agencies=128"];
+    NSURL *url = [NSURL URLWithString:@"http://api.transloc.com/1.2/stops.json?agencies=128"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -84,7 +111,7 @@
 
 + (void)getShuttleInfo:(NSString *)info ForController:(UIViewController *)controller
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.transloc.com/1.1/%@.json?agencies=128", info]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.transloc.com/1.2/%@.json?agencies=128", info]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {

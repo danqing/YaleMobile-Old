@@ -16,7 +16,9 @@
 #import "YMServerCommunicator.h"
 #import "Route+Initialize.h"
 #import "Stop+Initialize.h"
+#import "Segment+Initialize.h"
 #import "YMDatabaseHelper.h"
+#import "MKPolyline+EncodedString.h"
 
 @interface YMShuttleViewController ()
 
@@ -77,15 +79,45 @@
 - (void)loadData
 {
     NSTimeInterval interval = [YMGlobalHelper getTimestamp];
+    [Route removeRoutesBeforeTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
     [YMServerCommunicator getRouteInfoForController:self usingBlock:^(NSArray *data) {
         for (NSDictionary *dict in data)
             [Route routeWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
         [YMServerCommunicator getStopInfoForController:self usingBlock:^(NSArray *data) {
-            for (NSDictionary *dict in data) {
+            for (NSDictionary *dict in data)
                 [Stop stopWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
-            }
+            [YMServerCommunicator getSegmentInfoForController:self usingBlock:^(NSDictionary *data) {
+                for (NSString *key in [data allKeys])
+                    [Segment segmentWithID:[key integerValue] andEncodedString:[data objectForKey:key] inManagedObjectContext:self.db.managedObjectContext];
+                [self refreshMap];
+            }];
         }];
     }];
+}
+
+- (void)refreshMap
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Segment"];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"segmentid" ascending:YES];
+    request.sortDescriptors = [NSArray arrayWithObject:descriptor];
+    NSError *error;
+    NSArray *matches = [self.db.managedObjectContext executeFetchRequest:request error:&error];
+    for (Segment *s in matches) {
+        MKPolyline *line = [MKPolyline polylineWithEncodedString:s.string];
+        [self.mapView addOverlay:line];
+    }
+}
+
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
+{
+    if ([overlay isKindOfClass:[MKPolyline class]])
+    {
+        MKPolylineView *lineview=[[MKPolylineView alloc] initWithOverlay:overlay];
+        lineview.strokeColor=[[UIColor blueColor] colorWithAlphaComponent:0.5];
+        lineview.lineWidth=2.0;
+        return lineview;
+    }
+    return nil;
 }
 
 - (void)didReceiveMemoryWarning

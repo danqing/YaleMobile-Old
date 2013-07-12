@@ -2,7 +2,7 @@
 //  Stop.h
 //  YaleMobile
 //
-//  Created by Danqing on 6/20/13.
+//  Created by Danqing on 7/10/13.
 //  Copyright (c) 2013 Danqing Liu. All rights reserved.
 //
 
@@ -14,10 +14,10 @@
 @interface Stop : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * code;
-@property (nonatomic, retain) NSNumber * stopid;
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSNumber * longitude;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * stopid;
 @property (nonatomic, retain) NSNumber * timestamp;
 @property (nonatomic, retain) NSSet *routes;
 @end

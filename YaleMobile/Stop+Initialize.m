@@ -37,7 +37,8 @@
     NSMutableSet *routesSet = [[NSMutableSet alloc] initWithCapacity:routes.count];
     for (NSString *route in routes) {
         NSNumber *routeId = [NSNumber numberWithInteger:route.integerValue];
-        [routesSet addObject:[Route fetchRouteWithId:routeId inManagedObjectContext:context]];
+        Route *route = [Route fetchRouteWithId:routeId inManagedObjectContext:context];
+        if (route) [routesSet addObject:route];
     }
     stop.routes = routesSet;
 }
