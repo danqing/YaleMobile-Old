@@ -34,6 +34,21 @@
 			<key>Name</key>
 			<string>Accounting</string>
 		</dict>
+		<key>Aerospace Studies</key>
+		<dict>
+			<key>U</key>
+			<string>1</string>
+			<key>G</key>
+			<string>0</string>
+			<key>P</key>
+			<string>0</string>
+			<key>S</key>
+			<string>0</string>
+			<key>Value</key>
+			<string>USAF</string>
+			<key>Name</key>
+			<string>Aerospace Studies</string>
+		</dict>
 		<key>African American Studies</key>
 		<dict>
 			<key>U</key>
@@ -217,6 +232,21 @@
 	</dict>
 	<key>B</key>
 	<dict>
+		<key>Bengali</key>
+		<dict>
+			<key>U</key>
+			<string>1</string>
+			<key>G</key>
+			<string>0</string>
+			<key>P</key>
+			<string>0</string>
+			<key>S</key>
+			<string>0</string>
+			<key>Value</key>
+			<string>BNGL</string>
+			<key>Name</key>
+			<string>Bengali</string>
+		</dict>
 		<key>Biological &amp; Biomedical Science</key>
 		<dict>
 			<key>U</key>
@@ -1267,6 +1297,21 @@
 	</dict>
 	<key>G</key>
 	<dict>
+		<key>Gender Studies</key>
+		<dict>
+			<key>U</key>
+			<string>1</string>
+			<key>G</key>
+			<string>1</string>
+			<key>P</key>
+			<string>0</string>
+			<key>S</key>
+			<string>1</string>
+			<key>Value</key>
+			<string>GENS</string>
+			<key>Name</key>
+			<string>Gender Studies</string>
+		</dict>
 		<key>Genetics</key>
 		<dict>
 			<key>U</key>
@@ -1342,6 +1387,21 @@
 			<key>Name</key>
 			<string>Global Affairs</string>
 		</dict>
+		<key>Global Health Studies</key>
+		<dict>
+			<key>U</key>
+			<string>1</string>
+			<key>G</key>
+			<string>0</string>
+			<key>P</key>
+			<string>0</string>
+			<key>S</key>
+			<string>1</string>
+			<key>Value</key>
+			<string>HLTH</string>
+			<key>Name</key>
+			<string>Global Health Studies</string>
+		</dict>
 		<key>Greek, Ancient</key>
 		<dict>
 			<key>U</key>
@@ -1390,20 +1450,20 @@
 			<key>Name</key>
 			<string>Health Policy Administration</string>
 		</dict>
-		<key>Health Studies</key>
+		<key>Health Policy and Management</key>
 		<dict>
 			<key>U</key>
-			<string>1</string>
+			<string>0</string>
 			<key>G</key>
 			<string>0</string>
 			<key>P</key>
-			<string>0</string>
-			<key>S</key>
 			<string>1</string>
+			<key>S</key>
+			<string>0</string>
 			<key>Value</key>
-			<string>HLTH</string>
+			<string>HPM</string>
 			<key>Name</key>
-			<string>Health Studies</string>
+			<string>Health Policy and Management</string>
 		</dict>
 		<key>Hebrew</key>
 		<dict>
@@ -2365,6 +2425,21 @@
 			<key>Name</key>
 			<string>Renaissance Studies</string>
 		</dict>
+		<key>Romanian</key>
+		<dict>
+			<key>U</key>
+			<string>1</string>
+			<key>G</key>
+			<string>0</string>
+			<key>P</key>
+			<string>0</string>
+			<key>S</key>
+			<string>0</string>
+			<key>Value</key>
+			<string>ROMN</string>
+			<key>Name</key>
+			<string>Romanian</string>
+		</dict>
 		<key>Russian</key>
 		<dict>
 			<key>U</key>
@@ -2562,6 +2637,21 @@
 			<string>SPTC</string>
 			<key>Name</key>
 			<string>Special Term Course</string>
+		</dict>
+		<key>Start Program - Med School</key>
+		<dict>
+			<key>U</key>
+			<string>0</string>
+			<key>G</key>
+			<string>0</string>
+			<key>P</key>
+			<string>1</string>
+			<key>S</key>
+			<string>0</string>
+			<key>Value</key>
+			<string>STRT</string>
+			<key>Name</key>
+			<string>Start Program - Med School</string>
 		</dict>
 		<key>Statistics</key>
 		<dict>

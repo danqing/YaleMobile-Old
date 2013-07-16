@@ -103,7 +103,7 @@
         cell.backgroundView = nil;
         cell.backgroundColor = [UIColor clearColor];
     } else if (indexPath.row == self.types.count + 1) {
-        NSString *text = @"Please note: unless otherwise noted, hours listed here only refer to regular schedule. Please double check during holidays and special events.";
+        NSString *text = @"Library hours are synced with Yale Library website but may not reflect special conditions. Dining and gym hours only refer to regular schedule. Please double check during holidays and special events.";
         cell.name.text = text;
         CGSize textSize = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14] constrainedToSize:CGSizeMake(280, 5000)];
         CGRect frame = cell.name.frame;

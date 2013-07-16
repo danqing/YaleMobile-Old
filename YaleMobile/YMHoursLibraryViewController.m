@@ -38,6 +38,7 @@
         self.hour = [self parseJSONArray:hour];
         [self.tableView reloadData];
     }];
+    
 }
 
 - (void)didReceiveMemoryWarning

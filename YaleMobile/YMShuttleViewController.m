@@ -19,6 +19,9 @@
 #import "Segment+Initialize.h"
 #import "YMDatabaseHelper.h"
 #import "MKPolyline+EncodedString.h"
+#import "YMStopAnnotation.h"
+#import "YMStopAnnotationView.h"
+#import "YMTransferStopAnnotationView.h"
 
 @interface YMShuttleViewController ()
 
@@ -80,6 +83,9 @@
 {
     NSTimeInterval interval = [YMGlobalHelper getTimestamp];
     [Route removeRoutesBeforeTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
+    [Stop removeStopsBeforeTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
+    [Segment removeSegmentsBeforeTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
+    
     [YMServerCommunicator getRouteInfoForController:self usingBlock:^(NSArray *data) {
         for (NSDictionary *dict in data)
             [Route routeWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
@@ -102,21 +108,72 @@
     request.sortDescriptors = [NSArray arrayWithObject:descriptor];
     NSError *error;
     NSArray *matches = [self.db.managedObjectContext executeFetchRequest:request error:&error];
+     
     for (Segment *s in matches) {
-        MKPolyline *line = [MKPolyline polylineWithEncodedString:s.string];
-        [self.mapView addOverlay:line];
+        NSArray *routes = [s.routes allObjects];
+        for (Route *r in routes) {
+            MKPolyline *line = [MKPolyline polylineWithEncodedString:s.string];
+            line.title = r.color;
+            line.subtitle = [NSString stringWithFormat:@"%d:%d", [routes indexOfObject:r], routes.count];
+            [self.mapView addOverlay:line];
+        }
+    }
+    
+    NSFetchRequest *request2 = [NSFetchRequest fetchRequestWithEntityName:@"Stop"];
+    NSSortDescriptor *descriptor2 = [NSSortDescriptor sortDescriptorWithKey:@"stopid" ascending:YES];
+    request2.sortDescriptors = [NSArray arrayWithObject:descriptor2];
+    NSError *error2;
+    NSArray *matches2 = [self.db.managedObjectContext executeFetchRequest:request2 error:&error2];
+    
+    for (Stop *s in matches2) {
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(s.latitude.doubleValue, s.longitude.doubleValue);
+        YMStopAnnotation *annotation = [[YMStopAnnotation alloc] initWithLocation:coordinate];
+        annotation.routes = [s.routes allObjects];
+        [self.mapView addAnnotation:annotation];
     }
 }
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
 {
-    if ([overlay isKindOfClass:[MKPolyline class]])
-    {
-        MKPolylineView *lineview=[[MKPolylineView alloc] initWithOverlay:overlay];
-        lineview.strokeColor=[[UIColor blueColor] colorWithAlphaComponent:0.5];
-        lineview.lineWidth=2.0;
-        return lineview;
+    if ([overlay isKindOfClass:[MKPolyline class]]) {
+        MKPolylineView *lineView = [[MKPolylineView alloc] initWithOverlay:overlay];
+        lineView.strokeColor = [[YMGlobalHelper colorFromHexString:overlay.title] colorWithAlphaComponent:1];
+        lineView.lineWidth = 5.0;
+        
+        NSArray *routes = [overlay.subtitle componentsSeparatedByString:@":"];
+        NSInteger routesCount = [[routes objectAtIndex:1] integerValue];
+        if (routesCount > 1) {
+            lineView.lineDashPattern = [NSArray arrayWithObjects:[NSNumber numberWithInt:30], [NSNumber numberWithInt:30 * ([[routes objectAtIndex:1] integerValue] - 1)], nil];
+            lineView.lineDashPhase = [[routes objectAtIndex:0] floatValue] * 30;
+        }
+        return lineView;
     }
+    
+    return nil;
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[MKUserLocation class]]) return nil;
+    
+    if ([annotation isKindOfClass:[YMStopAnnotation class]]) {
+        if (((YMStopAnnotation *) annotation).routes.count == 1) {
+            YMStopAnnotationView *stopView = (YMStopAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Stop View"];
+            if (!stopView) {
+                stopView = [[YMStopAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Stop View"];
+                stopView.canShowCallout = NO;
+            } else stopView.annotation = annotation;
+            return stopView;
+        } else {
+            YMTransferStopAnnotationView *stopView = (YMTransferStopAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Stop View"];
+            if (!stopView) {
+                stopView = [[YMTransferStopAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Stop View"];
+                stopView.canShowCallout = NO;
+            } else stopView.annotation = annotation;
+            return stopView;
+        }
+    }
+    
     return nil;
 }
 

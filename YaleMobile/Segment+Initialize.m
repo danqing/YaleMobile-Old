@@ -51,4 +51,16 @@
     segment.string = string;
 }
 
++ (void)removeSegmentsBeforeTimestamp:(NSTimeInterval)timestamp inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Segment"];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"segmentid" ascending:YES];
+    request.predicate = [NSPredicate predicateWithFormat:@"timestamp != %f", timestamp];
+    request.sortDescriptors = [NSArray arrayWithObject:descriptor];
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    NSLog(@"Removing segments with timestamp %f. Matches: %d", timestamp, matches.count);
+    for (Segment *segment in matches) [context deleteObject:segment];
+}
+
 @end

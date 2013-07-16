@@ -12,5 +12,6 @@
 
 + (Segment *)segmentWithId:(NSInteger)segmentId andDirection:(BOOL)isForward forTimestamp:(NSTimeInterval)timestamp inManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)segmentWithID:(NSInteger)segmentId andEncodedString:(NSString *)string inManagedObjectContext:(NSManagedObjectContext *)context;
++ (void)removeSegmentsBeforeTimestamp:(NSTimeInterval)timestamp inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

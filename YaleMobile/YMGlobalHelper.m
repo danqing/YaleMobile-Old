@@ -32,7 +32,7 @@
 {
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Initialized"]) {
         // bluebook defaults
-        [[NSUserDefaults standardUserDefaults] setObject:@"Spring 2013" forKey:@"Bluebook Term"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"Fall 2013" forKey:@"Bluebook Term"];
         [[NSUserDefaults standardUserDefaults] setObject:@"ALL" forKey:@"Bluebook Category"];
         [[NSUserDefaults standardUserDefaults] setObject:@"None" forKey:@"Bluebook Language"];
         

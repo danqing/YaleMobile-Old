@@ -40,7 +40,8 @@
         Route *route = [Route fetchRouteWithId:routeId inManagedObjectContext:context];
         if (route) [routesSet addObject:route];
     }
-    stop.routes = routesSet;
+    if (routesSet.count == 0) [context deleteObject:stop];
+    else stop.routes = routesSet;
 }
 
 + (void)removeAllStopsInManagedObjectContext:(NSManagedObjectContext *)context

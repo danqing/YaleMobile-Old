@@ -111,7 +111,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wtY-Ic-696" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1052" y="814"/>
+            <point key="canvasLocation" x="1578" y="814"/>
         </scene>
         <!--Shuttle View Controller - Shuttle-->
         <scene sceneID="MUU-zc-n8Y">
@@ -1276,7 +1276,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X0u-2h-adc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="293" y="814"/>
+            <point key="canvasLocation" x="819" y="814"/>
         </scene>
         <!--Hours View Controller - Facility Hours-->
         <scene sceneID="b3y-vE-LAr">
@@ -2139,7 +2139,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qte-Fw-lvH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1521" y="814"/>
+            <point key="canvasLocation" x="2047" y="814"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="lCf-sG-wdN">
@@ -2390,6 +2390,108 @@
             </objects>
             <point key="canvasLocation" x="-541" y="-597"/>
         </scene>
+        <!--Jump Station View Controller - Jump Station-->
+        <scene sceneID="bvk-hC-PQF">
+            <objects>
+                <tableViewController id="3Hh-Ea-6Mw" customClass="YMJumpStationViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ixs-De-a8Z">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Jump Cell 1" rowHeight="54" id="JJ4-if-fhO" customClass="YMSimpleCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="54"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bY2-dJ-2tH">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="EGx-Bd-c3M"/>
+                                                <constraint firstAttribute="width" constant="247" id="Ukh-ZS-JqP"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                            <color key="textColor" red="0.43379486029999997" green="0.51586415819999998" blue="0.51586415819999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="0.43379486029999997" green="0.51586415819999998" blue="0.51586415819999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="bY2-dJ-2tH" firstAttribute="top" secondItem="JJ4-if-fhO" secondAttribute="top" constant="24" id="G4o-j4-LhJ"/>
+                                    <constraint firstItem="bY2-dJ-2tH" firstAttribute="leading" secondItem="JJ4-if-fhO" secondAttribute="leading" constant="24" id="qnV-qb-WQe"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="name" destination="bY2-dJ-2tH" id="eVD-ze-DxF"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Jump Cell 2" id="QBI-BO-taF" customClass="YMSimpleCell">
+                                <rect key="frame" x="0.0" y="76" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCN-DN-YTk">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="Grq-fx-pzV"/>
+                                                <constraint firstAttribute="width" constant="247" id="g8C-id-b1u"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                            <color key="textColor" red="0.43379486029999997" green="0.51586415819999998" blue="0.51586415819999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="0.43379486029999997" green="0.51586415819999998" blue="0.51586415819999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="YCN-DN-YTk" firstAttribute="top" secondItem="QBI-BO-taF" secondAttribute="top" constant="14" type="user" id="R8N-Gu-7H1"/>
+                                    <constraint firstItem="YCN-DN-YTk" firstAttribute="leading" secondItem="QBI-BO-taF" secondAttribute="leading" constant="24" id="b6e-Ca-nTz"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="name" destination="YCN-DN-YTk" id="DCf-qs-sYe"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Jump Cell 0" id="63h-oe-M9x" customClass="YMSimpleCell">
+                                <rect key="frame" x="0.0" y="120" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAg-5W-Eh2">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="jDD-Wx-d0I"/>
+                                                <constraint firstAttribute="width" constant="247" id="xkE-Ph-amQ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                            <color key="textColor" red="0.43379486029999997" green="0.51586415819999998" blue="0.51586415819999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="0.43379486029999997" green="0.51586415819999998" blue="0.51586415819999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="yAg-5W-Eh2" firstAttribute="top" secondItem="63h-oe-M9x" secondAttribute="top" constant="14" type="user" id="9c5-fJ-jDz"/>
+                                    <constraint firstItem="yAg-5W-Eh2" firstAttribute="leading" secondItem="63h-oe-M9x" secondAttribute="leading" constant="24" id="T7E-IJ-thh"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="name" destination="yAg-5W-Eh2" id="9LW-P2-rSx"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="3Hh-Ea-6Mw" id="hpr-fv-lkD"/>
+                            <outlet property="delegate" destination="3Hh-Ea-6Mw" id="yQx-gD-Rdn"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Jump Station" id="1fV-j9-oJ5"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PaF-Dv-jUR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-216" y="811"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="ww4-wk-kd6">
             <objects>
@@ -2406,7 +2508,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BL9-PC-bjY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-182" y="814"/>
+            <point key="canvasLocation" x="344" y="814"/>
         </scene>
         <!--Settings View Controller - Settings-->
         <scene sceneID="fC6-VQ-uMY">
@@ -2669,7 +2771,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mkT-kQ-n6C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="695" y="814"/>
+            <point key="canvasLocation" x="1221" y="814"/>
         </scene>
         <!--Laundry Detail View Controller - Machine Status-->
         <scene sceneID="j87-vP-UFK">
@@ -3124,6 +3226,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nh6-fY-U8V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1093" y="2204"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="iYG-JG-yzR">
+            <objects>
+                <navigationController storyboardIdentifier="Jump Station Root" id="7cT-39-TqX" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Axf-BO-V6x">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="3Hh-Ea-6Mw" kind="relationship" relationship="rootViewController" id="51W-Ii-E0s"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qYD-cv-L5r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-594" y="811"/>
         </scene>
     </scenes>
     <resources>

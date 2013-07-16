@@ -54,7 +54,8 @@
     self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     if (![self.slidingViewController.underLeftViewController isKindOfClass:[YMMenuViewController class]]) {
         self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
     }
