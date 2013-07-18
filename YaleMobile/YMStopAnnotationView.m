@@ -28,6 +28,7 @@
     return self;
 }
 
+// same as in YMRoundView. Duplicated code.
 void drawLinearGradient2(CGContextRef context, CGRect rect, CGColorRef startColor, CGColorRef endColor)
 {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -62,7 +63,6 @@ void drawLinearGradient2(CGContextRef context, CGRect rect, CGColorRef startColo
     CGRect paperRect = self.bounds;
     
     drawLinearGradient2(context, paperRect, darkColor.CGColor, lightColor.CGColor);
-
 }
 
 

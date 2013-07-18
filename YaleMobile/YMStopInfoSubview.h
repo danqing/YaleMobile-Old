@@ -13,5 +13,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *lineName;
 @property (nonatomic, strong) IBOutlet UILabel *etaLabel;
 @property (nonatomic, strong) IBOutlet UILabel *minutes;
+@property (nonatomic, strong) IBOutlet UILabel *stopName;
+@property (nonatomic, strong) IBOutlet UILabel *stopCode;
 
 @end

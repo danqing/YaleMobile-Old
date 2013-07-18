@@ -28,6 +28,7 @@
     else stop = [matches lastObject];
     
     stop.stopid = [NSNumber numberWithInteger:stopId];
+    stop.code = [NSNumber numberWithInteger:[[data objectForKey:@"code"] integerValue]];
     stop.name = [data objectForKey:@"name"];
     stop.latitude = [[data objectForKey:@"location"] objectForKey:@"lat"];
     stop.longitude = [[data objectForKey:@"location"] objectForKey:@"lng"];

@@ -14,8 +14,10 @@
 }
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic, strong) NSArray *routes;
 
-- (id)initWithLocation:(CLLocationCoordinate2D)coord;
+- (id)initWithLocation:(CLLocationCoordinate2D)coord routes:(NSArray *)rs title:(NSString *)t andSubtitle:(NSString *)st;
 
 @end

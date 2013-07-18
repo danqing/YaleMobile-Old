@@ -16,7 +16,6 @@
 		2400BEE0179596C40051AD70 /* YMStopAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2400BEDF179596C40051AD70 /* YMStopAnnotation.m */; };
 		2400BEE31795A4800051AD70 /* YMStopAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2400BEE21795A4800051AD70 /* YMStopAnnotationView.m */; };
 		2400BEE61795AB930051AD70 /* YMTransferStopAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2400BEE51795AB930051AD70 /* YMTransferStopAnnotationView.m */; };
-		2400BEE91795B27A0051AD70 /* YMShuttleInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2400BEE81795B2790051AD70 /* YMShuttleInfoView.m */; };
 		2400BEEC1795B28B0051AD70 /* YMVehicleInfoSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2400BEEB1795B28A0051AD70 /* YMVehicleInfoSubview.m */; };
 		2400BEEE1795B2A20051AD70 /* YMVehicleInfoSubview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2400BEED1795B2A10051AD70 /* YMVehicleInfoSubview.xib */; };
 		24058E1B169670F2007111EB /* round9.png in Resources */ = {isa = PBXBuildFile; fileRef = 24058E19169670F1007111EB /* round9.png */; };
@@ -382,8 +381,6 @@
 		2400BEE21795A4800051AD70 /* YMStopAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMStopAnnotationView.m; sourceTree = "<group>"; };
 		2400BEE41795AB920051AD70 /* YMTransferStopAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMTransferStopAnnotationView.h; sourceTree = "<group>"; };
 		2400BEE51795AB930051AD70 /* YMTransferStopAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMTransferStopAnnotationView.m; sourceTree = "<group>"; };
-		2400BEE71795B2790051AD70 /* YMShuttleInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMShuttleInfoView.h; sourceTree = "<group>"; };
-		2400BEE81795B2790051AD70 /* YMShuttleInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMShuttleInfoView.m; sourceTree = "<group>"; };
 		2400BEEA1795B28A0051AD70 /* YMVehicleInfoSubview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMVehicleInfoSubview.h; sourceTree = "<group>"; };
 		2400BEEB1795B28A0051AD70 /* YMVehicleInfoSubview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMVehicleInfoSubview.m; sourceTree = "<group>"; };
 		2400BEED1795B2A10051AD70 /* YMVehicleInfoSubview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YMVehicleInfoSubview.xib; sourceTree = "<group>"; };
@@ -1403,8 +1400,6 @@
 				249D3968174532600053B4A2 /* YMShuttleSelectionViewController.m */,
 				2400BEDE179596C40051AD70 /* YMStopAnnotation.h */,
 				2400BEDF179596C40051AD70 /* YMStopAnnotation.m */,
-				2400BEE71795B2790051AD70 /* YMShuttleInfoView.h */,
-				2400BEE81795B2790051AD70 /* YMShuttleInfoView.m */,
 				2400BEC91794DAB70051AD70 /* YMStopInfoSubview.h */,
 				2400BECA1794DAB70051AD70 /* YMStopInfoSubview.m */,
 				2400BEEA1795B28A0051AD70 /* YMVehicleInfoSubview.h */,
@@ -1951,7 +1946,6 @@
 				2400BEE0179596C40051AD70 /* YMStopAnnotation.m in Sources */,
 				2400BEE31795A4800051AD70 /* YMStopAnnotationView.m in Sources */,
 				2400BEE61795AB930051AD70 /* YMTransferStopAnnotationView.m in Sources */,
-				2400BEE91795B27A0051AD70 /* YMShuttleInfoView.m in Sources */,
 				2400BEEC1795B28B0051AD70 /* YMVehicleInfoSubview.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,6 +22,8 @@
 #import "YMStopAnnotation.h"
 #import "YMStopAnnotationView.h"
 #import "YMTransferStopAnnotationView.h"
+#import "YMStopInfoSubview.h"
+#import "YMRoundView.h"
 
 @interface YMShuttleViewController ()
 
@@ -47,6 +49,7 @@
     [settings setBackgroundImage:[UIImage imageNamed:@"settings.png"] forState:UIControlStateNormal];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:settings]];
     [settings addTarget:self action:@selector(settings:) forControlEvents:UIControlEventTouchUpInside];
+    self.zoomLevel = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -95,13 +98,14 @@
             [YMServerCommunicator getSegmentInfoForController:self usingBlock:^(NSDictionary *data) {
                 for (NSString *key in [data allKeys])
                     [Segment segmentWithID:[key integerValue] andEncodedString:[data objectForKey:key] inManagedObjectContext:self.db.managedObjectContext];
-                [self refreshMap];
+                [self addSegments];
+                [self addStops];
             }];
         }];
     }];
 }
 
-- (void)refreshMap
+- (void)addSegments
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Segment"];
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"segmentid" ascending:YES];
@@ -118,17 +122,19 @@
             [self.mapView addOverlay:line];
         }
     }
+}
+
+- (void)addStops
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Stop"];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"stopid" ascending:YES];
+    request.sortDescriptors = [NSArray arrayWithObject:descriptor];
+    NSError *error;
+    NSArray *matches = [self.db.managedObjectContext executeFetchRequest:request error:&error];
     
-    NSFetchRequest *request2 = [NSFetchRequest fetchRequestWithEntityName:@"Stop"];
-    NSSortDescriptor *descriptor2 = [NSSortDescriptor sortDescriptorWithKey:@"stopid" ascending:YES];
-    request2.sortDescriptors = [NSArray arrayWithObject:descriptor2];
-    NSError *error2;
-    NSArray *matches2 = [self.db.managedObjectContext executeFetchRequest:request2 error:&error2];
-    
-    for (Stop *s in matches2) {
+    for (Stop *s in matches) {
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(s.latitude.doubleValue, s.longitude.doubleValue);
-        YMStopAnnotation *annotation = [[YMStopAnnotation alloc] initWithLocation:coordinate];
-        annotation.routes = [s.routes allObjects];
+        YMStopAnnotation *annotation = [[YMStopAnnotation alloc] initWithLocation:coordinate routes:[s.routes allObjects] title:s.name andSubtitle:s.code.stringValue];
         [self.mapView addAnnotation:annotation];
     }
 }
@@ -157,24 +163,85 @@
     if ([annotation isKindOfClass:[MKUserLocation class]]) return nil;
     
     if ([annotation isKindOfClass:[YMStopAnnotation class]]) {
+        MKAnnotationView *stopView = nil;
         if (((YMStopAnnotation *) annotation).routes.count == 1) {
-            YMStopAnnotationView *stopView = (YMStopAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Stop View"];
-            if (!stopView) {
-                stopView = [[YMStopAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Stop View"];
-                stopView.canShowCallout = NO;
-            } else stopView.annotation = annotation;
-            return stopView;
+            stopView = (YMStopAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Stop View"];
+            if (!stopView) stopView = [[YMStopAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Stop View"];
+            else stopView.annotation = annotation;
         } else {
-            YMTransferStopAnnotationView *stopView = (YMTransferStopAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Stop View"];
-            if (!stopView) {
-                stopView = [[YMTransferStopAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Stop View"];
-                stopView.canShowCallout = NO;
-            } else stopView.annotation = annotation;
-            return stopView;
+            stopView = (YMTransferStopAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Transfer View"];
+            if (!stopView) stopView = [[YMTransferStopAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Transfer View"];
+            else stopView.annotation = annotation;
         }
+        stopView.canShowCallout = NO;
+        [stopView setNeedsDisplay];
+        return stopView;
     }
     
     return nil;
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    double span = mapView.region.span.longitudeDelta;
+    if (span > 0.02 && self.zoomLevel <= 0.02) {
+        for (int i = mapView.annotations.count - 1; i >= 0; i--) {
+            if ([[mapView.annotations objectAtIndex:i] isKindOfClass:[YMStopAnnotation class]])
+                [mapView removeAnnotation:[mapView.annotations objectAtIndex:i]];
+        }
+    } else if (span <= 0.02 && self.zoomLevel > 0.02) {
+        [self addStops];
+    }
+    self.zoomLevel = span;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+    if ([view isKindOfClass:[YMStopAnnotationView class]] || [view isKindOfClass:[YMTransferStopAnnotationView class]]) {
+        YMStopInfoSubview *stopView = nil;
+        NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"YMStopInfoSubview" owner:self options:nil];
+        for (id v in views) {
+            if ([v isKindOfClass:[YMStopInfoSubview class]]) {
+                stopView = (YMStopInfoSubview *)v;
+                stopView.minutes.text = @"20";
+                stopView.lineName.text = ((Route *)[((YMStopAnnotation *)view.annotation).routes objectAtIndex:0]).name;
+                stopView.stopName.text = ((YMStopAnnotation *)view.annotation).title;
+                stopView.stopCode.text = ((YMStopAnnotation *)view.annotation).subtitle;
+                YMRoundView *roundView = [[YMRoundView alloc] initWithColor:[YMGlobalHelper colorFromHexString:((Route *)[((YMStopAnnotation *)view.annotation).routes objectAtIndex:0]).color] andFrame:CGRectMake(26, 43, 13, 13)];
+                [stopView addSubview:roundView];
+            }
+        }
+        
+        float delay = 0;
+        if (self.callout) {
+            delay = 0.3;
+            CGRect frame = self.callout.frame;
+            frame.origin.y -= 100;
+            [UIView animateWithDuration:0.3 animations:^{
+                self.callout.frame = frame;
+            } completion:^(BOOL finished) {
+                [self removeCalloutView];
+            }];
+        }
+        
+        [self.view addSubview:stopView];
+        CGRect frame = stopView.frame;
+        frame.origin.y -= 100;
+        stopView.frame = frame;
+        frame.origin.y += 100;
+        
+        [UIView animateWithDuration:0.3 delay:delay options:nil animations:^{
+            stopView.frame = frame;
+        } completion:^(BOOL finished) {
+            self.callout = stopView;
+        }];
+    }
+}
+
+- (void)removeCalloutView
+{
+    [self.callout removeFromSuperview];
+    self.callout = nil;
 }
 
 - (void)didReceiveMemoryWarning

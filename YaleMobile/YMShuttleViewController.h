@@ -14,5 +14,7 @@
 
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) UIManagedDocument *db;
+@property (nonatomic) double zoomLevel;
+@property (nonatomic, strong) UIView *callout;
 
 @end

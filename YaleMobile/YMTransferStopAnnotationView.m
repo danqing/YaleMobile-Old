@@ -50,7 +50,7 @@
         if (startDeg != endDeg) {
             CGContextSetFillColorWithColor(context, color.CGColor);
             CGContextMoveToPoint(context, x, y);
-            CGContextAddArc(context, x, y, r, (startDeg-90)*M_PI/180.0, (endDeg-90)*M_PI/180.0, 0);
+            CGContextAddArc(context, x, y, r, (startDeg-90)*M_PI / 180.0, (endDeg-90)*M_PI / 180.0, 0);
             CGContextClosePath(context);
             CGContextFillPath(context);
         }
