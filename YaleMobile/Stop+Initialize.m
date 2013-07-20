@@ -45,6 +45,21 @@
     else stop.routes = routesSet;
 }
 
++ (Stop *)fetchStopWithId:(NSNumber *)stopId inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    Stop *stop = nil;
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Stop"];
+    request.predicate = [NSPredicate predicateWithFormat:@"stopid = %@", stopId];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"stopid" ascending:YES];
+    request.sortDescriptors = [NSArray arrayWithObject:descriptor];
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    if (matches.count == 1) stop = [matches lastObject];
+    return stop;
+}
+
 + (void)removeAllStopsInManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSLog(@"Removing all stops.....");

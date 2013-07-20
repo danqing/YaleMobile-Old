@@ -16,5 +16,6 @@
 @property (nonatomic, strong) UIManagedDocument *db;
 @property (nonatomic) double zoomLevel;
 @property (nonatomic, strong) UIView *callout;
+@property (nonatomic, strong) NSTimer *animationTimer;
 
 @end

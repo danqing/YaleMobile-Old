@@ -25,6 +25,7 @@ typedef void (^dict_block_t)(NSDictionary *dict);
 + (void)getRouteInfoForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock;
 + (void)getStopInfoForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock;
 + (void)getSegmentInfoForController:(UIViewController *)controller usingBlock:(dict_block_t)completionBlock;
++ (void)getShuttleInfoForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock;
 
 + (void)getLibraryHoursForLocation:(NSString *)location controller:(UIViewController *)controller usingBlock:(array_block_t)completionBlock;
 

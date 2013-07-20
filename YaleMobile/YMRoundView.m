@@ -7,6 +7,7 @@
 //
 
 #import "YMRoundView.h"
+#import "YMCHelper.h"
 
 @interface YMRoundView ()
 
@@ -25,26 +26,10 @@
     return self;
 }
 
-void drawLinearGradient(CGContextRef context, CGRect rect, CGColorRef startColor, CGColorRef endColor)
+- (void)redrawWithColor:(UIColor *)color
 {
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGFloat locations[] = { 0.0, 1.0 };
-    
-    NSArray *colors = @[(__bridge id) startColor, (__bridge id) endColor];
-    
-    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef) colors, locations);
-    
-    CGPoint startPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));
-    CGPoint endPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
-    
-    CGContextSaveGState(context);
-    CGContextAddEllipseInRect(context, rect);
-    CGContextClip(context);
-    CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
-    CGContextRestoreGState(context);
-    
-    CGGradientRelease(gradient);
-    CGColorSpaceRelease(colorSpace);
+    self.color = color;
+    [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect

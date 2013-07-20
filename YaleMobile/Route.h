@@ -2,14 +2,14 @@
 //  Route.h
 //  YaleMobile
 //
-//  Created by Danqing on 7/10/13.
+//  Created by Danqing on 7/19/13.
 //  Copyright (c) 2013 Danqing Liu. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Segment, Stop;
+@class Segment, Stop, Vehicle;
 
 @interface Route : NSManagedObject
 
@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSNumber * timestamp;
 @property (nonatomic, retain) NSSet *segments;
 @property (nonatomic, retain) NSSet *stops;
+@property (nonatomic, retain) NSSet *vehicles;
 @end
 
 @interface Route (CoreDataGeneratedAccessors)
@@ -33,5 +34,10 @@
 - (void)removeStopsObject:(Stop *)value;
 - (void)addStops:(NSSet *)values;
 - (void)removeStops:(NSSet *)values;
+
+- (void)addVehiclesObject:(Vehicle *)value;
+- (void)removeVehiclesObject:(Vehicle *)value;
+- (void)addVehicles:(NSSet *)values;
+- (void)removeVehicles:(NSSet *)values;
 
 @end

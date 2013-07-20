@@ -1,18 +1,13 @@
 //
-//  Office.m
+//  YMVehicleAnnotationView.h
 //  YaleMobile
 //
 //  Created by Danqing on 7/19/13.
 //  Copyright (c) 2013 Danqing Liu. All rights reserved.
 //
 
-#import "Office.h"
+#import <MapKit/MapKit.h>
 
-
-@implementation Office
-
-@dynamic firstLetter;
-@dynamic name;
-@dynamic phone;
+@interface YMVehicleAnnotationView : MKAnnotationView
 
 @end

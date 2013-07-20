@@ -39,6 +39,11 @@
     
     // inefficient code
     [YMServerCommunicator getDiningDetailForLocation:self.locationID forController:self usingBlock:^(NSArray *array) {
+        if (!array || array.count == 0) {
+            self.menu = nil;
+            [self updateTableHeader];
+            return;
+        }
         NSMutableArray *all = [[NSMutableArray alloc] initWithCapacity:5];
         for (NSInteger i = 0; i < 5; i++) {
             NSMutableArray *sub = [[NSMutableArray alloc] initWithCapacity:array.count];

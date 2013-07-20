@@ -12,6 +12,7 @@
 #import "ECSlidingViewController.h"
 #import "YMDiningCell.h"
 #import "YMServerCommunicator.h"
+#import "UIColor+YaleMobile.h"
 
 @interface YMDiningViewController ()
 

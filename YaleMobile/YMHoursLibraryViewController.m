@@ -120,6 +120,47 @@
     self.overlay.alpha = offset/400;
 }
 
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    switch (result) {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued.");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved: you saved the email message in the drafts folder.");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send.");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail failed: the email message was not saved or queued, possibly due to an error.");
+            break;
+        default:
+            NSLog(@"Mail not sent.");
+            break;
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)createActionSheetWithNumber:(NSString *)number
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Do you want to call %@?", number] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"Call %@", number], @"Copy to Clipboard", nil];
+    actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [actionSheet showInView:self.view];
+}
+
+- (void)createActionSheetWithString:(NSString *)string
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Copy to Clipboard", nil];
+    actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != [actionSheet cancelButtonIndex]) [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.phoneURL]];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -138,6 +179,7 @@
     
     if (indexPath.row == 0) cell = (YMSubtitleCell *)[tableView dequeueReusableCellWithIdentifier:@"Hours Library Cell 1"];
     else cell = (YMSubtitleCell *)[tableView dequeueReusableCellWithIdentifier:@"Hours Library Cell 2"];
+    cell.userInteractionEnabled = NO;
     
     if (indexPath.row == 0) {
         cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_top.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 5, 20)]];
@@ -152,12 +194,14 @@
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_bottom_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
         cell.secondary.text = @"Contact Email";
         cell.primary.text = [self.data objectForKey:@"email"];
+        cell.userInteractionEnabled = YES;
     } else {
         cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_mid.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_mid_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
         if (indexPath.row == 2) {
             cell.secondary.text = @"Contact Number";
             cell.primary.text = [self.data objectForKey:@"phone"];
+            cell.userInteractionEnabled = YES;
         } else {
             cell.secondary.text = @"Access Information";
             NSString *text = [self.data objectForKey:@"access"];
@@ -232,13 +276,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    YMSubtitleCell *cell = (YMSubtitleCell *)[tableView cellForRowAtIndexPath:indexPath];
+    if ([cell.secondary.text isEqualToString:@"Contact Email"]) {
+        if ([MFMailComposeViewController canSendMail]) {
+            MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+            mailer.mailComposeDelegate = self;
+            NSArray *toRecipients = [NSArray arrayWithObjects:cell.primary.text, nil];
+            [mailer setToRecipients:toRecipients];
+            [[mailer navigationBar] setTintColor:[UIColor colorWithRed:63/255.0 green:155/255.0 blue:194/255.0 alpha:0.1]];
+            [self presentViewController:mailer animated:YES completion:nil];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"YaleMobile is unable to launch the email service. Your device doesn't support the composer sheet."
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+    }
+    if ([cell.secondary.text isEqualToString:@"Contact Number"]) {
+        NSString *phoneNo = cell.primary.text;
+        self.phoneURL = [@"tel://" stringByAppendingString:phoneNo];
+        [self createActionSheetWithNumber:phoneNo];
+    }
 }
 
 @end

@@ -10,4 +10,9 @@
 
 @interface YMVehicleInfoSubview : UIView
 
+@property (nonatomic, strong) IBOutlet UILabel *route;
+@property (nonatomic, strong) IBOutlet UILabel *vehicleNumber;
+@property (nonatomic, strong) IBOutlet UILabel *nextStop;
+@property (nonatomic, strong) IBOutlet UILabel *stop;
+
 @end

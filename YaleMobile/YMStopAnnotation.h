@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-@interface YMStopAnnotation : NSObject <MKAnnotation> {
-    CLLocationCoordinate2D coordinate;
-}
+@interface YMStopAnnotation : NSObject <MKAnnotation>
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *title;

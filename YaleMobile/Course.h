@@ -2,7 +2,7 @@
 //  Course.h
 //  YaleMobile
 //
-//  Created by Danqing on 7/10/13.
+//  Created by Danqing on 7/19/13.
 //  Copyright (c) 2013 Danqing Liu. All rights reserved.
 //
 

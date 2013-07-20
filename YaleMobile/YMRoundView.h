@@ -11,5 +11,6 @@
 @interface YMRoundView : UIView
 
 - (id)initWithColor:(UIColor *)color andFrame:(CGRect)frame;
+- (void)redrawWithColor:(UIColor *)color;
 
 @end

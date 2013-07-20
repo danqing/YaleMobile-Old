@@ -10,6 +10,7 @@
 #import "YMStopAnnotation.h"
 #import "YMGlobalHelper.h"
 #import "Route.h"
+#import "YMCHelper.h"
 
 @implementation YMStopAnnotationView
 
@@ -28,31 +29,6 @@
     return self;
 }
 
-// same as in YMRoundView. Duplicated code.
-void drawLinearGradient2(CGContextRef context, CGRect rect, CGColorRef startColor, CGColorRef endColor)
-{
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGFloat locations[] = { 0.0, 1.0 };
-    
-    NSArray *colors = @[(__bridge id) startColor, (__bridge id) endColor];
-    
-    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef) colors, locations);
-    
-    CGPoint startPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));
-    CGPoint endPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
-    
-    CGContextSaveGState(context);
-    CGContextAddEllipseInRect(context, rect);
-    CGContextClip(context);
-    CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
-    CGContextRestoreGState(context);
-    
-    CGGradientRelease(gradient);
-    CGColorSpaceRelease(colorSpace);
-}
-
-
-
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
@@ -62,7 +38,7 @@ void drawLinearGradient2(CGContextRef context, CGRect rect, CGColorRef startColo
     UIColor *darkColor = [lightColor colorWithAlphaComponent:0.8];
     CGRect paperRect = self.bounds;
     
-    drawLinearGradient2(context, paperRect, darkColor.CGColor, lightColor.CGColor);
+    drawLinearGradient(context, paperRect, darkColor.CGColor, lightColor.CGColor);
 }
 
 

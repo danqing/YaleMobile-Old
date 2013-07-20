@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface YMHoursLibraryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface YMHoursLibraryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
@@ -16,5 +17,6 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) UIImageView *overlay;
 @property (nonatomic, strong) NSString *hour;
+@property (nonatomic, strong) NSString *phoneURL;
 
 @end

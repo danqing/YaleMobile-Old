@@ -1,25 +1,26 @@
 //
-//  Stop.m
+//  Vehicle.m
 //  YaleMobile
 //
 //  Created by Danqing on 7/19/13.
 //  Copyright (c) 2013 Danqing Liu. All rights reserved.
 //
 
-#import "Stop.h"
-#import "Route.h"
 #import "Vehicle.h"
+#import "Route.h"
+#import "Stop.h"
 
 
-@implementation Stop
+@implementation Vehicle
 
-@dynamic code;
+@dynamic name;
+@dynamic vehicleid;
+@dynamic heading;
 @dynamic latitude;
 @dynamic longitude;
-@dynamic name;
-@dynamic stopid;
+@dynamic arrivaltime;
 @dynamic timestamp;
-@dynamic routes;
-@dynamic vehicles;
+@dynamic route;
+@dynamic nextstop;
 
 @end

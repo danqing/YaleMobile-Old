@@ -109,9 +109,9 @@
     [operation start];
 }
 
-+ (void)getShuttleInfo:(NSString *)info ForController:(UIViewController *)controller
++ (void)getShuttleInfoForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.transloc.com/1.2/%@.json?agencies=128", info]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.transloc.com/1.2/vehicles.json?agencies=128"]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -120,6 +120,7 @@
         NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
         NSError *error;
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+        completionBlock([[dict objectForKey:@"data"] objectForKey:@"128"]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
@@ -129,10 +130,15 @@
     }];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelText = @"Loading...";
+    hud.labelText = @"Loading Shuttles...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
     hud.dimBackground = YES;
     [operation start];
+}
+
++ (void)getArrivalEstimateForStop:(NSString *)stop forController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
+{
+    
 }
 
 + (void)getLibraryHoursForLocation:(NSString *)location controller:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
@@ -191,8 +197,8 @@
 
 + (void)getDiningDetailForLocation:(NSUInteger)locationID forController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
-    // NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.yaledining.org/fasttrack/menus.cfm?location=%d&version=2", locationID]];
-    NSURL *url = [NSURL URLWithString:@"http://www.yaledining.org/fasttrack/menus.cfm?mDate=04%2F19%2F2013&location=10&version=2"];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.yaledining.org/fasttrack/menus.cfm?location=%d&version=2", locationID]];
+    //NSURL *url = [NSURL URLWithString:@"http://www.yaledining.org/fasttrack/menus.cfm?mDate=04%2F19%2F2013&location=10&version=2"];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];

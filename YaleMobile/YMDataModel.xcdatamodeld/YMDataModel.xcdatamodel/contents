@@ -34,6 +34,7 @@
         <attribute name="timestamp" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="segments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Segment" inverseName="routes" inverseEntity="Segment" syncable="YES"/>
         <relationship name="stops" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stop" inverseName="routes" inverseEntity="Stop" syncable="YES"/>
+        <relationship name="vehicles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Vehicle" inverseName="route" inverseEntity="Vehicle" syncable="YES"/>
     </entity>
     <entity name="Segment" representedClassName="Segment" syncable="YES">
         <attribute name="direction" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -50,14 +51,27 @@
         <attribute name="stopid" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="routes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Route" inverseName="stops" inverseEntity="Route" syncable="YES"/>
+        <relationship name="vehicles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Vehicle" inverseName="nextstop" inverseEntity="Vehicle" syncable="YES"/>
+    </entity>
+    <entity name="Vehicle" representedClassName="Vehicle" syncable="YES">
+        <attribute name="arrivaltime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="heading" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="vehicleid" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="nextstop" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Stop" inverseName="vehicles" inverseEntity="Stop" syncable="YES"/>
+        <relationship name="route" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="vehicles" inverseEntity="Route" syncable="YES"/>
     </entity>
     <elements>
         <element name="Abbreviation" positionX="-92" positionY="234" width="128" height="75"/>
         <element name="Course" positionX="72" positionY="468" width="128" height="165"/>
         <element name="Office" positionX="63" positionY="90" width="128" height="90"/>
         <element name="Place" positionX="225" positionY="225" width="128" height="118"/>
-        <element name="Route" positionX="-306" positionY="342" width="128" height="148"/>
+        <element name="Route" positionX="-306" positionY="342" width="128" height="163"/>
         <element name="Segment" positionX="-495" positionY="225" width="128" height="120"/>
-        <element name="Stop" positionX="-101" positionY="342" width="128" height="148"/>
+        <element name="Stop" positionX="-101" positionY="422" width="128" height="163"/>
+        <element name="Vehicle" positionX="-594" positionY="587" width="128" height="178"/>
     </elements>
 </model>

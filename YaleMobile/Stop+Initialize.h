@@ -11,6 +11,7 @@
 @interface Stop (Initialize)
 
 + (void)stopWithData:(NSDictionary *)data forTimestamp:(NSTimeInterval)timestamp inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Stop *)fetchStopWithId:(NSNumber *)stopId inManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)removeAllStopsInManagedObjectContext:(NSManagedObjectContext *)context;
 + (void)removeStopsBeforeTimestamp:(NSTimeInterval)timestamp inManagedObjectContext:(NSManagedObjectContext *)context;
 
