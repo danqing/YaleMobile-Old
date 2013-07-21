@@ -31,6 +31,8 @@
 + (NSString *)getTerm;
 
 + (NSTimeInterval)getTimestamp;
++ (NSString *)dateStringFromString:(NSString *)string;
++ (NSString *)minutesFromString:(NSString *)string;
 
 + (UIColor *)colorFromHexString:(NSString *)string;
 

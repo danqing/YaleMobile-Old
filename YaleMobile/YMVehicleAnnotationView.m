@@ -21,8 +21,8 @@
     
     if (self) {
         CGRect f = self.frame;
-        f.size.width = 25;
-        f.size.height = 40;
+        f.size.width = 31;
+        f.size.height = 74;
         self.frame = f;
         self.opaque = NO;
     }
@@ -40,15 +40,25 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(context, fillColor.CGColor);
     CGContextSetStrokeColorWithColor(context, color.CGColor);
-    CGContextSetLineWidth(context, 3);
+    CGContextSetLineWidth(context, 1);
+    CGContextSetLineJoin(context, kCGLineJoinRound);
     
     CGMutablePathRef ref = createShuttlePath(context, self.bounds);
     CGContextAddPath(context, ref);
-    
     CGContextStrokePath(context);
+    CGContextAddPath(context, ref);
     CGContextFillPath(context);
+    CGPathRelease(ref);
     
-    CFRelease(ref);
+    if (((YMVehicleAnnotation *)self.annotation).vehicle.heading) {
+        float heading = ((YMVehicleAnnotation *)self.annotation).vehicle.heading.floatValue;
+        NSLog(@"HEADING IS %f", heading);
+        CGMutablePathRef innerRef = createArrowPath(context, self.bounds, heading);
+        CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+        CGContextAddPath(context, innerRef);
+        CGContextFillPath(context);
+        CGPathRelease(innerRef);
+    }
 }
 
 @end

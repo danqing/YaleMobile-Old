@@ -140,6 +140,30 @@
     return UIColorFromRGB(result);
 }
 
++ (NSDate *)dateFromString:(NSString *)dateString
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    NSDate *date = [dateFormatter dateFromString:[dateString stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(dateString.length - 5, 5)]];
+    return date;
+}
+
++ (NSString *)dateStringFromString:(NSString *)string
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm"];
+    NSString *dateString = [formatter stringFromDate:[YMGlobalHelper dateFromString:string]];
+    return dateString;
+}
+
++ (NSString *)minutesFromString:(NSString *)string
+{
+    NSDate *date = [YMGlobalHelper dateFromString:string];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [calendar components:NSMinuteCalendarUnit fromDate:[NSDate date] toDate:date options:0];
+    return [NSString stringWithFormat:@"%i", components.minute];
+}
+
 /*
 + (void)addEtchToSubtitleCell:(UITableViewCell *)cell
 {
@@ -210,7 +234,7 @@
         return @"bg_snow.png";
     else if (code == 20 || code == 19 || code == 22 || code == 21)
         return @"bg_fog.png";
-    else if (code == 30 || code == 26 || code == 28)
+    else if (code == 30 || code == 26 || code == 28 || code == 34 || code == 29 || code == 27)
         return @"bg_cloud.png";
     else return NULL;
 }

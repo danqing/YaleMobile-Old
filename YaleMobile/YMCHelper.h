@@ -10,3 +10,4 @@
 
 void drawLinearGradient(CGContextRef context, CGRect rect, CGColorRef startColor, CGColorRef endColor);
 CGMutablePathRef createShuttlePath(CGContextRef context, CGRect rect);
+CGMutablePathRef createArrowPath(CGContextRef context, CGRect rect, float degree);

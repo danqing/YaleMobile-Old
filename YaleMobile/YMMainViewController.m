@@ -8,6 +8,7 @@
 #import "YMMenuViewController.h"
 #import "YMGlobalHelper.h"
 #import "YMServerCommunicator.h"
+#import "YMMainView.h"
 
 @interface YMMainViewController ()
 
@@ -23,6 +24,14 @@
     [YMGlobalHelper setupUserDefaults];    
     [YMGlobalHelper addMenuButtonToController:self];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title.png"]];
+    
+    NSArray *views = ([[UIScreen mainScreen] bounds].size.height == 568) ? [[NSBundle mainBundle] loadNibNamed:@"YMMainView5" owner:self options:nil] : [[NSBundle mainBundle] loadNibNamed:@"YMMainView4" owner:self options:nil];
+    for (id v in views) {
+        if ([v isKindOfClass:[YMMainView class]]) {
+            self.mainView = v;
+            [self.view addSubview:v];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,9 +49,9 @@
         if (array.count == 0) return;
         
         NSDictionary *current = [array objectAtIndex:0];
-        self.temperature.text = ([[NSUserDefaults standardUserDefaults] boolForKey:@"Celsius"]) ? [NSString stringWithFormat:@"%@°C",[current objectForKey:@"temp"]] : [NSString stringWithFormat:@"%@°F",[current objectForKey:@"temp"]];
-        self.condition.text = [NSString stringWithFormat:@"%@ and", [current objectForKey:@"text"]];
-        self.weather.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[current objectForKey:@"code"] integerValue]]];
+        self.mainView.temperature.text = ([[NSUserDefaults standardUserDefaults] boolForKey:@"Celsius"]) ? [NSString stringWithFormat:@"%@°C",[current objectForKey:@"temp"]] : [NSString stringWithFormat:@"%@°F",[current objectForKey:@"temp"]];
+        self.mainView.condition.text = [NSString stringWithFormat:@"%@ and", [current objectForKey:@"text"]];
+        self.mainView.weather.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[current objectForKey:@"code"] integerValue]]];
         
         NSString *overlay = [YMGlobalHelper getBgNameForWeather:[[current objectForKey:@"code"] integerValue]];
         if (overlay.length) {
@@ -56,37 +65,37 @@
         if (array.count == 1) return;
         
         NSDictionary *day1 = [array objectAtIndex:1];
-        self.day1.text = [day1 objectForKey:@"day"];
-        self.temp1.text = [NSString stringWithFormat:@"%@/%@", [day1 objectForKey:@"high"], [day1 objectForKey:@"low"]];
-        self.weather1.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day1 objectForKey:@"code"] integerValue]]];
+        self.mainView.day1.text = [day1 objectForKey:@"day"];
+        self.mainView.temp1.text = [NSString stringWithFormat:@"%@/%@", [day1 objectForKey:@"high"], [day1 objectForKey:@"low"]];
+        self.mainView.weather1.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day1 objectForKey:@"code"] integerValue]]];
         
         if (array.count == 2) return;
         
         NSDictionary *day2 = [array objectAtIndex:2];
-        self.day2.text = [day2 objectForKey:@"day"];
-        self.temp2.text = [NSString stringWithFormat:@"%@/%@", [day2 objectForKey:@"high"], [day2 objectForKey:@"low"]];
-        self.weather2.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day2 objectForKey:@"code"] integerValue]]];
+        self.mainView.day2.text = [day2 objectForKey:@"day"];
+        self.mainView.temp2.text = [NSString stringWithFormat:@"%@/%@", [day2 objectForKey:@"high"], [day2 objectForKey:@"low"]];
+        self.mainView.weather2.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day2 objectForKey:@"code"] integerValue]]];
         
         if (array.count == 3) return;
 
         NSDictionary *day3 = [array objectAtIndex:3];
-        self.day3.text = [day3 objectForKey:@"day"];
-        self.temp3.text = [NSString stringWithFormat:@"%@/%@", [day3 objectForKey:@"high"], [day3 objectForKey:@"low"]];
-        self.weather3.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day3 objectForKey:@"code"] integerValue]]];
+        self.mainView.day3.text = [day3 objectForKey:@"day"];
+        self.mainView.temp3.text = [NSString stringWithFormat:@"%@/%@", [day3 objectForKey:@"high"], [day3 objectForKey:@"low"]];
+        self.mainView.weather3.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day3 objectForKey:@"code"] integerValue]]];
         
         if (array.count == 4) return;
 
         NSDictionary *day4 = [array objectAtIndex:4];
-        self.day4.text = [day4 objectForKey:@"day"];
-        self.temp4.text = [NSString stringWithFormat:@"%@/%@", [day4 objectForKey:@"high"], [day4 objectForKey:@"low"]];
-        self.weather4.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day4 objectForKey:@"code"] integerValue]]];
+        self.mainView.day4.text = [day4 objectForKey:@"day"];
+        self.mainView.temp4.text = [NSString stringWithFormat:@"%@/%@", [day4 objectForKey:@"high"], [day4 objectForKey:@"low"]];
+        self.mainView.weather4.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day4 objectForKey:@"code"] integerValue]]];
 
         if (array.count == 5) return;
 
         NSDictionary *day5 = [array objectAtIndex:5];
-        self.day5.text = [day5 objectForKey:@"day"];
-        self.temp5.text = [NSString stringWithFormat:@"%@/%@", [day5 objectForKey:@"high"], [day5 objectForKey:@"low"]];
-        self.weather5.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day5 objectForKey:@"code"] integerValue]]];
+        self.mainView.day5.text = [day5 objectForKey:@"day"];
+        self.mainView.temp5.text = [NSString stringWithFormat:@"%@/%@", [day5 objectForKey:@"high"], [day5 objectForKey:@"low"]];
+        self.mainView.weather5.image = [UIImage imageNamed:[YMGlobalHelper getIconNameForWeather:[[day5 objectForKey:@"code"] integerValue]]];
     }];
 
     
@@ -103,10 +112,10 @@
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     }
     
-    if (hour == 1) self.greeting.text = [NSString stringWithFormat:@"Good morning%@! It's a brand new day.", self.name];
-    else if (hour == 2) self.greeting.text = [NSString stringWithFormat:@"Good afternoon%@! Hope you are enjoying your day :)", self.name];
-    else if (hour == 3) self.greeting.text = [NSString stringWithFormat:@"Good evening%@! Hope you've had a great day.", self.name];
-    else self.greeting.text = [NSString stringWithFormat:@"Good night%@! Have some good rest :)", self.name];
+    if (hour == 1) self.mainView.greeting.text = [NSString stringWithFormat:@"Good morning%@! It's a brand new day.", self.name];
+    else if (hour == 2) self.mainView.greeting.text = [NSString stringWithFormat:@"Good afternoon%@! Hope you are enjoying your day :)", self.name];
+    else if (hour == 3) self.mainView.greeting.text = [NSString stringWithFormat:@"Good evening%@! Hope you've had a great day.", self.name];
+    else self.mainView.greeting.text = [NSString stringWithFormat:@"Good night%@! Have some good rest :)", self.name];
 }
 
 - (void)menu:(id)sender

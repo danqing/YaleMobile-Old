@@ -17,5 +17,6 @@
 @property (nonatomic) double zoomLevel;
 @property (nonatomic, strong) UIView *callout;
 @property (nonatomic, strong) NSTimer *animationTimer;
+@property (nonatomic, strong) NSArray *etaData;
 
 @end

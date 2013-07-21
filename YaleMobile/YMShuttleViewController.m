@@ -145,7 +145,7 @@
     
     for (Stop *s in matches) {
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(s.latitude.doubleValue, s.longitude.doubleValue);
-        YMStopAnnotation *annotation = [[YMStopAnnotation alloc] initWithLocation:coordinate routes:[s.routes allObjects] title:s.name andSubtitle:s.code.stringValue];
+        YMStopAnnotation *annotation = [[YMStopAnnotation alloc] initWithLocation:coordinate routes:[s.routes allObjects] stop:s title:s.name andSubtitle:s.code.stringValue];
         [self.mapView addAnnotation:annotation];
     }
 }
@@ -162,7 +162,6 @@
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(v.latitude.doubleValue, v.longitude.doubleValue);
         YMVehicleAnnotation *annotation = [[YMVehicleAnnotation alloc] initWithLocation:coordinate vehicle:v title:nil andSubtitle:nil];
         [self.mapView addAnnotation:annotation];
-        NSLog(@"ADDED");
     }
 }
 
@@ -211,7 +210,6 @@
         else vehicleView.annotation = annotation;
         vehicleView.canShowCallout = NO;
         [vehicleView setNeedsDisplay];
-        NSLog(@"DUH");
         return vehicleView;
     }
     
@@ -221,12 +219,12 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
     double span = mapView.region.span.longitudeDelta;
-    if (span > 0.02 && self.zoomLevel <= 0.02) {
+    if (span > 0.021 && self.zoomLevel <= 0.021) {
         for (int i = mapView.annotations.count - 1; i >= 0; i--) {
-            if ([[mapView.annotations objectAtIndex:i] isKindOfClass:[YMStopAnnotation class]])
-                [mapView removeAnnotation:[mapView.annotations objectAtIndex:i]];
+            [mapView removeAnnotation:[mapView.annotations objectAtIndex:i]];
         }
-    } else if (span <= 0.02 && self.zoomLevel > 0.02) {
+        [self addVehicles];
+    } else if (span <= 0.021 && self.zoomLevel > 0.021) {
         [self addStops];
     }
     self.zoomLevel = span;
@@ -235,6 +233,26 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
     if ([view isKindOfClass:[YMStopAnnotationView class]] || [view isKindOfClass:[YMTransferStopAnnotationView class]]) {
+        [YMServerCommunicator getArrivalEstimateForStop:((YMStopAnnotation *)view.annotation).s.stopid.stringValue forController:self usingBlock:^(NSArray *array) {
+            NSMutableDictionary *md = [[NSMutableDictionary alloc] initWithCapacity:array.count];
+            for (Route *r in ((YMStopAnnotation *)view.annotation).routes)
+                [md setObject:@"--" forKey:r.routeid.stringValue];
+            for (NSDictionary *d in array) {
+                NSString *routeid = [d objectForKey:@"route_id"];
+                NSString *minute = [md objectForKey:routeid];
+                NSString *newMinute = [YMGlobalHelper minutesFromString:[d objectForKey:@"arrival_at"]];
+                if (!minute) continue;
+                if ([minute isEqualToString:@"--"] || [YMGlobalHelper minutesFromString:minute].integerValue > newMinute.integerValue) [md setObject:[d objectForKey:@"arrival_at"] forKey:routeid];
+            }
+            NSMutableArray *etaArray = [[NSMutableArray alloc] initWithCapacity:md.count * 2];
+            for (Route *r in ((YMStopAnnotation *)view.annotation).routes) {
+                [etaArray addObject:r];
+                [etaArray addObject:[md objectForKey:r.routeid.stringValue]];
+            }
+            self.etaData = etaArray;
+            [self refreshCalloutEta];
+        }];
+        
         YMStopInfoSubview *stopView = nil;
         NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"YMStopInfoSubview" owner:self options:nil];
         for (id v in views) {
@@ -242,10 +260,11 @@
                 YMStopAnnotation *sa = (YMStopAnnotation *)view.annotation;
                 stopView = (YMStopInfoSubview *)v;
                 stopView.index = 1;
-                stopView.minutes.text = @"20";
+                stopView.minutes.text = @"--";
                 stopView.lineName.text = ((Route *)[sa.routes objectAtIndex:0]).name;
                 stopView.stopName.text = sa.title;
                 stopView.stopCode.text = sa.subtitle;
+                stopView.etaLabel.text = @"--:--";
                 YMRoundView *roundView = [[YMRoundView alloc] initWithColor:[YMGlobalHelper colorFromHexString:((Route *)[sa.routes objectAtIndex:0]).color] andFrame:CGRectMake(26, 43, 13, 13)];
                 [stopView addSubview:roundView];
                 stopView.dot1 = roundView;
@@ -275,14 +294,7 @@
             stopView.frame = frame;
         } completion:^(BOOL finished) {
             self.callout = stopView;
-            if (((YMStopAnnotation *)view.annotation).routes.count > 1) {
-                NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:((YMStopAnnotation *)view.annotation).routes.count * 2];
-                for (Route *r in ((YMStopAnnotation *)view.annotation).routes) {
-                    [array addObject:r];
-                    [array addObject:@"23"];
-                }
-                [self animateStopCallout:stopView withInfo:array];
-            }
+            [self refreshCalloutEta];
         }];
     }
     
@@ -293,11 +305,16 @@
             if ([v isKindOfClass:[YMVehicleInfoSubview class]]) {
                 YMVehicleAnnotation *va = (YMVehicleAnnotation *)view.annotation;
                 vehicleView = (YMVehicleInfoSubview *)v;
-                vehicleView.stop.text = va.vehicle.nextstop.name;
+                if (va.vehicle.nextstop) {
+                    vehicleView.stop.text = va.vehicle.nextstop.name;
+                    vehicleView.nextStop.text = [NSString stringWithFormat:@"Next Stop - arriving at %@", [YMGlobalHelper dateStringFromString:va.vehicle.arrivaltime]];
+                } else {
+                    vehicleView.stop.text = @"Vehicle Off Route";
+                    vehicleView.nextStop.text = @"Next Stop";
+                }
                 vehicleView.route.text = va.vehicle.route.name;
-                vehicleView.nextStop.text = va.vehicle.arrivaltime;
-                vehicleView.vehicleNumber.text = va.vehicle.name;
-                YMRoundView *roundView = [[YMRoundView alloc] initWithColor:[YMGlobalHelper colorFromHexString:va.vehicle.route.color] andFrame:CGRectMake(31, 16, 13, 13)];
+                vehicleView.vehicleNumber.text = [NSString stringWithFormat:@"#%@", va.vehicle.name];
+                YMRoundView *roundView = [[YMRoundView alloc] initWithColor:[YMGlobalHelper colorFromHexString:va.vehicle.route.color] andFrame:CGRectMake(26, 14, 13, 13)];
                 [vehicleView addSubview:roundView];
             }
         }
@@ -333,6 +350,18 @@
 {
     [self.callout removeFromSuperview];
     self.callout = nil;
+    self.etaData = nil;
+}
+
+- (void)refreshCalloutEta
+{
+    if ([self.callout isKindOfClass:[YMStopInfoSubview class]]) {
+        if (self.etaData) {
+            ((YMStopInfoSubview *)self.callout).minutes.text = [YMGlobalHelper minutesFromString:[self.etaData objectAtIndex:1]];
+            ((YMStopInfoSubview *)self.callout).etaLabel.text = [YMGlobalHelper dateStringFromString:[self.etaData objectAtIndex:1]];
+            if (self.etaData.count > 2) [self animateStopCallout:(YMStopInfoSubview *)self.callout withInfo:self.etaData];
+        }
+    }
 }
 
 - (void)animateStopCallout:(YMStopInfoSubview *)view withInfo:(NSArray *)info
@@ -374,7 +403,7 @@
     eta1.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
     eta1.textColor = [UIColor lightGrayColor];
     eta1.backgroundColor = [UIColor clearColor];
-    eta1.text = @"12:23";
+    eta1.text = @"--:--";
     
     UILabel *eta2 = [[UILabel alloc] initWithFrame:CGRectMake(28, -10, 50, 21)];
     eta2.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];

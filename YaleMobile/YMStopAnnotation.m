@@ -10,9 +10,9 @@
 
 @implementation YMStopAnnotation
 
-@synthesize coordinate, routes, title, subtitle;
+@synthesize coordinate, routes, title, subtitle, s;
 
-- (id)initWithLocation:(CLLocationCoordinate2D)coord routes:(NSArray *)rs title:(NSString *)t andSubtitle:(NSString *)st
+- (id)initWithLocation:(CLLocationCoordinate2D)coord routes:(NSArray *)rs stop:(Stop *)stop title:(NSString *)t andSubtitle:(NSString *)st
 {
     self = [super init];
     if (self) {
@@ -20,6 +20,7 @@
         routes = rs;
         title = t;
         subtitle = st;
+        s = stop;
     }
     return self;
 }
