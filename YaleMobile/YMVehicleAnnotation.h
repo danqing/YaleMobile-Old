@@ -19,5 +19,6 @@
 @property (nonatomic, strong) Vehicle *vehicle;
 
 - (id)initWithLocation:(CLLocationCoordinate2D)coord vehicle:(Vehicle *)v title:(NSString *)t andSubtitle:(NSString *)st;
+- (void)updateCoordinate:(CLLocationCoordinate2D)coord andVehicle:(Vehicle *)v;
 
 @end

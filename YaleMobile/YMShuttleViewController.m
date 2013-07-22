@@ -75,11 +75,15 @@
     MKCoordinateRegion region = MKCoordinateRegionMake(zoomLocation, span);
     [self.mapView setRegion:region animated:YES];
     
-    if ((self.db = [YMDatabaseHelper getManagedDocument]))
+    YMShuttleSelectionViewController *ssvc = (YMShuttleSelectionViewController *)self.slidingViewController.underRightViewController;
+    
+    if ((self.db = [YMDatabaseHelper getManagedDocument])) {
         [self loadData];
-    else {
+        ssvc.db = self.db;
+    } else {
         [YMDatabaseHelper openDatabase:@"database" usingBlock:^(UIManagedDocument *document) {
             self.db = document;
+            ssvc.db = self.db;
             [YMDatabaseHelper setManagedDocumentTo:document];
             [self loadData];
         }];
@@ -110,6 +114,7 @@
                     [self addSegments];
                     [self addStops];
                     [self addVehicles];
+                    [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(refreshVehicles) userInfo:nil repeats:NO];
                 }];
             }];
         }];
@@ -160,8 +165,25 @@
     
     for (Vehicle *v in matches) {
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(v.latitude.doubleValue, v.longitude.doubleValue);
-        YMVehicleAnnotation *annotation = [[YMVehicleAnnotation alloc] initWithLocation:coordinate vehicle:v title:nil andSubtitle:nil];
-        [self.mapView addAnnotation:annotation];
+        BOOL found = NO;
+        for (id a in self.mapView.annotations) {
+            if ([a isKindOfClass:[YMVehicleAnnotation class]]) {
+                if (((YMVehicleAnnotation *)a).vehicle.vehicleid.integerValue == v.vehicleid.integerValue) {
+                    found = YES;
+                    YMVehicleAnnotationView *vav = (YMVehicleAnnotationView *)[self.mapView viewForAnnotation:a];
+                    [UIView animateWithDuration:2 animations:^{
+                        [a updateCoordinate:coordinate andVehicle:v];
+                    }completion:^(BOOL finished) {
+                        [vav setNeedsDisplay];
+                    }];
+                    break;
+                }
+            }
+        }
+        if (!found) {
+            YMVehicleAnnotation *annotation = [[YMVehicleAnnotation alloc] initWithLocation:coordinate vehicle:v title:nil andSubtitle:nil];
+            [self.mapView addAnnotation:annotation];
+        }
     }
 }
 
@@ -212,9 +234,10 @@
         [vehicleView setNeedsDisplay];
         return vehicleView;
     }
-    
+
     return nil;
 }
+
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
@@ -232,6 +255,9 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
+    UITapGestureRecognizer *rec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissCallout:)];
+    [self.mapView addGestureRecognizer:rec];
+    
     if ([view isKindOfClass:[YMStopAnnotationView class]] || [view isKindOfClass:[YMTransferStopAnnotationView class]]) {
         [YMServerCommunicator getArrivalEstimateForStop:((YMStopAnnotation *)view.annotation).s.stopid.stringValue forController:self usingBlock:^(NSArray *array) {
             NSMutableDictionary *md = [[NSMutableDictionary alloc] initWithCapacity:array.count];
@@ -248,6 +274,7 @@
             for (Route *r in ((YMStopAnnotation *)view.annotation).routes) {
                 [etaArray addObject:r];
                 [etaArray addObject:[md objectForKey:r.routeid.stringValue]];
+                NSLog(@"ETA Array contains %@", [md objectForKey:r.routeid.stringValue]);
             }
             self.etaData = etaArray;
             [self refreshCalloutEta];
@@ -353,6 +380,19 @@
     self.etaData = nil;
 }
 
+- (void)dismissCallout:(UITapGestureRecognizer *)rec
+{
+    [self.mapView removeGestureRecognizer:rec];
+    [self.animationTimer invalidate];
+    CGRect frame = self.callout.frame;
+    frame.origin.y -= 100;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.callout.frame = frame;
+    } completion:^(BOOL finished) {
+        [self removeCalloutView];
+    }];
+}
+
 - (void)refreshCalloutEta
 {
     if ([self.callout isKindOfClass:[YMStopInfoSubview class]]) {
@@ -362,6 +402,18 @@
             if (self.etaData.count > 2) [self animateStopCallout:(YMStopInfoSubview *)self.callout withInfo:self.etaData];
         }
     }
+}
+
+- (void)refreshVehicles
+{
+    [YMServerCommunicator getShuttleInfoForController:nil usingBlock:^(NSArray *array) {
+        NSTimeInterval interval = [YMGlobalHelper getTimestamp];
+        for (NSDictionary *dict in array) {
+            [Vehicle vehicleWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
+        }
+        [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(refreshVehicles) userInfo:nil repeats:NO];
+        [self addVehicles];
+    }];
 }
 
 - (void)animateStopCallout:(YMStopInfoSubview *)view withInfo:(NSArray *)info
@@ -376,14 +428,14 @@
     minutes1.textColor = [UIColor colorWithRed:184/255.0 green:230/255.0 blue:1 alpha:1];
     minutes1.textAlignment = NSTextAlignmentRight;
     minutes1.backgroundColor = [UIColor clearColor];
-    minutes1.text = @"20";
+    minutes1.text = [YMGlobalHelper minutesFromString:[self.etaData objectAtIndex:1]];
     
     UILabel *minutes2 = [[UILabel alloc] initWithFrame:CGRectMake(33, -20, 55, 35)];
     minutes2.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:42];
     minutes2.textColor = [UIColor colorWithRed:184/255.0 green:230/255.0 blue:1 alpha:1];
     minutes2.textAlignment = NSTextAlignmentRight;
     minutes2.backgroundColor = [UIColor clearColor];
-    minutes2.text = @"24";
+    minutes2.text = [YMGlobalHelper minutesFromString:[self.etaData objectAtIndex:3]];
     minutes2.alpha = 0;
     
     UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(6, 6, 170, 21)];
@@ -403,13 +455,13 @@
     eta1.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
     eta1.textColor = [UIColor lightGrayColor];
     eta1.backgroundColor = [UIColor clearColor];
-    eta1.text = @"--:--";
+    eta1.text = [YMGlobalHelper dateStringFromString:[self.etaData objectAtIndex:1]];
     
     UILabel *eta2 = [[UILabel alloc] initWithFrame:CGRectMake(28, -10, 50, 21)];
     eta2.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
     eta2.textColor = [UIColor lightGrayColor];
     eta2.backgroundColor = [UIColor clearColor];
-    eta2.text = @"12:23";
+    eta2.text = [YMGlobalHelper dateStringFromString:[self.etaData objectAtIndex:3]];
     eta2.alpha = 0;
     
     YMRoundView *roundView = [[YMRoundView alloc] initWithColor:[YMGlobalHelper colorFromHexString:((Route *)[info objectAtIndex:2]).color] andFrame:CGRectMake(26, 43, 13, 13)];
@@ -463,8 +515,8 @@
         view.minutes2.alpha = 0;
         view.minutes1.frame = CGRectMake(33, 23, 55, 35);
         view.minutes2.frame = CGRectMake(33, -20, 55, 35);
-        view.minutes1.text = [view.minutes1.text isEqualToString:@"24"] ? @"20" : @"24";
-        view.minutes2.text = [view.minutes2.text isEqualToString:@"20"] ? @"24" : @"20";
+        view.minutes1.text = [YMGlobalHelper minutesFromString:[data objectAtIndex:(view.index * 2 + 1)]];
+        view.eta1.text = [YMGlobalHelper dateStringFromString:[data objectAtIndex:(view.index * 2 + 1)]];
         view.line1.alpha = 1;
         view.line2.alpha = 0;
         view.line1.frame = CGRectMake(6, 6, 170, 21);
@@ -473,6 +525,8 @@
         [view.dot1 redrawWithColor:[YMGlobalHelper colorFromHexString:((Route *)[data objectAtIndex:(view.index * 2)]).color]];
         view.index = (view.index + 1) % (data.count / 2);
         view.line2.text = ((Route *)[data objectAtIndex:(view.index * 2)]).name;
+        view.minutes2.text = [YMGlobalHelper minutesFromString:[data objectAtIndex:(view.index * 2 + 1)]];
+        view.eta2.text = [YMGlobalHelper dateStringFromString:[data objectAtIndex:(view.index * 2 + 1)]];
         view.dot1.alpha = 1;
         view.dot2.alpha = 0; 
         [view.dot2 redrawWithColor:[YMGlobalHelper colorFromHexString:((Route *)[data objectAtIndex:(view.index * 2)]).color]];

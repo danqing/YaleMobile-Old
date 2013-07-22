@@ -30,6 +30,7 @@
     return self;
 }
 
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
@@ -52,7 +53,6 @@
     
     if (((YMVehicleAnnotation *)self.annotation).vehicle.heading) {
         float heading = ((YMVehicleAnnotation *)self.annotation).vehicle.heading.floatValue;
-        NSLog(@"HEADING IS %f", heading);
         CGMutablePathRef innerRef = createArrowPath(context, self.bounds, heading);
         CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
         CGContextAddPath(context, innerRef);

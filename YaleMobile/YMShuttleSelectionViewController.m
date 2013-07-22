@@ -36,7 +36,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if ((self.db = [YMDatabaseHelper getManagedDocument]))
+    if (self.db)
         [self loadData];
     else {
         [YMDatabaseHelper openDatabase:@"database" usingBlock:^(UIManagedDocument *document) {
@@ -73,7 +73,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"Count is %d", self.routes.count);
     return self.routes.count;
 }
 

@@ -150,6 +150,7 @@
 
 + (NSString *)dateStringFromString:(NSString *)string
 {
+    if ([string isEqualToString:@"--"]) return @"--:--";
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"HH:mm"];
     NSString *dateString = [formatter stringFromDate:[YMGlobalHelper dateFromString:string]];
@@ -158,6 +159,7 @@
 
 + (NSString *)minutesFromString:(NSString *)string
 {
+    if ([string isEqualToString:@"--"]) return string;
     NSDate *date = [YMGlobalHelper dateFromString:string];
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [calendar components:NSMinuteCalendarUnit fromDate:[NSDate date] toDate:date options:0];

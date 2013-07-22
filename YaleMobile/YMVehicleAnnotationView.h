@@ -8,6 +8,8 @@
 
 #import <MapKit/MapKit.h>
 
+@class Vehicle;
+
 @interface YMVehicleAnnotationView : MKAnnotationView
 
 @end

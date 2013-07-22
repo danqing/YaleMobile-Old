@@ -31,7 +31,6 @@
     vehicle.vehicleid = [NSNumber numberWithInteger:vehicleId];
     if (![[data objectForKey:@"heading"] isKindOfClass:[NSNull class]]) {
         vehicle.heading = [NSNumber numberWithInteger:[[data objectForKey:@"heading"] integerValue]];
-         NSLog(@"VEHICLE WITH H %@", vehicle.heading);
     }
     vehicle.name = [data objectForKey:@"call_name"];
     vehicle.latitude = [[data objectForKey:@"location"] objectForKey:@"lat"];

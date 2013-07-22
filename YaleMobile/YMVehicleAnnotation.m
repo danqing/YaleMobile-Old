@@ -24,4 +24,15 @@
     return self;
 }
 
+- (void)updateCoordinate:(CLLocationCoordinate2D)coord andVehicle:(Vehicle *)v
+{
+    [self setCoordinate:coord];
+    self.vehicle = v;
+}
+
+- (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate
+{
+    coordinate = newCoordinate;
+}
+
 @end
