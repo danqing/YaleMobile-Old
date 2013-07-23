@@ -97,8 +97,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Shuttle Refresh"];
+
     Route *route = [self.routes objectAtIndex:indexPath.row];
-    route.inactive = [route.inactive boolValue] ? [NSNumber numberWithBool:NO] : [NSNumber numberWithBool:YES];
+    
+    if ([route.inactive boolValue]) {
+        route.inactive = [NSNumber numberWithBool:NO];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@_inactive", route.routeid]];
+    } else {
+        route.inactive = [NSNumber numberWithBool:YES];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"%@_inactive", route.routeid]];
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.accessoryView = ([route.inactive boolValue]) ? nil : [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"check.png"]];

@@ -28,6 +28,7 @@
 #import "YMVehicleAnnotationView.h"
 #import "Vehicle+Initialize.h"
 #import "YMVehicleInfoSubview.h"
+#import "MBProgressHUD.h"
 
 @interface YMShuttleViewController ()
 
@@ -54,6 +55,11 @@
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:settings]];
     [settings addTarget:self action:@selector(settings:) forControlEvents:UIControlEventTouchUpInside];
     self.zoomLevel = 0;
+    [self.locate addTarget:self action:@selector(locate:) forControlEvents:UIControlEventTouchUpInside];
+    [self.refresh addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventTouchUpInside];
+
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Shuttle Refresh"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(topDidReset:) name:ECSlidingViewTopDidReset object:self.slidingViewController];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -90,6 +96,19 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.refresh setSelected:NO];
+}
+
+- (void)topDidReset:(id)sender
+{
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Shuttle Refresh"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Shuttle Refresh"];
+        [self loadData];
+    }
+}
+
 - (void)loadData
 {
     NSTimeInterval interval = [YMGlobalHelper getTimestamp];
@@ -97,28 +116,46 @@
     [Stop removeStopsBeforeTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
     [Segment removeSegmentsBeforeTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
     [Vehicle removeVehiclesBeforeTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
-    
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    [self.mapView removeOverlays:self.mapView.overlays];
     [YMServerCommunicator getRouteInfoForController:self usingBlock:^(NSArray *data) {
         for (NSDictionary *dict in data)
             [Route routeWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
-        [YMServerCommunicator getStopInfoForController:self usingBlock:^(NSArray *data) {
-            for (NSDictionary *dict in data)
-                [Stop stopWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
-            [YMServerCommunicator getSegmentInfoForController:self usingBlock:^(NSDictionary *data) {
-                for (NSString *key in [data allKeys])
-                    [Segment segmentWithID:[key integerValue] andEncodedString:[data objectForKey:key] inManagedObjectContext:self.db.managedObjectContext];
-                [YMServerCommunicator getShuttleInfoForController:self usingBlock:^(NSArray *data) {
-                    for (NSDictionary *dict in data) {
-                        [Vehicle vehicleWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
-                    }
-                    [self addSegments];
-                    [self addStops];
-                    [self addVehicles];
-                    [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(refreshVehicles) userInfo:nil repeats:NO];
+        NSString *r = [Route getActiveRoutesInManagedObjectContext:self.db.managedObjectContext];
+        self.routesList = r;
+        if (!r) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = [NSString stringWithFormat:@"No active route selected"];
+            hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
+            [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(alertViewCallback) userInfo:nil repeats:NO];
+            return;
+        } else {
+            [YMServerCommunicator getStopInfoForController:self usingBlock:^(NSArray *data) {
+                for (NSDictionary *dict in data)
+                    [Stop stopWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
+                [YMServerCommunicator getSegmentInfoForController:self andRoutes:r usingBlock:^(NSDictionary *data) {
+                    for (NSString *key in [data allKeys])
+                        [Segment segmentWithID:[key integerValue] andEncodedString:[data objectForKey:key] inManagedObjectContext:self.db.managedObjectContext];
+                    [YMServerCommunicator getShuttleInfoForController:self andRoutes:r usingBlock:^(NSArray *data) {
+                        for (NSDictionary *dict in data) {
+                            [Vehicle vehicleWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
+                        }
+                        [self addSegments];
+                        [self addStops];
+                        [self addVehicles];
+                        [self.refresh setSelected:YES];
+                        [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(refreshVehicles) userInfo:nil repeats:NO];
+                    }];
                 }];
             }];
-        }];
+        }
     }];
+}
+
+- (void)alertViewCallback
+{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 - (void)addSegments
@@ -187,6 +224,25 @@
     }
 }
 
+- (void)locate:(id)sender
+{
+    if (![CLLocationManager locationServicesEnabled]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Permission Denied" message:@"Location service is turned off for YaleMobile. If you would like to grant YaleMobile access, please go to Settings - Location Services." delegate:NULL cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    if (self.locating) {
+        self.locating = 0;
+        self.mapView.showsUserLocation = NO;
+        [self.locate setSelected:NO];
+    } else {
+        self.locating = 1;
+        self.mapView.showsUserLocation = YES;
+        [self.locate setSelected:YES];
+    }
+}
+
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
 {
     if ([overlay isKindOfClass:[MKPolyline class]]) {
@@ -243,14 +299,20 @@
 {
     double span = mapView.region.span.longitudeDelta;
     if (span > 0.021 && self.zoomLevel <= 0.021) {
-        for (int i = mapView.annotations.count - 1; i >= 0; i--) {
-            [mapView removeAnnotation:[mapView.annotations objectAtIndex:i]];
-        }
+        [mapView removeAnnotations:mapView.annotations];
         [self addVehicles];
     } else if (span <= 0.021 && self.zoomLevel > 0.021) {
         [self addStops];
     }
     self.zoomLevel = span;
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    if (self.locating == 1 && userLocation.location.coordinate.latitude != 0) {
+        [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
+        self.locating = 2;
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
@@ -259,7 +321,7 @@
     [self.mapView addGestureRecognizer:rec];
     
     if ([view isKindOfClass:[YMStopAnnotationView class]] || [view isKindOfClass:[YMTransferStopAnnotationView class]]) {
-        [YMServerCommunicator getArrivalEstimateForStop:((YMStopAnnotation *)view.annotation).s.stopid.stringValue forController:self usingBlock:^(NSArray *array) {
+        [YMServerCommunicator getArrivalEstimateForStop:((YMStopAnnotation *)view.annotation).s.stopid.stringValue forController:self andRoutes:self.routesList usingBlock:^(NSArray *array) {
             NSMutableDictionary *md = [[NSMutableDictionary alloc] initWithCapacity:array.count];
             for (Route *r in ((YMStopAnnotation *)view.annotation).routes)
                 [md setObject:@"--" forKey:r.routeid.stringValue];
@@ -404,16 +466,33 @@
     }
 }
 
+- (void)refresh:(id)sender
+{
+    if (self.refresh.selected) [self.refresh setSelected:NO];
+    else {
+        [self.refresh setSelected:YES];
+        [self refreshVehicles];
+    }
+}
+
 - (void)refreshVehicles
 {
-    [YMServerCommunicator getShuttleInfoForController:nil usingBlock:^(NSArray *array) {
-        NSTimeInterval interval = [YMGlobalHelper getTimestamp];
-        for (NSDictionary *dict in array) {
-            [Vehicle vehicleWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
-        }
-        [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(refreshVehicles) userInfo:nil repeats:NO];
-        [self addVehicles];
-    }];
+    if (self.refresh.selected) {
+        NSLog(@"Refreshing Vehicles");
+        [YMServerCommunicator getShuttleInfoForController:nil andRoutes:self.routesList usingBlock:^(NSArray *array) {
+            if (array.count) {
+                NSTimeInterval interval = [YMGlobalHelper getTimestamp];
+                for (NSDictionary *dict in array) {
+                    [Vehicle vehicleWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
+                }
+                [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(refreshVehicles) userInfo:nil repeats:NO];
+                [self addVehicles];
+            } else {
+                NSLog(@"Deselected");
+                [self.refresh setSelected:NO];
+            }
+        }];
+    }
 }
 
 - (void)animateStopCallout:(YMStopInfoSubview *)view withInfo:(NSArray *)info

@@ -48,9 +48,14 @@
 
 - (void)confirm:(id)sender
 {
-    if (self.textField.text.length)
+    if ([self.textField.text isEqualToString:@"718529"]) {
+        [[NSUserDefaults standardUserDefaults] setObject:@"Tong" forKey:@"Name"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Tong"];
+    } else if (self.textField.text.length) {
         [[NSUserDefaults standardUserDefaults] setObject:self.textField.text forKey:@"Name"];
-    else
+        if (![self.textField.text isEqualToString:@"Tong"] && ![self.textField.text isEqualToString:@"Scarlett"])
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Tong"];
+    } else
         [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"Name"];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }

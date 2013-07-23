@@ -65,4 +65,19 @@
     return [UIColor colorWithRed:247/255.0 green:148/255.0 blue:29/255.0 alpha:1];
 }
 
++ (UIColor *)YMDiningBlue
+{
+    return [UIColor colorWithRed:84/255.0 green:146/255.0 blue:173/255.0 alpha:1];
+}
+
++ (UIColor *)YMDiningRed
+{
+    return [UIColor colorWithRed:218/255.0 green:46/255.0 blue:69/255.0 alpha:1];
+}
+
++ (UIColor *)YMDiningGreen
+{
+    return [UIColor colorWithRed:72/255.0 green:173/255.0 blue:58/255.0 alpha:1];
+}
+
 @end

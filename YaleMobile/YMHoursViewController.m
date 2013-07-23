@@ -32,7 +32,7 @@
 {
     [super viewDidLoad];
     [YMGlobalHelper addMenuButtonToController:self];
-    self.types = @[@"Libraries", @"Dining - Retail Facilities", @"Payne Whitney Gym"];
+    self.types = @[@"Libraries", @"Dining - Retail Facilities", @"Payne Whitney Gym", @"Yale Transit"];
     self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)]];
 }
 
@@ -146,11 +146,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedIndexPath = indexPath;
-    if (indexPath.row == 2 || indexPath.row == 3) {
-        NSString *path = (indexPath.row == 2) ? [[NSBundle mainBundle] pathForResource:@"Retail" ofType:@"plist"] : [[NSBundle mainBundle] pathForResource:@"PWG" ofType:@"plist"];
+    if (indexPath.row == 2 || indexPath.row == 3 || indexPath.row == 4) {
+        NSString *path;
+        if (indexPath.row == 2) {
+            path = [[NSBundle mainBundle] pathForResource:@"Retail" ofType:@"plist"];
+            self.detailTitle = @"Retail Facilities";
+        } else if (indexPath.row == 3) {
+            path = [[NSBundle mainBundle] pathForResource:@"PWG" ofType:@"plist"];
+            self.detailTitle = @"PWG";
+        } else {
+            path = [[NSBundle mainBundle] pathForResource:@"Shuttle" ofType:@"plist"];
+            self.detailTitle = @"Yale Transit";
+        }
         NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
         self.detailData = dict;
-        self.detailTitle = (indexPath.row == 2) ? @"Retail Facilities" : @"PWG";
         [self performSegueWithIdentifier:@"Hours Detail Segue" sender:self];
     } else {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"Libraries" ofType:@"plist"];

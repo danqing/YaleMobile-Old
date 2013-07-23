@@ -188,7 +188,7 @@
         cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dtablebg_bottom.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tablebg_bottom_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 20, 10, 20)]];
         cell.secondary.text = @"Special Events";
-        cell.primary.text = @"No upcoming special events";
+        cell.primary.text = self.special;
     } else {
         cell.secondary.text = [NSString stringWithFormat:@"Today's Menu - %@", [[[self.menu objectAtIndex:indexPath.row - 1] allKeys] objectAtIndex:0]];
         cell.primary.text = [[[self.menu objectAtIndex:indexPath.row - 1] allValues] objectAtIndex:0];

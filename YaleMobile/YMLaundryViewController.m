@@ -143,8 +143,8 @@
                 cell.dryer.highlightedTextColor = [UIColor YMOrange];
             }
         } else {
-            cell.washer.text = @"Please refresh";
-            cell.dryer.text = @"Please refresh";
+            cell.washer.text = @"Pls refresh";
+            cell.dryer.text = @"Pull to refresh";
             cell.userInteractionEnabled = NO;
         }
         

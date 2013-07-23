@@ -18,5 +18,9 @@
 @property (nonatomic, strong) UIView *callout;
 @property (nonatomic, strong) NSTimer *animationTimer;
 @property (nonatomic, strong) NSArray *etaData;
+@property (nonatomic) NSInteger locating;
+@property (nonatomic, strong) IBOutlet UIButton *locate;
+@property (nonatomic, strong) IBOutlet UIButton *refresh;
+@property (nonatomic, strong) NSString *routesList;
 
 @end

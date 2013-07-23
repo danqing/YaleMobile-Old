@@ -21,5 +21,8 @@
 + (UIColor *)YMGreen;
 + (UIColor *)YMBluebookBlue;
 + (UIColor *)YMLaundryOrange;
++ (UIColor *)YMDiningBlue;
++ (UIColor *)YMDiningRed;
++ (UIColor *)YMDiningGreen;
 
 @end

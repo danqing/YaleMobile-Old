@@ -19,8 +19,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"Name"];
-    self.name = (name) ? [NSString stringWithFormat:@", %@", name] : @"";
     [YMGlobalHelper setupUserDefaults];    
     [YMGlobalHelper addMenuButtonToController:self];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title.png"]];
@@ -32,6 +30,11 @@
             [self.view addSubview:v];
         }
     }
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"First Launch Passed"]) {
+        [self performSegueWithIdentifier:@"First Launch Segue" sender:self];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"First Launch Passed"];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,8 +43,9 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+{    
+    NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"Name"];
+    self.name = (name) ? [NSString stringWithFormat:@", %@", name] : @"";
     
     [YMGlobalHelper setupSlidingViewControllerForController:self];
     [YMServerCommunicator getWeatherForController:self usingBlock:^(NSArray *array) {
@@ -102,7 +106,9 @@
     // Display different background and greeting depending on current time
     NSInteger hour = [YMGlobalHelper getCurrentTime];
     
-    if (hour <= 2) {
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    
+    /*if (hour <= 2) {
         // if ([[UIScreen mainScreen] bounds].size.height == 568) [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainBGDay-568h@2x.png"]]];
         // else [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainBGDay.png"]]];
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
@@ -110,12 +116,14 @@
         // if ([[UIScreen mainScreen] bounds].size.height == 568) [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainBGNight-568h@2x.png"]]];
         // else [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainBGNight.png"]]];
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-    }
+    }*/
     
     if (hour == 1) self.mainView.greeting.text = [NSString stringWithFormat:@"Good morning%@! It's a brand new day.", self.name];
     else if (hour == 2) self.mainView.greeting.text = [NSString stringWithFormat:@"Good afternoon%@! Hope you are enjoying your day :)", self.name];
     else if (hour == 3) self.mainView.greeting.text = [NSString stringWithFormat:@"Good evening%@! Hope you've had a great day.", self.name];
     else self.mainView.greeting.text = [NSString stringWithFormat:@"Good night%@! Have some good rest :)", self.name];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Tong"]) self.mainView.greeting.text = [self.mainView.greeting.text stringByReplacingOccurrencesOfString:@":)" withString:@"<3"];
 }
 
 - (void)menu:(id)sender

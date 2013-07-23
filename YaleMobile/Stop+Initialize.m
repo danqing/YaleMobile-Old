@@ -39,7 +39,7 @@
     for (NSString *route in routes) {
         NSNumber *routeId = [NSNumber numberWithInteger:route.integerValue];
         Route *route = [Route fetchRouteWithId:routeId inManagedObjectContext:context];
-        if (route) [routesSet addObject:route];
+        if (route && route.inactive.boolValue == NO) [routesSet addObject:route];
     }
     if (routesSet.count == 0) [context deleteObject:stop];
     else stop.routes = routesSet;

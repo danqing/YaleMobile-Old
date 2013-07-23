@@ -33,17 +33,20 @@
     route.name = [data objectForKey:@"long_name"];
     route.color = [data objectForKey:@"color"];
     route.timestamp = [NSNumber numberWithDouble:timestamp];
-    if (![route.inactive boolValue]) route.inactive = NO;
+    if (route.inactive.boolValue != YES) route.inactive = NO;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@_inactive", route.routeid]]) route.inactive = [NSNumber numberWithBool:YES];
     
-    NSArray *segments = [data objectForKey:@"segments"];
-    NSMutableSet *segmentsSet = [[NSMutableSet alloc] initWithCapacity:segments.count];
-    
-    for (NSArray *s in segments) {
-        BOOL isForward = ([[s objectAtIndex:1] isEqualToString:@"forward"]) ? YES : NO;
-        Segment *segment = [Segment segmentWithId:[[s objectAtIndex:0] integerValue] andDirection:isForward forTimestamp:timestamp inManagedObjectContext:context];
-        if (segment) [segmentsSet addObject:segment];
+    if (route.inactive.boolValue == NO) {
+        NSArray *segments = [data objectForKey:@"segments"];
+        NSMutableSet *segmentsSet = [[NSMutableSet alloc] initWithCapacity:segments.count];
+        
+        for (NSArray *s in segments) {
+            BOOL isForward = ([[s objectAtIndex:1] isEqualToString:@"forward"]) ? YES : NO;
+            Segment *segment = [Segment segmentWithId:[[s objectAtIndex:0] integerValue] andDirection:isForward forTimestamp:timestamp inManagedObjectContext:context];
+            if (segment) [segmentsSet addObject:segment];
+        }
+        route.segments = segmentsSet;
     }
-    route.segments = segmentsSet;
 }
 
 + (Route *)fetchRouteWithId:(NSNumber *)routeId inManagedObjectContext:(NSManagedObjectContext *)context
@@ -59,6 +62,25 @@
     
     if (matches.count == 1) route = [matches lastObject];
     return route;
+}
+
++ (NSString *)getActiveRoutesInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Route"];
+    request.predicate = [NSPredicate predicateWithFormat:@"inactive != %@", [NSNumber numberWithBool:YES]];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"routeid" ascending:YES];
+    request.sortDescriptors = [NSArray arrayWithObject:descriptor];
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+
+    if (!matches || matches.count == 0) return nil;
+    else {
+        NSLog(@"Matches %d", matches.count);
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:matches.count];
+        for (Route *r in matches) [array addObject:r.routeid.stringValue];
+        if (array.count == 0) return nil;
+        return [NSString stringWithFormat:@"&routes=%@",[array componentsJoinedByString:@","]];
+    }
 }
 
 + (void)removeAllRoutesInManagedObjectContext:(NSManagedObjectContext *)context

@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSDictionary *locations;
 @property (nonatomic, strong) NSArray *sortedKeys;
 @property (nonatomic, strong) NSArray *data;
+@property (nonatomic, strong) NSArray *special;
 
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 

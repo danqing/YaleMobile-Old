@@ -40,7 +40,10 @@
     self.sortedKeys = [[self.locations allKeys] sortedArrayUsingSelector:@selector(compare:)];
     [YMServerCommunicator getAllDiningStatusForController:self usingBlock:^(NSArray *array) {
         self.data = array;
-        [self.tableView reloadData];
+        [YMServerCommunicator getDiningSpecialInfoForController:self usingBlock:^(NSArray *array) {
+            self.special = array;
+            [self.tableView reloadData];
+        }];
     }];
 }
 
@@ -83,6 +86,7 @@
     ddvc.address = [info objectForKey:@"Location"];
     ddvc.locationID = [[[self.data objectAtIndex:self.selectedIndexPath.row] objectAtIndex:0] integerValue];
     ddvc.hour = [self parseHours:[info objectForKey:@"Hours"]];
+    ddvc.special = (self.special.count) ? [self.special objectAtIndex:self.selectedIndexPath.row * 3 + 2] : @"Information not available";
 }
 
 - (NSString *)parseHours:(NSArray *)array
@@ -134,14 +138,34 @@
     cell.crowdLabel.shadowOffset = CGSizeMake(0, 1);
     cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"plaintablebg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 5, 0)]];
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"plaintablebg_highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 0, 5, 0)]];
+
+    if (self.special.count) {
+        cell.special.text = [self.special objectAtIndex:indexPath.row * 3 + 1];
+        if ([[self.special objectAtIndex:indexPath.row * 3] integerValue] == 0) {
+            cell.special.textColor = [UIColor YMDiningBlue];
+            cell.special.highlightedTextColor = [UIColor YMDiningBlue];
+        } else if ([[self.special objectAtIndex:indexPath.row * 3] integerValue] == 1) {
+            cell.special.textColor = [UIColor YMDiningRed];
+            cell.special.highlightedTextColor = [UIColor YMDiningRed];
+        } else {
+            cell.special.textColor = [UIColor YMDiningGreen];
+            cell.special.highlightedTextColor = [UIColor YMDiningGreen];
+        }
+    } else {
+        cell.special.text = @"Status Unavailable";
+        cell.special.textColor = [UIColor darkGrayColor];
+        cell.special.highlightedTextColor = [UIColor darkGrayColor];
+    }
     
-    cell.special.text = [[self.data objectAtIndex:indexPath.row] objectAtIndex:2];
     cell.crowdLabel.text = [self crowdedness:[[[self.data objectAtIndex:indexPath.row] objectAtIndex:4] integerValue]];
     cell.crowdedness.image = [UIImage imageNamed:[NSString stringWithFormat:@"dots%d.png", [[[self.data objectAtIndex:indexPath.row] objectAtIndex:4] integerValue] / 2]];
     if ([[[self.data objectAtIndex:indexPath.row] objectAtIndex:6] integerValue]) {
         cell.crowdLabel.text = @"Closed";
         cell.crowdedness.image = [UIImage imageNamed:@"dots0.png"];
     }
+    
+    if ([[self.special objectAtIndex:indexPath.row * 3] integerValue] != 0)
+        cell.crowdLabel.text = @"Special";
         
     return cell;
 }

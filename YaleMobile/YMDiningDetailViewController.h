@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString *hour;
 @property (nonatomic) NSInteger locationID;
 @property (nonatomic, strong) NSArray *menu;
+@property (nonatomic, strong) NSString *special;
 
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 
