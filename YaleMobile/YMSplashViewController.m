@@ -27,7 +27,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    UIImage *bg = ([[UIScreen mainScreen] bounds].size.height == 568) ? [UIImage imageNamed:@"Default2"] : [UIImage imageNamed:@"Default3"];
+    UIImage *bg = ([[UIScreen mainScreen] bounds].size.height == 568) ? [UIImage imageNamed:@"Default-568h2.png"] : [UIImage imageNamed:@"Default2.png"];
     self.view.backgroundColor = [UIColor colorWithPatternImage:bg];
 }
 

@@ -74,6 +74,8 @@
     
     [YMGlobalHelper setupRightSlidingViewControllerForController:self withRightController:[YMShuttleSelectionViewController class] named:@"Shuttle Selection"];
     
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Resumed"];
+    
     CLLocationCoordinate2D zoomLocation;
     zoomLocation.latitude = 41.3123;
     zoomLocation.longitude = -72.9281;
@@ -94,7 +96,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    NSLog(@"Disappeared");
     [self.refresh setSelected:NO];
+    [self removeCalloutViewWithAnimation];
 }
 
 - (void)topDidReset:(id)sender
@@ -102,6 +106,9 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Shuttle Refresh"]) {
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Shuttle Refresh"];
         [self.refresh setSelected:NO];
+        
+        [self removeCalloutViewWithAnimation];
+        
         [self loadData];
     }
 }
@@ -443,17 +450,24 @@
     self.etaData = nil;
 }
 
+- (void)removeCalloutViewWithAnimation
+{
+    if (self.callout) {
+        [self.animationTimer invalidate];
+        CGRect frame = self.callout.frame;
+        frame.origin.y -= 100;
+        [UIView animateWithDuration:0.3 animations:^{
+            self.callout.frame = frame;
+        } completion:^(BOOL finished) {
+            [self removeCalloutView];
+        }];
+    }
+}
+
 - (void)dismissCallout:(UITapGestureRecognizer *)rec
 {
     [self.mapView removeGestureRecognizer:rec];
-    [self.animationTimer invalidate];
-    CGRect frame = self.callout.frame;
-    frame.origin.y -= 100;
-    [UIView animateWithDuration:0.3 animations:^{
-        self.callout.frame = frame;
-    } completion:^(BOOL finished) {
-        [self removeCalloutView];
-    }];
+    [self removeCalloutViewWithAnimation];
 }
 
 - (void)refreshCalloutEta
@@ -480,19 +494,24 @@
 {
     if (self.refresh.selected) {
         NSLog(@"Refreshing Vehicles");
-        [YMServerCommunicator getShuttleInfoForController:nil andRoutes:self.routesList usingBlock:^(NSArray *array) {
-            if (array.count) {
-                NSTimeInterval interval = [YMGlobalHelper getTimestamp];
-                for (NSDictionary *dict in array) {
-                    [Vehicle vehicleWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Resumed"]) {
+            [self loadData];
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Resumed"];
+        } else {
+            [YMServerCommunicator getShuttleInfoForController:nil andRoutes:self.routesList usingBlock:^(NSArray *array) {
+                if (array.count) {
+                    NSTimeInterval interval = [YMGlobalHelper getTimestamp];
+                    for (NSDictionary *dict in array) {
+                        [Vehicle vehicleWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
+                    }
+                    [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(refreshVehicles) userInfo:nil repeats:NO];
+                    [self addVehicles];
+                } else {
+                    NSLog(@"Deselected");
+                    [self.refresh setSelected:NO];
                 }
-                [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(refreshVehicles) userInfo:nil repeats:NO];
-                [self addVehicles];
-            } else {
-                NSLog(@"Deselected");
-                [self.refresh setSelected:NO];
-            }
-        }];
+            }];
+        }
     }
 }
 
