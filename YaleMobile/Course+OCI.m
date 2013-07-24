@@ -7,12 +7,14 @@
 //
 
 #import "Course+OCI.h"
+#import "YMDatabaseHelper.h"
 
 @implementation Course (OCI)
 
 + (Course *)courseWithData:(NSDictionary *)data forTimestamp:(NSTimeInterval)timestamp inManagedObjectContext:(NSManagedObjectContext *)context
 {
     Course *course = nil;
+    if (timestamp < [YMDatabaseHelper getCurrentTimeInterval]) return course;
     
     course = [NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:context];
     course.name = [data objectForKey:@"name"];

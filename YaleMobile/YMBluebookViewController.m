@@ -10,6 +10,7 @@
 #import "YMBluebookFilterViewController.h"
 #import "YMBluebookSubjectViewController.h"
 #import "YMGlobalHelper.h"
+#import "YMServerCommunicator.h"
 #import "ECSlidingViewController.h"
 #import "YMSimpleCell.h"
 
@@ -64,6 +65,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [YMServerCommunicator cancelAllHTTPRequests];
     [YMGlobalHelper setupSlidingViewControllerForController:self];
     [YMGlobalHelper setupRightSlidingViewControllerForController:self withRightController:[UINavigationController class] named:@"Bluebook Filter Root"];
     if (self.selectedIndexPath) {
@@ -119,16 +121,18 @@
     filters = [filters stringByAppendingFormat:@"&ProgramSubject=%@&InstructorName=%@&ExactWordPhrase=%@&CourseNumber=%@", subject, self.instructorName, self.exactPhrase, self.courseNumber];
     self.instructorName = @""; self.courseNumber = @""; self.exactPhrase = @"";
     
-    NSURL *url = [NSURL URLWithString:[@"http://students.yale.edu/oci/resultWindow.jsp" stringByAppendingString:filters]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    //NSURL *url = [NSURL URLWithString:[@"http://students.yale.edu/oci/resultWindow.jsp" stringByAppendingString:filters]];
+    //NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    __block AFHTTPClient *client = [YMServerCommunicator getGlobalHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:[@"http://students.yale.edu/oci/resultWindow.jsp" stringByAppendingString:filters] parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
 
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSURL *url2 = [NSURL URLWithString:[@"http://students.yale.edu/oci/resultList.jsp" stringByAppendingString:filters]];
-
-        NSURLRequest *request2 = [NSURLRequest requestWithURL:url2];
+        NSMutableURLRequest *request2 = [client requestWithMethod:@"GET" path:[@"http://students.yale.edu/oci/resultList.jsp" stringByAppendingString:filters] parameters:nil];
         AFHTTPRequestOperation *operation2 = [[AFHTTPRequestOperation alloc] initWithRequest:request2];
-        
+        [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+
         [operation2 setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSString *responseString = operation.responseString;
 

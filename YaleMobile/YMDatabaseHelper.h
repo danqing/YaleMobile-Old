@@ -18,4 +18,7 @@ typedef void (^completion_block_t)(UIManagedDocument *database);
 + (void)setManagedDocumentTo:(UIManagedDocument *)database;
 + (UIManagedDocument *)getManagedDocument;
 
++ (NSTimeInterval)getCurrentTimeInterval;
++ (void)updateCurrentTimeIntervalTo:(NSTimeInterval)interval;
+
 @end

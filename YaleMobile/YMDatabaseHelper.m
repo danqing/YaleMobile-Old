@@ -12,6 +12,7 @@
 
 static NSMutableDictionary *managedDocumentDictionary = nil;
 static UIManagedDocument *globalDatabase = nil;
+static NSTimeInterval currentInterval = 0;
 
 @implementation YMDatabaseHelper
 
@@ -68,6 +69,16 @@ static UIManagedDocument *globalDatabase = nil;
 + (UIManagedDocument *)getManagedDocument
 {
     return globalDatabase;
+}
+
++ (void)updateCurrentTimeIntervalTo:(NSTimeInterval)interval
+{
+    currentInterval = interval;
+}
+
++ (NSTimeInterval)getCurrentTimeInterval
+{
+    return currentInterval;
 }
 
 @end
