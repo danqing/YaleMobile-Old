@@ -19,27 +19,9 @@
 #import "AFHTTPRequestOperation.h"
 #import "MBProgressHUD.h"
 
-static AFHTTPClient *globalHTTPClient = nil;
-
 @implementation YMServerCommunicator
 
 #pragma mark - YaleMobile 2.x JSON APIs
-
-+ (AFHTTPClient *)getGlobalHTTPClient
-{
-    if (!globalHTTPClient) {
-        globalHTTPClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://www.yale.edu"]];
-    }
-    return globalHTTPClient;
-}
-
-+ (void)cancelAllHTTPRequests
-{
-    if (globalHTTPClient) {
-        NSLog(@"Cancelling Operations");
-        [[globalHTTPClient operationQueue] cancelAllOperations];
-    }
-}
 
 + (NSArray *)getLocationFromName:(NSString *)name
 {

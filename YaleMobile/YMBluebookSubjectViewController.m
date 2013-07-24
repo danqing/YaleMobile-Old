@@ -46,7 +46,6 @@
         [self.tableView deselectRowAtIndexPath:self.selectedIndexPath animated:YES];
         self.selectedIndexPath = nil;
     }
-    [YMDatabaseHelper updateCurrentTimeIntervalTo:[YMGlobalHelper getCurrentTime]];
 }
 
 - (void)didReceiveMemoryWarning
