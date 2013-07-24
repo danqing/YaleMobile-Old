@@ -17,6 +17,5 @@
 @property (nonatomic, strong) UIView *disableViewOverlay;
 
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
-
            
 @end

@@ -64,6 +64,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [YMServerCommunicator cancelAllHTTPRequests];
+
     if (![self.slidingViewController.underLeftViewController isKindOfClass:[YMMenuViewController class]]) {
         self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
     }

@@ -12,7 +12,7 @@
 #import "YMGlobalHelper.h"
 #import "ECSlidingViewController.h"
 #import "YMSimpleCell.h"
-
+#import "YMServerCommunicator.h"
 #import "AFHTTPClient.h"
 #import "AFHTTPRequestOperation.h"
 #import "MBProgressHUD.h"
@@ -64,6 +64,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [YMServerCommunicator cancelAllHTTPRequests];
     [YMGlobalHelper setupSlidingViewControllerForController:self];
     [YMGlobalHelper setupRightSlidingViewControllerForController:self withRightController:[UINavigationController class] named:@"Bluebook Filter Root"];
     if (self.selectedIndexPath) {
@@ -119,14 +120,12 @@
     filters = [filters stringByAppendingFormat:@"&ProgramSubject=%@&InstructorName=%@&ExactWordPhrase=%@&CourseNumber=%@", subject, self.instructorName, self.exactPhrase, self.courseNumber];
     self.instructorName = @""; self.courseNumber = @""; self.exactPhrase = @"";
     
-    NSURL *url = [NSURL URLWithString:[@"http://students.yale.edu/oci/resultWindow.jsp" stringByAppendingString:filters]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    __block AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:[@"http://students.yale.edu/oci/resultWindow.jsp" stringByAppendingString:filters] parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
 
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSURL *url2 = [NSURL URLWithString:[@"http://students.yale.edu/oci/resultList.jsp" stringByAppendingString:filters]];
-
-        NSURLRequest *request2 = [NSURLRequest requestWithURL:url2];
+        NSMutableURLRequest *request2 = [client requestWithMethod:@"GET" path:[@"http://students.yale.edu/oci/resultList.jsp" stringByAppendingString:filters] parameters:nil];
         AFHTTPRequestOperation *operation2 = [[AFHTTPRequestOperation alloc] initWithRequest:request2];
         
         [operation2 setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -142,25 +141,30 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [MBProgressHUD hideHUDForView:svc.view animated:YES];
             svc.tableView.scrollEnabled = YES;
-            if ([operation.responseString rangeOfString:@"No courses match selection."].location != NSNotFound) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"YaleMobile Bluebook" message:@"No courses match your selection. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            if (![YMServerCommunicator isCanceled]) {
+                if ([operation.responseString rangeOfString:@"No courses match selection."].location != NSNotFound) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"YaleMobile Bluebook" message:@"No courses match your selection. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                    return;
+                }
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                                message:@"YaleMobile is unable to reach Course Selection server. Please check your Internet connection and try again."
+                                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
-                return;
             }
-            
+        }];
+        [YMServerCommunicator resetCanceled];
+        [[client operationQueue] addOperation:operation2];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUDForView:svc.view animated:YES];
+        svc.tableView.scrollEnabled = YES;
+        if (![YMServerCommunicator isCanceled]) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
                                                             message:@"YaleMobile is unable to reach Course Selection server. Please check your Internet connection and try again."
                                                            delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
-        }];
-        [operation2 start];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [MBProgressHUD hideHUDForView:svc.view animated:YES];
-        svc.tableView.scrollEnabled = YES;
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                        message:@"YaleMobile is unable to reach Course Selection server. Please check your Internet connection and try again."
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        }
     }];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:svc.view animated:YES];
@@ -169,7 +173,8 @@
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
     hud.dimBackground = YES;
     svc.tableView.scrollEnabled = NO;
-    [operation start];
+    [YMServerCommunicator resetCanceled];
+    [[client operationQueue] addOperation:operation];
 }
 
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller

@@ -11,6 +11,7 @@
 #import "YMSubtitleCell.h"
 #import "YMDatabaseHelper.h"
 #import "Office+Initialize.h"
+#import "YMServerCommunicator.h"
 
 @interface YMPhonebookViewController ()
 
@@ -35,6 +36,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [YMServerCommunicator cancelAllHTTPRequests];
+
     self.searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"plaintabletop.png"]];
     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"plaintabletop.png"]];

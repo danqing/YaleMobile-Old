@@ -19,6 +19,7 @@
 #import "Abbreviation.h"
 #import "YMDatabaseHelper.h"
 #import "UIColor+YaleMobile.h"
+#import "YMServerCommunicator.h"
 
 @interface YMMapViewController ()
 
@@ -58,6 +59,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [YMServerCommunicator cancelAllHTTPRequests];
+
     if (![self.slidingViewController.underLeftViewController isKindOfClass:[YMMenuViewController class]]) {
         self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
     }

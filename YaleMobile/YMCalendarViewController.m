@@ -10,6 +10,7 @@
 #import "YMGlobalHelper.h"
 #import "YMAcademicCalendarDetailViewController.h"
 #import "YMSimpleCell.h"
+#import "YMServerCommunicator.h"
 
 @interface YMCalendarViewController ()
 
@@ -40,6 +41,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [YMServerCommunicator cancelAllHTTPRequests];
     [YMGlobalHelper setupSlidingViewControllerForController:self];
     
     if (self.selectedIndexPath) {

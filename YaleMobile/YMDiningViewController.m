@@ -38,17 +38,12 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Dining" ofType:@"plist"];
     self.locations = [[NSDictionary alloc] initWithContentsOfFile:path];
     self.sortedKeys = [[self.locations allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    [YMServerCommunicator getAllDiningStatusForController:self usingBlock:^(NSArray *array) {
-        self.data = array;
-        [YMServerCommunicator getDiningSpecialInfoForController:self usingBlock:^(NSArray *array) {
-            self.special = array;
-            [self.tableView reloadData];
-        }];
-    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [YMServerCommunicator cancelAllHTTPRequests];
+
     self.navigationController.navigationBar.alpha = 1;
     self.navigationController.navigationBar.translucent = NO;
     [YMGlobalHelper setupSlidingViewControllerForController:self];
@@ -56,6 +51,14 @@
         [self.tableView deselectRowAtIndexPath:self.selectedIndexPath animated:YES];
         self.selectedIndexPath = nil;
     }
+    
+    [YMServerCommunicator getAllDiningStatusForController:self usingBlock:^(NSArray *array) {
+        self.data = array;
+        [YMServerCommunicator getDiningSpecialInfoForController:self usingBlock:^(NSArray *array) {
+            self.special = array;
+            [self.tableView reloadData];
+        }];
+    }];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer

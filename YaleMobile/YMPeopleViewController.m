@@ -39,6 +39,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [YMServerCommunicator cancelAllHTTPRequests];
     [YMGlobalHelper setupSlidingViewControllerForController:self];
     
     if (self.selectedIndexPath) {

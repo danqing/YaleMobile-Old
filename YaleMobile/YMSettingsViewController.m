@@ -10,6 +10,7 @@
 #import "ECSlidingViewController.h"
 #import "YMGlobalHelper.h"
 #import "YMSettingsDetailViewController.h"
+#import "YMServerCommunicator.h"
 
 @interface YMSettingsViewController ()
 
@@ -38,6 +39,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [YMServerCommunicator cancelAllHTTPRequests];
     [YMGlobalHelper setupSlidingViewControllerForController:self];
     if (self.selectedIndexPath) {
         [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];

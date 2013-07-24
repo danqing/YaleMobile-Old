@@ -19,8 +19,32 @@
 #import "AFHTTPRequestOperation.h"
 #import "MBProgressHUD.h"
 
+static AFHTTPClient *globalHTTPClient = nil;
+static BOOL cancel = NO;
+
 @implementation YMServerCommunicator
 
++ (AFHTTPClient *)getHTTPClient
+{
+    if (!globalHTTPClient) globalHTTPClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://www.yale.edu"]];
+    return globalHTTPClient;
+}
+
++ (void)cancelAllHTTPRequests
+{
+    cancel = YES;
+    if (globalHTTPClient) [[globalHTTPClient operationQueue] cancelAllOperations];
+}
+
++ (BOOL)isCanceled
+{
+    return cancel;
+}
+
++ (void)resetCanceled
+{
+    cancel = NO;
+}
 #pragma mark - YaleMobile 2.x JSON APIs
 
 + (NSArray *)getLocationFromName:(NSString *)name
@@ -30,8 +54,10 @@
 
 + (void)getRouteInfoForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:@"http://api.transloc.com/1.2/routes.json?agencies=128"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    cancel = NO;
+
+    AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:@"http://api.transloc.com/1.2/routes.json?agencies=128" parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
@@ -42,23 +68,26 @@
         completionBlock([[dict objectForKey:@"data"] objectForKey:@"128"]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                        message:@"YaleMobile is unable to reach TransLoc server. Please check your Internet connection and try again."
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        if (!cancel) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                            message:@"YaleMobile is unable to reach TransLoc server. Please check your Internet connection and try again."
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
     }];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading Routes...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
-    [operation start];
+    [[client operationQueue] addOperation:operation];
 }
 
 + (void)getSegmentInfoForController:(UIViewController *)controller andRoutes:(NSString *)routes usingBlock:(dict_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.transloc.com/1.2/segments.json?agencies=128%@", routes]];
-    NSLog(@"URL IS %@", url);
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    cancel = NO;
+    
+    AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:[NSString stringWithFormat:@"http://api.transloc.com/1.2/segments.json?agencies=128%@", routes] parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
@@ -70,22 +99,26 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Segment Failed");
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                        message:@"YaleMobile is unable to reach TransLoc server. Please check your Internet connection and try again."
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        if (!cancel) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                            message:@"YaleMobile is unable to reach TransLoc server. Please check your Internet connection and try again."
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
     }];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading Paths...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
-    [operation start];
+    [[client operationQueue] addOperation:operation];
 }
 
 + (void)getStopInfoForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:@"http://api.transloc.com/1.2/stops.json?agencies=128"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    cancel = NO;
+    
+    AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:@"http://api.transloc.com/1.2/stops.json?agencies=128" parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
@@ -96,22 +129,26 @@
         completionBlock([dict objectForKey:@"data"]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                        message:@"YaleMobile is unable to reach TransLoc server. Please check your Internet connection and try again."
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        if (!cancel) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                            message:@"YaleMobile is unable to reach TransLoc server. Please check your Internet connection and try again."
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
     }];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading Stops...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
-    [operation start];
+    [[client operationQueue] addOperation:operation];
 }
 
 + (void)getShuttleInfoForController:(UIViewController *)controller andRoutes:(NSString *)routes usingBlock:(array_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.transloc.com/1.2/vehicles.json?agencies=128%@", routes]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    cancel = NO;
+    
+    AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:[NSString stringWithFormat:@"http://api.transloc.com/1.2/vehicles.json?agencies=128%@", routes] parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (controller) [MBProgressHUD hideHUDForView:controller.view animated:YES];
@@ -123,10 +160,12 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Shuttle Failed");
         if (controller) [MBProgressHUD hideHUDForView:controller.view animated:YES];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                        message:@"YaleMobile is unable to reach TransLoc server. Please check your Internet connection and try again."
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        if (!cancel) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                            message:@"YaleMobile is unable to reach TransLoc server. Please check your Internet connection and try again."
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
         if (!controller) completionBlock(nil);
     }];
     if (controller) {
@@ -135,13 +174,15 @@
         hud.labelText = @"Loading Shuttles...";
         hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
     }
-    [operation start];
+    [[client operationQueue] addOperation:operation];
 }
 
 + (void)getArrivalEstimateForStop:(NSString *)stop forController:(UIViewController *)controller andRoutes:(NSString *)routes usingBlock:(array_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.transloc.com/1.2/arrival-estimates.json?agencies=128&stops=%@%@", stop, routes]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    cancel = NO;
+
+    AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:[NSString stringWithFormat:@"http://api.transloc.com/1.2/arrival-estimates.json?agencies=128&stops=%@%@", stop, routes] parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
@@ -153,20 +194,24 @@
         else completionBlock(nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                        message:@"YaleMobile is unable to reach TransLoc server. Please check your Internet connection and try again."
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        if (!cancel) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                            message:@"YaleMobile is unable to reach TransLoc server. Please check your Internet connection and try again."
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
     }];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
-    [operation start];
+    [[client operationQueue] addOperation:operation];
 }
 
 + (void)getLibraryHoursForLocation:(NSString *)location controller:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.libcal.com/api_hours_today.php?iid=457&weeks=18&lid=%@&format=json", location]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    cancel = NO;
+    
+    AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:[NSString stringWithFormat:@"http://api.libcal.com/api_hours_today.php?iid=457&weeks=18&lid=%@&format=json", location] parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
@@ -177,23 +222,27 @@
         completionBlock([dict objectForKey:@"locations"]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                        message:@"YaleMobile is unable to reach Library Calendar server. Please check your Internet connection and try again."
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        if (!cancel) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                            message:@"YaleMobile is unable to reach Library Calendar server. Please check your Internet connection and try again."
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
     }];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading Hours...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
     hud.dimBackground = YES;
-    [operation start];
+    [[client operationQueue] addOperation:operation];
 }
 
 + (void)getAllDiningStatusForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:@"http://www.yaledining.org/fasttrack/locations.cfm?version=2"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    cancel = NO;
+    
+    AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:@"http://www.yaledining.org/fasttrack/locations.cfm?version=2" parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
@@ -204,25 +253,28 @@
         completionBlock([dict objectForKey:@"DATA"]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                        message:@"YaleMobile is unable to reach Yale Dining server. Please check your Internet connection and try again."
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        if (!cancel) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                            message:@"YaleMobile is unable to reach Yale Dining server. Please check your Internet connection and try again."
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
     }];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
     hud.dimBackground = YES;
-    [operation start];
+    [[client operationQueue] addOperation:operation];
 }
 
 + (void)getDiningDetailForLocation:(NSUInteger)locationID forController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.yaledining.org/fasttrack/menus.cfm?location=%d&version=2", locationID]];
+    cancel = NO;
     //NSURL *url = [NSURL URLWithString:@"http://www.yaledining.org/fasttrack/menus.cfm?mDate=04%2F19%2F2013&location=10&version=2"];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:[NSString stringWithFormat:@"http://www.yaledining.org/fasttrack/menus.cfm?location=%d&version=2", locationID] parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
@@ -233,23 +285,27 @@
         completionBlock([dict objectForKey:@"DATA"]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                        message:@"YaleMobile is unable to reach Yale Dining server. Please check your Internet connection and try again."
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        if (!cancel) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                            message:@"YaleMobile is unable to reach Yale Dining server. Please check your Internet connection and try again."
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
     }];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading Menu...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
     hud.dimBackground = YES;
-    [operation start];
+    [[client operationQueue] addOperation:operation];
 }
 
 + (void)getDiningSpecialInfoForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:@"http://pantheon.yale.edu/~dl479/yalemobile/dining.txt"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    cancel = NO;
+    
+    AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:@"http://pantheon.yale.edu/~dl479/yalemobile/dining.txt" parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
@@ -258,23 +314,27 @@
         completionBlock(array);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                        message:@"YaleMobile is unable to reach Danqing's server. Please check your Internet connection and try again."
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        if (!cancel) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                            message:@"YaleMobile is unable to reach Danqing's server. Please check your Internet connection and try again."
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
     }];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
     hud.dimBackground = YES;
-    [operation start];
+    [[client operationQueue] addOperation:operation];
 }
 
 + (void)getAllLaundryStatusForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
-    NSURL *url = [NSURL URLWithString:@"http://classic.laundryview.com/lvs.php?s=695"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    cancel = NO;
+    
+    AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:@"http://classic.laundryview.com/lvs.php?s=695" parameters:nil];
     NSString *userAgent = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13+ (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2";
     [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -306,10 +366,12 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (((UITableViewController *)controller).refreshControl) [((UITableViewController *)controller).refreshControl endRefreshing];
         [MBProgressHUD hideHUDForView:controller.view.window animated:YES];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                        message:@"YaleMobile is unable to reach laundry status server. Please check your Internet connection and try again."
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        if (!cancel) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                            message:@"YaleMobile is unable to reach laundry status server. Please check your Internet connection and try again."
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
     }];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view.window animated:YES];
@@ -317,13 +379,15 @@
     hud.labelText = @"Loading...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
     hud.dimBackground = YES;
-    [operation start];
+    [[client operationQueue] addOperation:operation];
 }
 
 + (void)getLaundryStatusForLocation:(NSString *)code forController:(UIViewController *)controller usingBlock:(triple_array_block_t)completionBlock
 {
-    NSURL *locationURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://classic.laundryview.com/laundry_room.php?view=c&lr=%@", code]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:locationURL];
+    cancel = NO;
+    
+    AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:[NSString stringWithFormat:@"http://classic.laundryview.com/laundry_room.php?view=c&lr=%@", code] parameters:nil];
     NSString *userAgent = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13+ (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2";
     [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -391,10 +455,12 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (((UITableViewController *)controller).refreshControl) [((UITableViewController *)controller).refreshControl endRefreshing];
         [MBProgressHUD hideHUDForView:controller.view.window animated:YES];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                        message:@"YaleMobile is unable to reach laundry status server. Please check your Internet connection and try again."
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        if (!cancel) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                            message:@"YaleMobile is unable to reach laundry status server. Please check your Internet connection and try again."
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
     }];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view.window animated:YES];
@@ -402,7 +468,7 @@
     hud.labelText = @"Loading...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
     hud.dimBackground = YES;
-    [operation start];
+    [[client operationQueue] addOperation:operation];
 }
 
 + (void)getWeatherForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock

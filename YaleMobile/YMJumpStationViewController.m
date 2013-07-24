@@ -9,6 +9,7 @@
 #import "YMJumpStationViewController.h"
 #import "YMGlobalHelper.h"
 #import "YMSimpleCell.h"
+#import "YMServerCommunicator.h"
 
 @interface YMJumpStationViewController ()
 
@@ -39,6 +40,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [YMServerCommunicator cancelAllHTTPRequests];
+
     [YMGlobalHelper setupSlidingViewControllerForController:self];
     if (self.selectedIndexPath) {
         [self.tableView deselectRowAtIndexPath:self.selectedIndexPath animated:YES];

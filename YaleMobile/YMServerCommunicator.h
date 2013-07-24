@@ -12,7 +12,14 @@ typedef void (^array_block_t)(NSArray *array);
 typedef void (^triple_array_block_t)(NSArray *array1, NSArray *array2, NSArray *array3);
 typedef void (^dict_block_t)(NSDictionary *dict);
 
+@class AFHTTPClient;
+
 @interface YMServerCommunicator : NSObject
+
++ (AFHTTPClient *)getHTTPClient;
++ (void)cancelAllHTTPRequests;
++ (BOOL)isCanceled;
++ (void)resetCanceled;
 
 // YaleMobile 2.x JSON APIs - not yet 2.0
 

@@ -12,6 +12,7 @@
 #import "YMSimpleCell.h"
 #import "YMGlobalHelper.h"
 #import "UIColor+YaleMobile.h"
+#import "YMServerCommunicator.h"
 
 @interface YMHoursViewController ()
 
@@ -38,6 +39,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [YMServerCommunicator cancelAllHTTPRequests];
     [YMGlobalHelper setupSlidingViewControllerForController:self];
     if (self.selectedIndexPath) {
         [self.tableView deselectRowAtIndexPath:self.selectedIndexPath animated:YES];
