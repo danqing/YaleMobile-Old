@@ -36,7 +36,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (self.db)
+    /*if (self.db)
         [self loadData];
     else {
         [YMDatabaseHelper openDatabase:@"database" usingBlock:^(UIManagedDocument *document) {
@@ -44,17 +44,7 @@
             [YMDatabaseHelper setManagedDocumentTo:document];
             [self loadData];
         }];
-    }
-}
-
-- (void)loadData
-{
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Route"];
-    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"routeid" ascending:YES];
-    request.sortDescriptors = [NSArray arrayWithObject:descriptor];
-    NSError *error;
-    NSArray *matches = [self.db.managedObjectContext executeFetchRequest:request error:&error];
-    self.routes = matches;
+    }*/
     [self.tableView reloadData];
 }
 

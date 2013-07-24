@@ -80,16 +80,12 @@
     MKCoordinateSpan span = MKCoordinateSpanMake(0.02, 0.02);
     MKCoordinateRegion region = MKCoordinateRegionMake(zoomLocation, span);
     [self.mapView setRegion:region animated:YES];
-    
-    YMShuttleSelectionViewController *ssvc = (YMShuttleSelectionViewController *)self.slidingViewController.underRightViewController;
-    
+        
     if ((self.db = [YMDatabaseHelper getManagedDocument])) {
         [self loadData];
-        ssvc.db = self.db;
     } else {
         [YMDatabaseHelper openDatabase:@"database" usingBlock:^(UIManagedDocument *document) {
             self.db = document;
-            ssvc.db = self.db;
             [YMDatabaseHelper setManagedDocumentTo:document];
             [self loadData];
         }];
@@ -105,6 +101,7 @@
 {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Shuttle Refresh"]) {
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Shuttle Refresh"];
+        [self.refresh setSelected:NO];
         [self loadData];
     }
 }
@@ -121,6 +118,10 @@
     [YMServerCommunicator getRouteInfoForController:self usingBlock:^(NSArray *data) {
         for (NSDictionary *dict in data)
             [Route routeWithData:dict forTimestamp:interval inManagedObjectContext:self.db.managedObjectContext];
+        NSArray *routes = [Route getAllRoutesInManagedObjectContext:self.db.managedObjectContext];
+        YMShuttleSelectionViewController *ssvc = (YMShuttleSelectionViewController *)self.slidingViewController.underRightViewController;
+        ssvc.routes = routes;
+        
         NSString *r = [Route getActiveRoutesInManagedObjectContext:self.db.managedObjectContext];
         self.routesList = r;
         if (!r) {

@@ -27,19 +27,19 @@ static UIManagedDocument *globalDatabase = nil;
     }
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
-        /*NSError *error = nil;
+        NSError *error = nil;
         NSURL *desturl = [url URLByAppendingPathComponent:@"StoreContent"];
         [[NSFileManager defaultManager] createDirectoryAtURL:desturl withIntermediateDirectories:YES attributes:nil error:&error];
         NSURL *finalurl = [desturl URLByAppendingPathComponent:@"persistentStore"];
         NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"persistentStore"];
         [[NSFileManager defaultManager] copyItemAtPath:path toPath:finalurl.path error:&error];
         
-        completionBlock(document);*/
+        completionBlock(document);
         
-        [document saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+        /*[document saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
             [self buildDatabase:document atURL:url];
             completionBlock(document);
-        }];
+        }];*/
     } else if (document.documentState == UIDocumentStateClosed) {
         [document openWithCompletionHandler:^(BOOL success) {
             completionBlock(document);

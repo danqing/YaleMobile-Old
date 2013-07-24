@@ -51,7 +51,6 @@
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading Routes...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
-    hud.dimBackground = YES;
     [operation start];
 }
 
@@ -80,7 +79,6 @@
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading Paths...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
-    hud.dimBackground = YES;
     [operation start];
 }
 
@@ -107,7 +105,6 @@
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading Stops...";
     hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
-    hud.dimBackground = YES;
     [operation start];
 }
 
@@ -137,7 +134,6 @@
         hud.mode = MBProgressHUDModeIndeterminate;
         hud.labelText = @"Loading Shuttles...";
         hud.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
-        hud.dimBackground = YES;
     }
     [operation start];
 }

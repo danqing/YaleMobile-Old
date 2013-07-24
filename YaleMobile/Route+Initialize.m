@@ -83,6 +83,16 @@
     }
 }
 
++ (NSArray *)getAllRoutesInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Route"];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"routeid" ascending:YES];
+    request.sortDescriptors = [NSArray arrayWithObject:descriptor];
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    return matches;
+}
+
 + (void)removeAllRoutesInManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSLog(@"Removing all routes.....");

@@ -9,6 +9,7 @@
 #import "YMGlobalHelper.h"
 #import "YMServerCommunicator.h"
 #import "YMMainView.h"
+#import "YMSplashViewController.h"
 
 @interface YMMainViewController ()
 
@@ -34,7 +35,16 @@
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"First Launch Passed"]) {
         [self performSegueWithIdentifier:@"First Launch Segue" sender:self];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"First Launch Passed"];
+    } else {
+        YMSplashViewController *splashScreen = [[YMSplashViewController alloc] init];
+        //[self presentViewController:splashScreen animated:NO completion:nil];
+        //[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(splash:) userInfo:nil repeats:NO];
     }
+}
+
+- (void)splash:(NSTimer *)timer
+{
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)didReceiveMemoryWarning

@@ -15,5 +15,6 @@
 + (void)removeRoutesBeforeTimestamp:(NSTimeInterval)timestamp inManagedObjectContext:(NSManagedObjectContext *)context;
 + (NSString *)getActiveRoutesInManagedObjectContext:(NSManagedObjectContext *)context;
 + (Route *)fetchRouteWithId:(NSNumber *)routeId inManagedObjectContext:(NSManagedObjectContext *)context;
++ (NSArray *)getAllRoutesInManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end
