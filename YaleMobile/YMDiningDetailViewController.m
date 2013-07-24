@@ -75,6 +75,11 @@
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [YMServerCommunicator cancelAllHTTPRequests];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

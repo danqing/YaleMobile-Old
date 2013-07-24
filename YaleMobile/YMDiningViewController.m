@@ -31,6 +31,8 @@
 
 - (void)viewDidLoad
 {
+    [YMServerCommunicator cancelAllHTTPRequests];
+
     [super viewDidLoad];
     [YMGlobalHelper addMenuButtonToController:self];
     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"plaintabletop.png"]];
@@ -38,19 +40,6 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Dining" ofType:@"plist"];
     self.locations = [[NSDictionary alloc] initWithContentsOfFile:path];
     self.sortedKeys = [[self.locations allKeys] sortedArrayUsingSelector:@selector(compare:)];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [YMServerCommunicator cancelAllHTTPRequests];
-
-    self.navigationController.navigationBar.alpha = 1;
-    self.navigationController.navigationBar.translucent = NO;
-    [YMGlobalHelper setupSlidingViewControllerForController:self];
-    if (self.selectedIndexPath) {
-        [self.tableView deselectRowAtIndexPath:self.selectedIndexPath animated:YES];
-        self.selectedIndexPath = nil;
-    }
     
     [YMServerCommunicator getAllDiningStatusForController:self usingBlock:^(NSArray *array) {
         self.data = array;
@@ -59,6 +48,17 @@
             [self.tableView reloadData];
         }];
     }];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBar.alpha = 1;
+    self.navigationController.navigationBar.translucent = NO;
+    [YMGlobalHelper setupSlidingViewControllerForController:self];
+    if (self.selectedIndexPath) {
+        [self.tableView deselectRowAtIndexPath:self.selectedIndexPath animated:YES];
+        self.selectedIndexPath = nil;
+    }
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
