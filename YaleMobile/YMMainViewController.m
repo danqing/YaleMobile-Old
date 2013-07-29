@@ -42,7 +42,7 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Just Launched"];
         YMSplashViewController *splashScreen = [[YMSplashViewController alloc] init];
         [self presentViewController:splashScreen animated:NO completion:nil];
-        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(splash:) userInfo:nil repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(splash:) userInfo:nil repeats:NO];
     }
 }
 
@@ -132,9 +132,9 @@
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     }*/
     
-    if (hour == 1) self.mainView.greeting.text = [NSString stringWithFormat:@"Good morning%@! It's a brand new day.", self.name];
+    if (hour == 1) self.mainView.greeting.text = [NSString stringWithFormat:@"Good morning%@! It's a brand new day :)", self.name];
     else if (hour == 2) self.mainView.greeting.text = [NSString stringWithFormat:@"Good afternoon%@! Hope you are enjoying your day :)", self.name];
-    else if (hour == 3) self.mainView.greeting.text = [NSString stringWithFormat:@"Good evening%@! Hope you've had a great day.", self.name];
+    else if (hour == 3) self.mainView.greeting.text = [NSString stringWithFormat:@"Good evening%@! Hope you've had a great day :)", self.name];
     else self.mainView.greeting.text = [NSString stringWithFormat:@"Good night%@! Have some good rest :)", self.name];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Tong"]) self.mainView.greeting.text = [self.mainView.greeting.text stringByReplacingOccurrencesOfString:@":)" withString:@"<3"];

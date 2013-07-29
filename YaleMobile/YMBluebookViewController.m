@@ -117,7 +117,7 @@
     svc.title = ([subject isEqualToString:@"ALL"]) ? @"Search Results" : subject;
 
     NSString *filters = [YMGlobalHelper buildBluebookFilters];
-    filters = [filters stringByAppendingFormat:@"&ProgramSubject=%@&InstructorName=%@&ExactWordPhrase=%@&CourseNumber=%@", subject, self.instructorName, self.exactPhrase, self.courseNumber];
+    filters = [filters stringByAppendingFormat:@"&ProgramSubject=%@&InstructorName=%@&ExactWordPhrase=%@&CourseNumber=%@", [subject stringByReplacingOccurrencesOfString:@"&" withString:@"%26"], self.instructorName, self.exactPhrase, self.courseNumber];
     self.instructorName = @""; self.courseNumber = @""; self.exactPhrase = @"";
     
     __block AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
