@@ -14,7 +14,7 @@
 
 + (void)vehicleWithData:(NSDictionary *)data forTimestamp:(NSTimeInterval)timestamp inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    if ([[data objectForKey:@"location"] isKindOfClass:[NSNull class]]) return;
+    if ([[data objectForKey:@"location"] isKindOfClass:[NSNull class]] || [[data objectForKey:@"tracking_status"] isEqualToString:@"down"]) return;
     
     Vehicle *vehicle = nil;
     
