@@ -14,6 +14,8 @@
 
 + (void)vehicleWithData:(NSDictionary *)data forTimestamp:(NSTimeInterval)timestamp inManagedObjectContext:(NSManagedObjectContext *)context
 {
+    if ([[data objectForKey:@"location"] isKindOfClass:[NSNull class]]) return;
+    
     Vehicle *vehicle = nil;
     
     NSInteger vehicleId = [[data objectForKey:@"vehicle_id"] integerValue];
