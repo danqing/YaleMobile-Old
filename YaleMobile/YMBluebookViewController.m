@@ -229,26 +229,21 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.keys.count + 1;
+    return self.keys.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) return 1;
-    NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:[self.courses objectForKey:[self.keys objectAtIndex:section - 1]]];
+    NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:[self.courses objectForKey:[self.keys objectAtIndex:section]]];
     return dict.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     YMSimpleCell *cell = (YMSimpleCell *)[self.tableView dequeueReusableCellWithIdentifier:@"Bluebook First Cell"];
-    
-    if (indexPath.section == 0) cell.name.text = @"† Bookmarked";
-    else {
-        NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:[self.courses objectForKey:[self.keys objectAtIndex:indexPath.section - 1]]];
-        NSArray *keys = [[dict allKeys] sortedArrayUsingSelector:@selector(compare:)];
-        cell.name.text = [((NSDictionary *)[dict objectForKey:[keys objectAtIndex:indexPath.row]]) objectForKey:@"Name"];
-    }
+    NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:[self.courses objectForKey:[self.keys objectAtIndex:indexPath.section]]];
+    NSArray *keys = [[dict allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    cell.name.text = [((NSDictionary *)[dict objectForKey:[keys objectAtIndex:indexPath.row]]) objectForKey:@"Name"];
     
     cell.name.shadowColor = [UIColor whiteColor];
     cell.name.shadowOffset = CGSizeMake(0, 1);
@@ -259,15 +254,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) return 0;
     return 26;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-	if (section == 0) return nil;
-    
-    UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 26.0)];
+	UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 26.0)];
 	
 	UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 	headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bbsection.png"]];
@@ -280,7 +272,7 @@
     headerLabel.shadowColor = [UIColor whiteColor];
     headerLabel.shadowOffset = CGSizeMake(0, 1);
     
-    headerLabel.text = [[[self.courses allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:section - 1];
+    headerLabel.text = [[[self.courses allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:section];
 	
     [headerView addSubview:headerLabel];
     
@@ -289,7 +281,7 @@
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    NSArray *array = [[NSArray alloc] initWithObjects:UITableViewIndexSearch, @"†", nil];
+    NSArray *array = [[NSArray alloc] initWithObjects:UITableViewIndexSearch, nil];
     array = [array arrayByAddingObjectsFromArray:self.keys];
     return array;
 }
