@@ -52,6 +52,25 @@ static BOOL cancel = NO;
     return nil;
 }
 
++ (void)getGlobalSpecialInfoForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
+{
+    cancel = NO;
+    
+    AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:@"http://pantheon.yale.edu/~dl479/yalemobile/special.txt" parameters:nil];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUDForView:controller.view animated:YES];
+        NSString *responseString = operation.responseString;
+        NSArray *array = [responseString componentsSeparatedByString:@"|"];
+        completionBlock(array);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+    }];
+
+    [[client operationQueue] addOperation:operation];
+}
+
 + (void)getRouteInfoForController:(UIViewController *)controller usingBlock:(array_block_t)completionBlock
 {
     cancel = NO;
@@ -305,12 +324,12 @@ static BOOL cancel = NO;
     cancel = NO;
     
     AFHTTPClient *client = [YMServerCommunicator getHTTPClient];
-    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:@"http://pantheon.yale.edu/~dl479/yalemobile/dining.txt" parameters:nil];
+    NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:@"http://pantheon.yale.edu/~dl479/yalemobile/dining2.txt" parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];
         NSString *responseString = operation.responseString;
-        NSArray *array = [responseString componentsSeparatedByString:@","];
+        NSArray *array = [responseString componentsSeparatedByString:@"|"];
         completionBlock(array);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD hideHUDForView:controller.view animated:YES];

@@ -7,102 +7,173 @@
 		<key>0</key>
 		<dict>
 			<key>Term</key>
-			<string>Spring 2013</string>
+			<string>Fall 2013</string>
 		</dict>
 		<key>a</key>
 		<dict>
 			<key>Date</key>
-			<string>January 10, Thursday</string>
+			<string>August 28, Wednesday</string>
 			<key>Event</key>
-			<string>Registration begins, 9 a.m. Advanced Studio Lottery, 11 a.m. Spring term graduate studios begin, 2 p.m.</string>
+			<string>University Orientation for incoming students, 10:30 a.m. - 12 p.m.</string>
 			<key>Type</key>
 			<string>0</string>
 		</dict>
 		<key>b</key>
 		<dict>
 			<key>Date</key>
-			<string>January 11, Friday</string>
+			<string>August 29, Thursday</string>
 			<key>Event</key>
-			<string>Spring term graduate non-studio classes begin</string>
+			<string>Registration for all studetns, 8:30 a.m. to 5 p.m. School Orientation for incoming students, 9:30 a.m. - 11 a.m. Advanced Studio Lottery, 11 a.m. Fall-term studio classes begin, 2:30 p.m.</string>
 			<key>Type</key>
 			<string>2</string>
 		</dict>
 		<key>c</key>
 		<dict>
 			<key>Date</key>
-			<string>January 14, Monday</string>
+			<string>August 30, Friday</string>
 			<key>Event</key>
-			<string>Spring term undergraduate classes begin</string>
+			<string>Fall term non-studio classes begin, 8:30 a.m. Friday classes do not meet; Monday classes meet instead</string>
 			<key>Type</key>
-			<string>2</string>
+			<string>7</string>
 		</dict>
 		<key>d</key>
 		<dict>
 			<key>Date</key>
-			<string>January 18, Friday</string>
+			<string>September 2, Monday</string>
 			<key>Event</key>
-			<string>Student course registrations due, 4 p.m. Friday classes do not meet. Monday classes meet instead</string>
+			<string>No classes. Labor Day</string>
 			<key>Type</key>
 			<string>7</string>
 		</dict>
 		<key>e</key>
 		<dict>
 			<key>Date</key>
-			<string>January 21, Monday</string>
+			<string>October 21-25, Monday - Friday</string>
 			<key>Event</key>
-			<string>No classes. Martin Luther King Day. Staff holiday</string>
+			<string>Midterm week</string>
 			<key>Type</key>
-			<string>1</string>
+			<string>4</string>
 		</dict>
 		<key>f</key>
 		<dict>
 			<key>Date</key>
-			<string>January 28, Monday</string>
+			<string>November 7, Thursday</string>
 			<key>Event</key>
-			<string>Faculty meeting, 12:30 p.m.</string>
+			<string>Open House for prospective applicants</string>
 			<key>Type</key>
 			<string>9</string>
 		</dict>
 		<key>g</key>
 		<dict>
 			<key>Date</key>
-			<string>February 1, Friday</string>
+			<string>November 22, Friday</string>
 			<key>Event</key>
-			<string>Last opportunity to add courses, 4 p.m.</string>
+			<string>Fall recess begins, 5:20 p.m.</string>
 			<key>Type</key>
-			<string>7</string>
+			<string>1</string>
 		</dict>
 		<key>h</key>
 		<dict>
 			<key>Date</key>
-			<string>February 4-10, Monday - Friday</string>
+			<string>December 2, Monday</string>
 			<key>Event</key>
-			<string>Advanced Studio travel week</string>
+			<string>Classes resume, 8:30 a.m.</string>
 			<key>Type</key>
-			<string>9</string>
+			<string>2</string>
 		</dict>
 		<key>i</key>
 		<dict>
 			<key>Date</key>
-			<string>February 22, Friday</string>
+			<string>December 6, Friday</string>
 			<key>Event</key>
-			<string>Last opportunity to drop courses without recorded grade of Withdraw, 4 p.m.</string>
+			<string>Fall-term classes end, 5:20 p.m.</string>
 			<key>Type</key>
-			<string>7</string>
+			<string>3</string>
 		</dict>
 		<key>j</key>
 		<dict>
 			<key>Date</key>
-			<string>February 25, Monday</string>
+			<string>December 9-13, Monday - Friday</string>
 			<key>Event</key>
-			<string>Faculty meeting, 12:30 p.m.</string>
+			<string>Design jury week</string>
 			<key>Type</key>
-			<string>9</string>
+			<string>4</string>
 		</dict>
 		<key>k</key>
 		<dict>
 			<key>Date</key>
-			<string>March 4-8, Monday - Friday</string>
+			<string>December 16-18, Monday - Wednesday</string>
+			<key>Event</key>
+			<string>Course examination period</string>
+			<key>Type</key>
+			<string>4</string>
+		</dict>
+		<key>l</key>
+		<dict>
+			<key>Date</key>
+			<string>December 18, Wednesday</string>
+			<key>Event</key>
+			<string>Winter recess begins, 5:20 p.m.</string>
+			<key>Type</key>
+			<string>1</string>
+		</dict>
+	</dict>
+	<key>2</key>
+	<dict>
+		<key>0</key>
+		<dict>
+			<key>Term</key>
+			<string>Spring 2014</string>
+		</dict>
+		<key>a</key>
+		<dict>
+			<key>Date</key>
+			<string>January 2, Thursday</string>
+			<key>Event</key>
+			<string>Closing date for applications for admission in 2014</string>
+			<key>Type</key>
+			<string>0</string>
+		</dict>
+		<key>b</key>
+		<dict>
+			<key>Date</key>
+			<string>January 9, Thursday</string>
+			<key>Event</key>
+			<string>Registration for all studetns, 8:30 a.m. to 5 p.m. Advanced Studio Lottery, 11 a.m. Spring-term studio classes begin, 2:30 p.m.</string>
+			<key>Type</key>
+			<string>2</string>
+		</dict>
+		<key>c</key>
+		<dict>
+			<key>Date</key>
+			<string>January 10, Friday</string>
+			<key>Event</key>
+			<string>Spring term non-studio classes begin, 8:30 a.m.</string>
+			<key>Type</key>
+			<string>2</string>
+		</dict>
+		<key>d</key>
+		<dict>
+			<key>Date</key>
+			<string>January 17, Friday</string>
+			<key>Event</key>
+			<string>Friday classes do not meet. Monday classes meet instead</string>
+			<key>Type</key>
+			<string>7</string>
+		</dict>
+		<key>e</key>
+		<dict>
+			<key>Date</key>
+			<string>January 20, Monday</string>
+			<key>Event</key>
+			<string>No classes. Martin Luther King Day</string>
+			<key>Type</key>
+			<string>1</string>
+		</dict>
+		<key>k</key>
+		<dict>
+			<key>Date</key>
+			<string>March 3-7, Monday - Friday</string>
 			<key>Event</key>
 			<string>Midterm week</string>
 			<key>Type</key>
@@ -111,197 +182,81 @@
 		<key>l</key>
 		<dict>
 			<key>Date</key>
-			<string>March 11-22, Monday - Friday</string>
+			<string>March 8-23, Saturday - Sunday</string>
 			<key>Event</key>
 			<string>No classes. Spring recess</string>
 			<key>Type</key>
 			<string>1</string>
 		</dict>
-		<key>m</key>
-		<dict>
-			<key>Date</key>
-			<string>March 29, Friday</string>
-			<key>Event</key>
-			<string>Staff holiday. Classes are held</string>
-			<key>Type</key>
-			<string>9</string>
-		</dict>
-		<key>n</key>
-		<dict>
-			<key>Date</key>
-			<string>April 4, Thursday</string>
-			<key>Event</key>
-			<string>Open House for accepted applicants</string>
-			<key>Type</key>
-			<string>9</string>
-		</dict>
-		<key>o</key>
-		<dict>
-			<key>Date</key>
-			<string>April 22, Monday</string>
-			<key>Event</key>
-			<string>Faculty meeting, 12:30 p.m.</string>
-			<key>Type</key>
-			<string>9</string>
-		</dict>
 		<key>p</key>
 		<dict>
 			<key>Date</key>
-			<string>April 26, Friday</string>
+			<string>April 25, Friday</string>
 			<key>Event</key>
-			<string>Last opportunity to drop courses with recorded grade of Withdraw, 4 p.m. Spring term classes end, 5:20 p.m.</string>
+			<string>Spring term classes (except 1013b) end, 5:20 p.m.</string>
 			<key>Type</key>
-			<string>7</string>
+			<string>3</string>
 		</dict>
 		<key>q</key>
 		<dict>
 			<key>Date</key>
-			<string>April 29 - May 3, Monday - Friday</string>
+			<string>April 28 - May 2, Monday - Friday</string>
 			<key>Event</key>
 			<string>Design studio jury week</string>
-			<key>Type</key>
-			<string>4</string>
-		</dict>
-		<key>r</key>
-		<dict>
-			<key>Date</key>
-			<string>May 2-7, Thursday - Tuesday</string>
-			<key>Event</key>
-			<string>Undergraduate final examination period</string>
-			<key>Type</key>
-			<string>4</string>
-		</dict>
-		<key>s</key>
-		<dict>
-			<key>Date</key>
-			<string>May 4-19, Saturday - Sunday</string>
-			<key>Event</key>
-			<string>Graduate students input online course evaluations</string>
-			<key>Type</key>
-			<string>9</string>
-		</dict>
-		<key>t</key>
-		<dict>
-			<key>Date</key>
-			<string>May 6, Monday</string>
-			<key>Event</key>
-			<string>Last date to submit Fall 2013 independent study requests, 4 p.m.</string>
-			<key>Type</key>
-			<string>7</string>
-		</dict>
-		<key>u</key>
-		<dict>
-			<key>Date</key>
-			<string>May 6-8, Monday - Wednesday</string>
-			<key>Event</key>
-			<string>Graduate non-studio final examination period, except for 2022b</string>
 			<key>Type</key>
 			<string>4</string>
 		</dict>
 		<key>v</key>
 		<dict>
 			<key>Date</key>
-			<string>May 10, Friday</string>
+			<string>April 28 - June 27, Monday - Friday</string>
 			<key>Event</key>
-			<string>Final examination period for 2022b. Studio grades and evaluations of students due</string>
+			<string>Fieldwork, 1013c first-year building project</string>
 			<key>Type</key>
-			<string>4</string>
+			<string>9</string>
 		</dict>
 		<key>w</key>
 		<dict>
 			<key>Date</key>
-			<string>May 13, Monday</string>
+			<string>May 5-7, Monday - Wednesday</string>
 			<key>Event</key>
-			<string>M.Arch I 2nd year, M.Arch II 1st year and graduating students&apos; portfolios due, 4 p.m.</string>
+			<string>Course examination period except for 2022b</string>
 			<key>Type</key>
-			<string>7</string>
+			<string>4</string>
 		</dict>
 		<key>x</key>
 		<dict>
 			<key>Date</key>
-			<string>May 14, Tuesday</string>
+			<string>May 9, Friday</string>
 			<key>Event</key>
-			<string>Design subcommittee meeting, 11:15 a.m.</string>
+			<string>Course examination period for 2022b</string>
 			<key>Type</key>
-			<string>9</string>
+			<string>4</string>
 		</dict>
 		<key>y</key>
 		<dict>
 			<key>Date</key>
-			<string>May 15, Wednesday</string>
+			<string>May 12, Monday</string>
 			<key>Event</key>
-			<string>Feldman Jury/Awards Comm meeting, 10:15 a.m. Design Committee meeting re portfolio review, noon. Faculty meeting, 1:30 p.m.</string>
+			<string>1017c classes begin, 9:30 a.m.</string>
 			<key>Type</key>
-			<string>9</string>
+			<string>2</string>
 		</dict>
 		<key>z</key>
 		<dict>
 			<key>Date</key>
-			<string>May 19, Sunday</string>
-			<key>Event</key>
-			<string>Reception, Year-end exhibition, 5 p.m. - 7 p.m.</string>
-			<key>Type</key>
-			<string>9</string>
-		</dict>
-		<key>z1</key>
-		<dict>
-			<key>Date</key>
-			<string>May 20, Monday</string>
+			<string>May 19, Monday</string>
 			<key>Event</key>
 			<string>University Commencement</string>
 			<key>Type</key>
 			<string>8</string>
 		</dict>
-	</dict>
-	<key>2</key>
-	<dict>
-		<key>0</key>
-		<dict>
-			<key>Term</key>
-			<string>Summer 2013</string>
-		</dict>
-		<key>a</key>
+		<key>z1</key>
 		<dict>
 			<key>Date</key>
-			<string>April 29, Monday</string>
+			<string>June 27, Friday</string>
 			<key>Event</key>
-			<string>1013c fieldwork begins</string>
-			<key>Type</key>
-			<string>0</string>
-		</dict>
-		<key>b</key>
-		<dict>
-			<key>Date</key>
-			<string>May 13, Monday</string>
-			<key>Event</key>
-			<string>1017c classes begins</string>
-			<key>Type</key>
-			<string>2</string>
-		</dict>
-		<key>c</key>
-		<dict>
-			<key>Date</key>
-			<string>May 16, Thursday</string>
-			<key>Event</key>
-			<string>1291c classes begin in Rome</string>
-			<key>Type</key>
-			<string>2</string>
-		</dict>
-		<key>d</key>
-		<dict>
-			<key>Date</key>
-			<string>June 14, Tuesday</string>
-			<key>Event</key>
-			<string>1291c classes end in Rome</string>
-			<key>Type</key>
-			<string>3</string>
-		</dict>
-		<key>e</key>
-		<dict>
-			<key>Date</key>
-			<string>June 28, Friday</string>
-			<key>Event</key>
-			<string>1013c and 1017c classes end</string>
+			<string>M.Arch. I, first-year spring term 1013c and 1017c classes end, 5:20 p.m.</string>
 			<key>Type</key>
 			<string>3</string>
 		</dict>

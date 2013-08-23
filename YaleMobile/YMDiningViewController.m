@@ -87,7 +87,14 @@
     ddvc.titleText = [info objectForKey:@"Name"];
     ddvc.abbr = [info objectForKey:@"Abbreviation"];
     ddvc.address = [info objectForKey:@"Location"];
-    ddvc.locationID = [[[self.data objectAtIndex:self.selectedIndexPath.row] objectAtIndex:0] integerValue];
+    NSInteger i;
+    for (NSArray *a in self.data) {
+        if ([[info objectForKey:@"Name"] isEqualToString:[a objectAtIndex:2]]) {
+            i = [[a objectAtIndex:0] integerValue];
+            break;
+        }
+    }
+    ddvc.locationID = i;
     ddvc.hour = [self parseHours:[info objectForKey:@"Hours"]];
     ddvc.special = (self.special.count) ? [self.special objectAtIndex:self.selectedIndexPath.row * 3 + 2] : @"Information not available";
 }
@@ -131,6 +138,15 @@
     cell.name.text = [info objectForKey:@"Name"];
     cell.location.text = [info objectForKey:@"Location"];
     
+    NSArray *array;
+    
+    for (NSArray *a in self.data) {
+        if ([[info objectForKey:@"Name"] isEqualToString:[a objectAtIndex:2]]) {
+            array = a;
+            break;
+        }
+    }
+    
     cell.name.shadowColor = [UIColor whiteColor];
     cell.name.shadowOffset = CGSizeMake(0, 1);
     cell.location.shadowColor = [UIColor whiteColor];
@@ -160,9 +176,9 @@
         cell.special.highlightedTextColor = [UIColor darkGrayColor];
     }
     
-    cell.crowdLabel.text = [self crowdedness:[[[self.data objectAtIndex:indexPath.row] objectAtIndex:4] integerValue]];
-    cell.crowdedness.image = [UIImage imageNamed:[NSString stringWithFormat:@"dots%d.png", [[[self.data objectAtIndex:indexPath.row] objectAtIndex:4] integerValue] / 2]];
-    if ([[[self.data objectAtIndex:indexPath.row] objectAtIndex:6] integerValue]) {
+    cell.crowdLabel.text = [self crowdedness:[[array objectAtIndex:4] integerValue]];
+    cell.crowdedness.image = [UIImage imageNamed:[NSString stringWithFormat:@"dots%d.png", [[array objectAtIndex:4] integerValue] / 2]];
+    if ([[array objectAtIndex:6] integerValue]) {
         cell.crowdLabel.text = @"Closed";
         cell.crowdedness.image = [UIImage imageNamed:@"dots0.png"];
     }

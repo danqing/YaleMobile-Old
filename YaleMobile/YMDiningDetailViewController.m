@@ -44,18 +44,18 @@
             [self updateTableHeader];
             return;
         }
-        NSMutableArray *all = [[NSMutableArray alloc] initWithCapacity:5];
+        NSMutableArray *all = [[NSMutableArray alloc] initWithCapacity:10];
         for (NSInteger i = 0; i < 5; i++) {
             NSMutableArray *sub = [[NSMutableArray alloc] initWithCapacity:array.count];
             [all addObject:sub];
         }
+        
         for (NSArray *entry in array) {
             NSInteger i = [[entry objectAtIndex:4] integerValue] - 1;
             if (i >= 0 && i < 5) [[all objectAtIndex:i] addObject:entry];
         }
         for (NSInteger i = 4; i >= 0; i--) {
-            NSArray *sub = [all objectAtIndex:i];
-            if (sub.count == 0) [all removeObject:sub];
+            if ([[all objectAtIndex:i] count] == 0) [all removeObjectAtIndex:i];
         }
         NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:all.count];
         for (NSMutableArray *entry in all) {
@@ -209,9 +209,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 1 + self.menu.count)
-        return 71;
-    else if (indexPath.row == 0) {
+    if (indexPath.row == 1 + self.menu.count) {
+        CGSize textSize = [self.special sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
+        return textSize.height + 50;
+    } else if (indexPath.row == 0) {
         CGSize textSize = [self.hour sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15] constrainedToSize:CGSizeMake(268, 5000)];
         return textSize.height + 50;
     } else {

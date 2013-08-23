@@ -107,7 +107,7 @@
         cell.dot.image = [UIImage imageNamed:[NSString stringWithFormat:@"round%@.png", [detailDict objectForKey:@"Type"]]];
         
         // adjust cell primary label height
-        CGSize size = [cell.primary.text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16.0] constrainedToSize:CGSizeMake(216.0, 5000.0)];
+        CGSize size = [cell.primary.text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16.0] constrainedToSize:CGSizeMake(235.0, 5000.0)];
         CGRect frame = cell.primary.frame;
         frame.size.height = size.height;
         cell.primary.frame = frame;
@@ -126,7 +126,7 @@
         NSDictionary *detailDict = [oneTerm objectAtIndex:indexPath.row];
         NSString *text = [detailDict objectForKey:@"Event"];
 
-        CGSize size = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16.0] constrainedToSize:CGSizeMake(216.0, 5000.0)];
+        CGSize size = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16.0] constrainedToSize:CGSizeMake(235.0, 5000.0)];
         if (indexPath.row == 1) {
             return size.height + 48;
         } else if (indexPath.row == oneTerm.count - 1) {

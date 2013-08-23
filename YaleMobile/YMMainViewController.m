@@ -10,6 +10,7 @@
 #import "YMServerCommunicator.h"
 #import "YMMainView.h"
 #import "YMSplashViewController.h"
+#import "UIColor+YaleMobile.h"
 
 @interface YMMainViewController ()
 
@@ -132,12 +133,24 @@
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     }*/
     
+    self.mainView.greeting.textColor = [UIColor YMTeal];
+    
     if (hour == 1) self.mainView.greeting.text = [NSString stringWithFormat:@"Good morning%@! It's a brand new day :)", self.name];
     else if (hour == 2) self.mainView.greeting.text = [NSString stringWithFormat:@"Good afternoon%@! Hope you are enjoying your day :)", self.name];
     else if (hour == 3) self.mainView.greeting.text = [NSString stringWithFormat:@"Good evening%@! Hope you've had a great day :)", self.name];
     else self.mainView.greeting.text = [NSString stringWithFormat:@"Good night%@! Have some good rest :)", self.name];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Tong"]) self.mainView.greeting.text = [self.mainView.greeting.text stringByReplacingOccurrencesOfString:@":)" withString:@"<3"];
+    
+    [YMServerCommunicator getGlobalSpecialInfoForController:self usingBlock:^(NSArray *array) {
+        NSInteger i = [[array objectAtIndex:0] integerValue];
+        if ([[NSUserDefaults standardUserDefaults] integerForKey:@"psa"] < i || [[array objectAtIndex:1] integerValue] != 0) {
+            NSString *prefix = (name) ? [NSString stringWithFormat:@"Hey %@!", name] : @"Hey there!";
+            self.mainView.greeting.text = [NSString stringWithFormat:@"%@ %@", prefix, [array objectAtIndex:2]];
+            self.mainView.greeting.textColor = [UIColor YMDiningRed];
+            [[NSUserDefaults standardUserDefaults] setInteger:i forKey:@"psa"];
+        }
+    }];
 }
 
 - (void)menu:(id)sender
