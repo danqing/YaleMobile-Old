@@ -177,7 +177,7 @@
     }
     
     cell.crowdLabel.text = [self crowdedness:[[array objectAtIndex:4] integerValue]];
-    cell.crowdedness.image = [UIImage imageNamed:[NSString stringWithFormat:@"dots%d.png", [[array objectAtIndex:4] integerValue] / 2]];
+    cell.crowdedness.image = [UIImage imageNamed:[NSString stringWithFormat:@"dots%d.png", ([[array objectAtIndex:4] integerValue] + 1) / 2]];
     if ([[array objectAtIndex:6] integerValue]) {
         cell.crowdLabel.text = @"Closed";
         cell.crowdedness.image = [UIImage imageNamed:@"dots0.png"];
